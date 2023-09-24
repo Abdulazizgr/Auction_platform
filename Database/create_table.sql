@@ -4,11 +4,11 @@ CREATE TABLE User (
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
     Email VARCHAR(50),
-    Password VARCHR(50),
+    Password VARCHAR(50),
     RegistrationDate DATE,
     BankName VARCHAR(50),
     AccountHolderName VARCHAR(50),
-    AccountNumber VARCHAR(50) 
+    AccountNumber VARCHAR(50)
 );
 
 -- Create Seller table
@@ -33,7 +33,7 @@ CREATE TABLE Item (
     SellerID INT,
     Title VARCHAR(255),
     Description TEXT,
-    Image BLOB, -- check this one
+    Image BLOB,
     Category VARCHAR(50),
     StartPrice DECIMAL(10, 2),
     CurrentBid DECIMAL(10, 2),
@@ -56,6 +56,21 @@ CREATE TABLE Bid (
     FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID)
 );
 
+-- Create Transaction table
+CREATE TABLE Transaction (
+    TransactionID INT AUTO_INCREMENT PRIMARY KEY,
+    BuyerID INT,
+    SellerID INT,
+    ItemID INT,
+    PaymentID INT,
+    TransactionStatus ENUM('Pending', 'Completed', 'Cancelled'),
+    TransactionDate DATETIME,
+    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID),
+    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID),
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
+    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID)
+);
+
 -- Create Payment table
 CREATE TABLE Payment (
     PaymentID INT AUTO_INCREMENT PRIMARY KEY,
@@ -67,7 +82,7 @@ CREATE TABLE Payment (
     BankName VARCHAR(50),
     AccountHolderName VARCHAR(50),
     AccountNumber VARCHAR(50),
-    PaymentReference VARCHAR(255) GENERATED ALWAYS AS (
+    PaymentReference VARCHAR(50) GENERATED ALWAYS AS (
         CONCAT('PAYMENT-', DATE_FORMAT(NOW(), '%Y-%m-%d'), '-', LPAD(AUTO_INCREMENT, 4, '0'))
     ) STORED,
     FOREIGN KEY (TransactionID) REFERENCES Transaction(TransactionID)
@@ -89,20 +104,5 @@ CREATE TABLE Admin (
     AccessLevel ENUM('Low', 'Medium', 'High'),
     Role VARCHAR(255),
     FOREIGN KEY (UserID) REFERENCES User(UserID)
-);
-
--- Create Transaction table
-CREATE TABLE Transaction (
-    TransactionID INT AUTO_INCREMENT PRIMARY KEY,
-    BuyerID INT,
-    SellerID INT,
-    ItemID INT,
-    PaymentID INT,
-    TransactionStatus ENUM('Pending', 'Completed', 'Cancelled'),
-    TransactionDate DATETIME,
-    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID),
-    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID),
-    FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
-    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID)
 );
 
