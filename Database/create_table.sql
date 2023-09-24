@@ -67,7 +67,7 @@ CREATE TABLE Payment (
     BankName VARCHAR(50),
     AccountHolderName VARCHAR(50),
     AccountNumber VARCHAR(50),
-    PaymentReference VARCHAR(255) GENERATED ALWAYS AS (
+    PaymentReference VARCHAR(50) GENERATED ALWAYS AS (
         CONCAT('PAYMENT-', DATE_FORMAT(NOW(), '%Y-%m-%d'), '-', LPAD(AUTO_INCREMENT, 4, '0'))
     ) STORED,
     FOREIGN KEY (TransactionID) REFERENCES Transaction(TransactionID)
