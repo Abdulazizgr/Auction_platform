@@ -53,7 +53,6 @@ public class UserDAOImplementation implements UserDAO {
         }
         return users;
     }
-    }
 
     @Override
     public int insert(User t) throws SQLException {
