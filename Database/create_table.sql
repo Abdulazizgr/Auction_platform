@@ -9,7 +9,7 @@ CREATE TABLE User (
     RegistrationDate DATE NOT NULL,
     BankName VARCHAR(50) NOT NULL,
     AccountHolderName VARCHAR(50) NOT NULL,
-    AccountNumber VARCHAR(50) NOT NULL
+    AccountNumber INT NOT NULL
 );
 
 -- Create Admin table
@@ -99,7 +99,7 @@ CREATE TABLE Payment (
     PaymentMethod ENUM('Credit/Debit Card', 'Bank Transfer', 'PayPal', 'Other') NOT NULL,
     BankName VARCHAR(50),
     AccountHolderName VARCHAR(50),
-    AccountNumber VARCHAR(50),
+    AccountNumber  INT,
     PaymentReference VARCHAR(50),
     FOREIGN KEY (TransactionID) REFERENCES Transaction(TransactionID)
 );
@@ -108,4 +108,3 @@ CREATE TABLE Payment (
 ALTER TABLE Transaction
 ADD CONSTRAINT FK_Payment_Transaction
 FOREIGN KEY (TransactionID) REFERENCES Payment(TransactionID);
-
