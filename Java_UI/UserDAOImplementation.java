@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.List;
+import java.util.ArrayList;
 
 // this class extends UserDAO and implements different CRUD operations
 // this one is only for the User table, 
