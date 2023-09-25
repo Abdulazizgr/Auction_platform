@@ -1,5 +1,5 @@
 
--- Create User table with necessary attributes marked as NOT NULL
+-- Create User table 
 CREATE TABLE User (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(50) NOT NULL,
