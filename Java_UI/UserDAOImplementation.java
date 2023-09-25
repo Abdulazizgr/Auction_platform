@@ -45,8 +45,14 @@ public class UserDAOImplementation implements UserDAO {
 
     @Override
     public List<User> getAll() throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
+        List<User> users = new ArrayList<User>();
+        int ID = 1;
+        while(this.get(ID)!=null){
+            users.add(get(ID));
+            ID++;
+        }
+        return users;
+    }
     }
 
     @Override
