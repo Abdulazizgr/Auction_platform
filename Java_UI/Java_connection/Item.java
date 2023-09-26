@@ -1,32 +1,32 @@
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class Item {
     private int ItemID;
     private int SellerID;
     private String Title;
     private String Description;
-    private String Image;
+    private byte[] Image;
     private String Category;
-    private int StartPrice;
-    private int CurrentBid;
+    private double StartPrice;
+    private double CurrentBid;
     private String AuctionStatus;
     private Timestamp StartDate;
     private Timestamp EndDate;
 
-    public Item(int itemID, int sellerID, String title, String description, String image, String category,
-            int startPrice,
-            int currentBid, String auctionStatus, Timestamp startDate, Timestamp endDate) {
+    public Item(int itemID, int sellerID, String title, String description, byte[] image2, String category,
+            double startPrice,
+            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2) {
         ItemID = itemID;
         SellerID = sellerID;
         Title = title;
         Description = description;
-        Image = image;
+        Image = image2;
         Category = category;
         StartPrice = startPrice;
         CurrentBid = currentBid;
         AuctionStatus = auctionStatus;
-        StartDate = startDate;
-        EndDate = endDate;
+        StartDate = startDate2;
+        EndDate = endDate2;
     }
 
     public int getItemID() {
@@ -61,27 +61,27 @@ public class Item {
         Description = description;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return Image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         Image = image;
     }
 
-    public int getStartPrice() {
+    public double getStartPrice() {
         return StartPrice;
     }
 
-    public void setStartPrice(int startPrice) {
+    public void setStartPrice(double startPrice) {
         StartPrice = startPrice;
     }
 
-    public int getCurrentBid() {
+    public double getCurrentBid() {
         return CurrentBid;
     }
 
-    public void setCurrentBid(int currentBid) {
+    public void setCurrentBid(double currentBid) {
         CurrentBid = currentBid;
     }
 

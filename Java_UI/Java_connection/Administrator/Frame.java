@@ -7,7 +7,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.BorderUIResource;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,7 +25,7 @@ public class Frame extends JFrame {
         Panel1.setBackground(Color.white);
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
-ImageIcon icon = new ImageIcon("auction2.jpg");
+        ImageIcon icon = new ImageIcon("auction2.jpg");
         JLabel label1 = new JLabel();
         label1.setBounds(5, 5, 990, 80);
         label1.setBackground(Color.white);
@@ -34,7 +33,6 @@ ImageIcon icon = new ImageIcon("auction2.jpg");
         label1.setHorizontalAlignment(JLabel.CENTER);
         label1.setText("AUCTION DAILY");
         label1.setFont(new Font(Font.SERIF, Font.BOLD, 35));
-       
 
         label2 = new JLabel();
         label2.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
@@ -61,7 +59,7 @@ ImageIcon icon = new ImageIcon("auction2.jpg");
         this.add(Panel1, BorderLayout.NORTH);
         Panel1.setPreferredSize(new Dimension(screensize.width, 80));
         Panel1.add(label2, BorderLayout.SOUTH);
-        Panel1.add(label1,BorderLayout.NORTH);
+        Panel1.add(label1, BorderLayout.NORTH);
         label2.setPreferredSize(new Dimension(screensize.width - 10, 25));
         this.add(panel2, BorderLayout.WEST);
         panel2.setPreferredSize(new Dimension(300, 200));

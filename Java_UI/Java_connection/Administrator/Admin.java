@@ -22,40 +22,38 @@ public class Admin extends JFrame implements ActionListener {
     public JButton CustomButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 25));
-        button.setBackground(new Color(35, 59, 97 ));
+        button.setBackground(new Color(35, 59, 97));
         button.setForeground(Color.white);
         button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         button.setFocusable(false);
-         button.getModel().addChangeListener(new ChangeListener() {
-              @Override
-              // a state change for what happens to button when the button is clicked
-             public void stateChanged(ChangeEvent e) {
-             ButtonModel model = (ButtonModel) e.getSource();
-             if (model.isRollover()) {
-            button.setBackground(new Color(60, 123, 240));
-           }
-            else{
-            button.setBackground(new Color(35, 59, 97));
-                             }
-                            }
-                       });
+        button.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            // a state change for what happens to button when the button is clicked
+            public void stateChanged(ChangeEvent e) {
+                ButtonModel model = (ButtonModel) e.getSource();
+                if (model.isRollover()) {
+                    button.setBackground(new Color(60, 123, 240));
+                } else {
+                    button.setBackground(new Color(35, 59, 97));
+                }
+            }
+        });
         return button;
     }
 
     // a function for setting custom column width
     public static void setColumnsWidth(JTable table, int tablePreferredWidth,
-        double... percentages) {
+            double... percentages) {
         double total = 0;
-         for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
-        total += percentages[i];
-          }
- 
-           for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
-        TableColumn column = table.getColumnModel().getColumn(i);
-        column.setPreferredWidth((int)
-                (tablePreferredWidth * (percentages[i] / total)));
-                   }
-            }
+        for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+            total += percentages[i];
+        }
+
+        for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+            TableColumn column = table.getColumnModel().getColumn(i);
+            column.setPreferredWidth((int) (tablePreferredWidth * (percentages[i] / total)));
+        }
+    }
 
     public Admin() {
         model = new DefaultTableModel();
@@ -116,7 +114,7 @@ public class Admin extends JFrame implements ActionListener {
         buttons.add(button6);
         buttons.add(button7);
 
-// adding action listner to buttons
+        // adding action listner to buttons
         for (int i = 0; i < 7; i++) {
             buttons.get(i).addActionListener(this);
         }
@@ -125,7 +123,7 @@ public class Admin extends JFrame implements ActionListener {
             panel1.add(buttons.get(i));
         }
 
-// JFrame configurations
+        // JFrame configurations
         super.setSize(1000, 600);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setLocationRelativeTo(null);
@@ -139,7 +137,6 @@ public class Admin extends JFrame implements ActionListener {
         super.setVisible(true);
     }
 
-
     // a function for fetching the User table from the auction database
     public void fetchtable() throws Exception {
         String[] columnNames = { "User_ID", "User_Name", "Email", "Password", "Registration_Date", "Role" };
@@ -147,16 +144,16 @@ public class Admin extends JFrame implements ActionListener {
         String[][] data = new String[6][6];// temporary array for storing table result
         String url = "jdbc:mysql://localhost:3306/auction?useSSL=false";
         String uname = "root";
-        String pass = "enterthepassword"; //change this
+        String pass = "enterthepassword"; // change this
         String query = "select * from User";
-    
+
         Class.forName("com.mysql.cj.jdbc.Driver");
         try (Connection con = DriverManager.getConnection(url, uname, pass);
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(query)) {
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
-            
+
             int row = 0;
             while (rs.next()) {
                 for (int i = 0; i < columnCount; i++) {
@@ -165,7 +162,7 @@ public class Admin extends JFrame implements ActionListener {
                 row++;
             }
         }
-    
+
         model.setRowCount(data.length);
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
@@ -174,26 +171,25 @@ public class Admin extends JFrame implements ActionListener {
         }
     }
 
-    // a function implemented when a button is clicked, for the moment only for button5; 
+    // a function implemented when a button is clicked, for the moment only for
+    // button5;
     @Override
-    public void actionPerformed(ActionEvent e){
-         JButton clickButton  = (JButton) e.getSource();
-        if(clickButton==button5){
+    public void actionPerformed(ActionEvent e) {
+        JButton clickButton = (JButton) e.getSource();
+        if (clickButton == button5) {
             try {
-        fetchtable();
-        // colomun width with 
-        setColumnsWidth(table, 700, 10, 20, 25, 15,20,10);
+                fetchtable();
+                // colomun width with
+                setColumnsWidth(table, 700, 10, 20, 25, 15, 20, 10);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
     }
 
-    public static void main(String[] args){
-           new Admin();
-// DONT FORGET TO POPULATE USER TABLE IN THE DATABASE 
-// ALSO START THE MYSQL SERVER 
+    public static void main(String[] args) {
+        new Admin();
+        // DONT FORGET TO POPULATE USER TABLE IN THE DATABASE
+        // ALSO START THE MYSQL SERVER
     }
 }
-
-

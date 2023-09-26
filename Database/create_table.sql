@@ -1,4 +1,4 @@
-
+USE auction;
 -- Create User table 
 CREATE TABLE User (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
