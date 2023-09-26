@@ -1,15 +1,15 @@
 
--- Create User table with necessary attributes marked as NOT NULL
+-- Create User table 
 CREATE TABLE User (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
     Password VARCHAR(50) NOT NULL,
-    RegistrationDate DATE NOT NULL,
+    RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     BankName VARCHAR(50) NOT NULL,
     AccountHolderName VARCHAR(50) NOT NULL,
-    AccountNumber VARCHAR(50) NOT NULL
+    AccountNumber INT NOT NULL
 );
 
 -- Create Admin table
@@ -19,7 +19,7 @@ CREATE TABLE Admin (
     LastName VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
     Password VARCHAR(50) NOT NULL,
-    RegistrationDate DATE NOT NULL
+    RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create Seller table
@@ -99,7 +99,7 @@ CREATE TABLE Payment (
     PaymentMethod ENUM('Credit/Debit Card', 'Bank Transfer', 'PayPal', 'Other') NOT NULL,
     BankName VARCHAR(50),
     AccountHolderName VARCHAR(50),
-    AccountNumber VARCHAR(50),
+    AccountNumber  INT,
     PaymentReference VARCHAR(50),
     FOREIGN KEY (TransactionID) REFERENCES Transaction(TransactionID)
 );
