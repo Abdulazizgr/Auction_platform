@@ -108,4 +108,3 @@ CREATE TABLE Payment (
 ALTER TABLE Transaction
 ADD CONSTRAINT FK_Payment_Transaction
 FOREIGN KEY (TransactionID) REFERENCES Payment(TransactionID);
-
