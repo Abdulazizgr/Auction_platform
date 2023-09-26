@@ -1,47 +1,46 @@
-import javax.swing.BorderFactory;
-import javax.swing.ButtonModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
-import javax.swing.table.TableColumn;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
+import javax.swing.table.*;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Frame extends JFrame {
-    JPanel panel3;
-    JLabel label2;
+public class Admin extends JFrame implements ActionListener {
     JButton button1, button2, button3, button4, button5, button6, button7;
     ArrayList<JButton> buttons;
+    JPanel panel3;
+    JLabel label2;
+    JLabel contentLabel;
+    JTable table;
+    //DefaultTableModel model;
 
-    Frame() {
-        ImageIcon welcome = new ImageIcon("Welcome.jpg");
+    Admin() {
+        table = new JTable(2,9);
+        panel3 = new JPanel();
+        label2 = new JLabel();
+        ImageIcon welcome = new ImageIcon(
+                "/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/Welcome.jpeg");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
         JPanel Panel1 = new JPanel(new BorderLayout());
         JLabel label1 = new JLabel();
-        ImageIcon icon = new ImageIcon("auction2.jpg");
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
         ImageIcon icon = new ImageIcon("auction2.jpg");
-        JLabel label1 = new JLabel();
         JPanel panel2 = new JPanel();
-        JLabel contentLabel = new JLabel();
-        contentLabel.setPreferredSize(new Dimension(700, 700));
+        contentLabel = new JLabel();
+        contentLabel.setOpaque(true);
+        contentLabel.setBounds(0, 0, 1060, 700);
+        contentLabel.setHorizontalAlignment(JLabel.CENTER);
+        contentLabel.setVerticalAlignment(JLabel.CENTER);
+        contentLabel.setHorizontalAlignment(JLabel.CENTER);
         contentLabel.setIcon(welcome);
 
         button1 = CustomButton("Home");
@@ -61,6 +60,13 @@ public class Frame extends JFrame {
         buttons.add(button6);
         buttons.add(button7);
 
+        for (int i = 0; i < 7; i++) {
+            buttons.get(i).addActionListener(this);
+        }
+        for (int i = 0; i < 7; i++) {
+            buttons.get(i).setBounds(0, i * 55, 300, 50);
+            panel2.add(buttons.get(i));
+        }
 
         label1.setBounds(5, 5, 990, 80);
         label1.setBackground(Color.white);
@@ -91,11 +97,10 @@ public class Frame extends JFrame {
         panel3.setLayout(new BorderLayout());
         panel3.setBackground(new Color(167, 192, 232));
         panel3.setPreferredSize(new Dimension(1060, 700));
+        panel2.add((new JScrollPane(table)), BorderLayout.CENTER);
 
         Panel1.add(label2, BorderLayout.SOUTH);
         Panel1.add(label1, BorderLayout.NORTH);
-        panel3.add(contentLabel, BorderLayout.CENTER);
-        panel3.revalidate();
 
         this.setLayout(new BorderLayout(5, 5));
         this.setMinimumSize(new Dimension(1000, 600));
@@ -111,12 +116,6 @@ public class Frame extends JFrame {
         this.add(panel2, BorderLayout.WEST);
         this.add(panel3, BorderLayout.EAST);
         this.setVisible(true);
-
-        for (int i = 0; i < 7; i++) {
-            buttons.get(i).setBounds(0, i * 55, 300, 50);
-            panel2.add(buttons.get(i));
-        }
-
     }
 
     public JButton CustomButton(String text) {
@@ -154,7 +153,31 @@ public class Frame extends JFrame {
         }
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton clickedButton = (JButton) e.getSource();
+        if (clickedButton == button1) {
+            System.out.println("clicked");
+            panel3.add(contentLabel);
+            panel3.revalidate();
+            panel3.repaint();
+            System.out.println("finished");
+        } else if (clickedButton == button5) {
+            UserDAO userDAO = new UserDAOImplementation();
+            java.util.List<User> users = new ArrayList<>();
+            try {
+                users = userDAO.getAll();
+            } catch (SQLException E) {
+                System.out.println(E.getMessage());
+            }
+            System.out.println(users.get(0).getFirstName());
+            table.setValueAt(users.get(0).getFirstName(), 1, 1);
+
+        }
+    }
+
     public static void main(String[] args) {
-        new Frame();
+        new Admin();
+
     }
 }

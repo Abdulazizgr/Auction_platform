@@ -6,8 +6,8 @@ import java.sql.*;
 public class Database {
     // setup requirement
     private static String url = "jdbc:mysql://localhost:3306/auction?useSSL=false";
-    private static String password = "Samgere1995*";// 123456789
-    private static String user = "samuel";// root
+    private static String password = "123456789";// 123456789
+    private static String user = "root";// root
 
     private Database() {
     }
