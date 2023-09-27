@@ -19,7 +19,7 @@ public class Admin extends JFrame implements ActionListener {
     JLabel label2;
     JLabel contentLabel;
     JTable table;
-    //DefaultTableModel model;
+    DefaultTableModel model;
 
     Admin() {
         table = new JTable(2,9);
@@ -29,11 +29,11 @@ public class Admin extends JFrame implements ActionListener {
                 "/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/Welcome.jpeg");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
-        JPanel Panel1 = new JPanel(new BorderLayout());
+        JPanel Panel1 = new JPanel(new BorderLayout());table = new JTable(model);
         JLabel label1 = new JLabel();
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
-        ImageIcon icon = new ImageIcon("auction2.jpg");
+        ImageIcon icon = new ImageIcon("/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/auction2.jpg");
         JPanel panel2 = new JPanel();
         contentLabel = new JLabel();
         contentLabel.setOpaque(true);
@@ -97,7 +97,6 @@ public class Admin extends JFrame implements ActionListener {
         panel3.setLayout(new BorderLayout());
         panel3.setBackground(new Color(167, 192, 232));
         panel3.setPreferredSize(new Dimension(1060, 700));
-        panel2.add((new JScrollPane(table)), BorderLayout.CENTER);
 
         Panel1.add(label2, BorderLayout.SOUTH);
         Panel1.add(label1, BorderLayout.NORTH);
@@ -153,26 +152,67 @@ public class Admin extends JFrame implements ActionListener {
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton clickedButton = (JButton) e.getSource();
-        if (clickedButton == button1) {
-            System.out.println("clicked");
-            panel3.add(contentLabel);
-            panel3.revalidate();
-            panel3.repaint();
-            System.out.println("finished");
-        } else if (clickedButton == button5) {
-            UserDAO userDAO = new UserDAOImplementation();
+    public ArrayList<ArrayList<String>> users(){
+        UserDAO userDAO = new UserDAOImplementation();
+            ArrayList<ArrayList<String>> userslist = new ArrayList<ArrayList<String>>();
             java.util.List<User> users = new ArrayList<>();
-            try {
+        try {
                 users = userDAO.getAll();
             } catch (SQLException E) {
                 System.out.println(E.getMessage());
             }
-            System.out.println(users.get(0).getFirstName());
-            table.setValueAt(users.get(0).getFirstName(), 1, 1);
+            int i = 0;
+            for (User user : users) {
+                userslist.add(new ArrayList<>());
+                userslist.get(i).add((user.getUserID())+"");
+                userslist.get(i).add(user.getFirstName());
+                userslist.get(i).add(user.getLastName());
+                userslist.get(i).add(user.getEmail());
+                userslist.get(i).add(user.getPassword());
+                userslist.get(i).add(user.getRegistrationDate());
+                userslist.get(i).add(user.getBankName());
+                userslist.get(i).add(user.getAccountHolderName());
+                userslist.get(i).add(user.getAccountNumber()+"");
+                i++;
+            }
+            return userslist;
+    };
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton clickedButton = (JButton) e.getSource();
+        String[] column = {"UserID" ,"FirstName" ,"LastName" ,"Email" ,"Password" ,"RegistrationDate" ,"BankName", "AccountHolderName", "AccountNumber" };
+        
+        if (clickedButton == button1) {
+            panel3.removeAll(); 
+            panel3.add(contentLabel);
+            panel3.revalidate();
+            panel3.repaint();
+        } else if (clickedButton == button5) {
+            ArrayList<ArrayList<String>> userslist = new ArrayList<ArrayList<String>>();
+            userslist = users();
+            int rows = userslist.get(0).size();
+            int i=0;
+            model = new DefaultTableModel(rows,9);
+            model.setColumnIdentifiers(column);
+            table = new JTable(model);
+            for (ArrayList<String> userdata : userslist) {
+                table.setValueAt(userdata.get(0),i,0);
+                table.setValueAt(userdata.get(1),i,1);
+                table.setValueAt(userdata.get(2),i,2);
+                table.setValueAt(userdata.get(3),i,3);
+                table.setValueAt(userdata.get(4),i,4);
+                table.setValueAt(userdata.get(5),i,5);
+                table.setValueAt(userdata.get(6),i,6);
+                table.setValueAt(userdata.get(7),i,7);
+                table.setValueAt(userdata.get(8),i,8);
+                i++;
+            }
+            table.setRowHeight(30);
+            panel3.removeAll(); 
+            panel3.add(new JScrollPane(table));
+            panel3.revalidate();
+            panel3.repaint();
         }
     }
 
