@@ -21,11 +21,13 @@ public class Admin extends JFrame implements ActionListener {
     JLabel contentLabel;
     JTable table;
     DefaultTableModel model;
+    JButton startbutton;
 
     Admin() {
         table = new JTable(2,9);
         panel3 = new JPanel();
         label2 = new JLabel();
+        startbutton = CustomButton("START AUCTION");
         ImageIcon welcome = new ImageIcon(
                 "/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/Welcome.jpeg");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -38,7 +40,7 @@ public class Admin extends JFrame implements ActionListener {
         JPanel panel2 = new JPanel();
         contentLabel = new JLabel();
         contentLabel.setOpaque(true);
-        contentLabel.setBounds(0, 0, 1060, 700);
+        contentLabel.setBounds(50, 30, 950, 570);
         contentLabel.setHorizontalAlignment(JLabel.CENTER);
         contentLabel.setVerticalAlignment(JLabel.CENTER);
         contentLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -100,7 +102,7 @@ public class Admin extends JFrame implements ActionListener {
         panel2.setPreferredSize(new Dimension(300, 200));
 
         panel3 = new JPanel();
-        panel3.setLayout(new BorderLayout());
+        panel3.setLayout(null);
         panel3.setBackground(new Color(167, 192, 232));
         panel3.setPreferredSize(new Dimension(1060, 500));
         panel3.add(contentLabel);
@@ -173,26 +175,19 @@ public class Admin extends JFrame implements ActionListener {
                 userslist.get(i).add(user.getFirstName());
                 userslist.get(i).add(user.getLastName());
                 userslist.get(i).add(user.getEmail());
-                userslist.get(i).add(user.getPassword());
                 userslist.get(i).add(user.getRegistrationDate());
-                userslist.get(i).add(user.getBankName());
-                userslist.get(i).add(user.getAccountHolderName());
-                userslist.get(i).add(user.getAccountNumber()+"");
+                System.out.println(userslist.get(i));
                 i++;
             }
             return userslist;
     };
 
-    public ArrayList<ArrayList<String>> items(){
+    public ArrayList<ArrayList<String>> items()throws SQLException{
         UserDAO userDAO = new UserDAOImplementation();
         ItemDAO itemDAO = new ItemDAOImplementation();
             ArrayList<ArrayList<String>> itemlist = new ArrayList<ArrayList<String>>();
             java.util.List<Item> items = new ArrayList<>();
-        try {
-                items = itemDAO.getAll();
-            } catch (SQLException E) {
-                System.out.println(E.getMessage());
-            }
+            items = itemDAO.getAll();
             int i = 0;
             for (Item item : items) {
                 itemlist.add(new ArrayList<>());
@@ -200,7 +195,7 @@ public class Admin extends JFrame implements ActionListener {
                 itemlist.get(i).add(userDAO.get(item.getSellerID()).getFirstName());
                 itemlist.get(i).add(item.getTitle());
                 itemlist.get(i).add(item.getDescription());
-                itemlist.get(i).add(item.getImage());// to be edited
+                itemlist.get(i).add(item.getImage()+"");// to be edited
                 itemlist.get(i).add(item.getCategory());
                 itemlist.get(i).add(item.getStartDate()+"");
                 itemlist.get(i).add(item.getCurrentBid()+"");
@@ -215,9 +210,11 @@ public class Admin extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton clickedButton = (JButton) e.getSource();
-        String[] column = {"ID" ,"FirstName" ,"LastName" ,"Email" ,"Password" ,"RegistrationDate" ,"BankName", "AccountHolderName", "AccountNumber" };
+       // clickedButton.setBackground(new Color(60, 123, 240));
+        String[] column = {"ID" ,"FirstName" ,"LastName" ,"Email" ,"RegistrationDate"};
         
         if (clickedButton == button1) {
+            button1.setBackground(new Color(60, 123, 240));
             panel3.removeAll(); 
             panel3.add(contentLabel);
             panel3.revalidate();
@@ -225,13 +222,19 @@ public class Admin extends JFrame implements ActionListener {
         } 
                 else if(clickedButton == button2) {}
         else if(clickedButton == button3) {}
-        else if(clickedButton == button4) {}
+        else if(clickedButton == button4) {
+            startbutton.setBounds((panel3.getWidth()/2)-200, (panel3.getHeight()/2)-100, 400, 100);
+            panel3.removeAll(); 
+            panel3.add(startbutton);
+            panel3.revalidate();
+            panel3.repaint();
+        }
         else if (clickedButton == button5) {
             ArrayList<ArrayList<String>> userslist = new ArrayList<ArrayList<String>>();
             userslist = users();
-            int rows = userslist.get(0).size();
+            int rows = userslist.size();
             int i=0;
-            model = new DefaultTableModel(rows,9);
+            model = new DefaultTableModel(rows,5);
             model.setColumnIdentifiers(column);
             table = new JTable(model);
             for (ArrayList<String> userdata : userslist) {
@@ -240,16 +243,18 @@ public class Admin extends JFrame implements ActionListener {
                 table.setValueAt(userdata.get(2),i,2);
                 table.setValueAt(userdata.get(3),i,3);
                 table.setValueAt(userdata.get(4),i,4);
-                table.setValueAt(userdata.get(5),i,5);
-                table.setValueAt(userdata.get(6),i,6);
-                table.setValueAt(userdata.get(7),i,7);
-                table.setValueAt(userdata.get(8),i,8);
                 i++;
             }
             table.setRowHeight(30);
-            setColumnsWidth(table, 1060, 2,10,10,18,10,10,10,10,20);
+            setColumnsWidth(table, 1060, 10,20,20,30,20);
+            table.setFont(new Font("Arial", Font.PLAIN, 15));
+            table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
+            Dimension d = table.getPreferredSize();
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setBorder(new EmptyBorder(50,50,50,50));
+            scrollPane.setBounds(0, 0, d.width,table.getRowHeight()*rows+1);
             panel3.removeAll(); 
-            panel3.add(new JScrollPane(table));
+            panel3.add(scrollPane);
             panel3.revalidate();
             panel3.repaint();
         }
