@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -68,15 +69,20 @@ public class Admin extends JFrame implements ActionListener {
             panel2.add(buttons.get(i));
         }
 
-        label1.setBounds(5, 5, 990, 80);
+        label1.setSize(1000,200);
         label1.setBackground(Color.white);
         label1.setOpaque(true);
         label1.setHorizontalAlignment(JLabel.CENTER);
         label1.setText("AUCTION DAILY");
-        label1.setFont(new Font(Font.SERIF, Font.BOLD, 35));
+        label1.setIcon(icon);
+        label1.setHorizontalTextPosition(JLabel.RIGHT);
+        label1.setVerticalTextPosition(JLabel.CENTER);
+        label1.setIconTextGap(100);
+        label1.setFont(new Font(Font.SERIF, Font.BOLD, 40));
 
         label2 = new JLabel();
         label2.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
+        label2.setText("WELCOME TO ADMINISTRATOR PORTAL");
         label2.setBounds(5, 85, screensize.width - 10, 25);
         label2.setBorder(glassyBorder);
         label2.setBackground(new Color(35, 59, 97));
@@ -87,7 +93,7 @@ public class Admin extends JFrame implements ActionListener {
 
         Panel1.setBounds(0, 0, screensize.width, 80);
         Panel1.setBackground(Color.white);
-        Panel1.setPreferredSize(new Dimension(screensize.width, 80));
+        Panel1.setPreferredSize(new Dimension(screensize.width, 100));
 
         panel2.setBackground(new Color(167, 192, 232));
         panel2.setLayout(null);
@@ -96,8 +102,8 @@ public class Admin extends JFrame implements ActionListener {
         panel3 = new JPanel();
         panel3.setLayout(new BorderLayout());
         panel3.setBackground(new Color(167, 192, 232));
-        panel3.setPreferredSize(new Dimension(1060, 700));
-
+        panel3.setPreferredSize(new Dimension(1060, 500));
+        panel3.add(contentLabel);
         Panel1.add(label2, BorderLayout.SOUTH);
         Panel1.add(label1, BorderLayout.NORTH);
 
@@ -108,9 +114,9 @@ public class Admin extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new Color(113, 163, 240));
         this.add(Panel1, BorderLayout.NORTH);
-        Panel1.setPreferredSize(new Dimension(screensize.width, 80));
+        //Panel1.setPreferredSize(new Dimension(screensize.width, 80));
         Panel1.add(label2, BorderLayout.SOUTH);
-        Panel1.add(label1, BorderLayout.NORTH);
+        Panel1.add(label1, BorderLayout.WEST);
         label2.setPreferredSize(new Dimension(screensize.width - 10, 25));
         this.add(panel2, BorderLayout.WEST);
         this.add(panel3, BorderLayout.EAST);
@@ -126,7 +132,6 @@ public class Admin extends JFrame implements ActionListener {
         button.setFocusable(false);
         button.getModel().addChangeListener(new ChangeListener() {
             @Override
-            // a state change for what happens to button when the button is clicked
             public void stateChanged(ChangeEvent e) {
                 ButtonModel model = (ButtonModel) e.getSource();
                 if (model.isRollover()) {
@@ -178,17 +183,50 @@ public class Admin extends JFrame implements ActionListener {
             return userslist;
     };
 
+    public ArrayList<ArrayList<String>> items(){
+        UserDAO userDAO = new UserDAOImplementation();
+        ItemDAO itemDAO = new ItemDAOImplementation();
+            ArrayList<ArrayList<String>> itemlist = new ArrayList<ArrayList<String>>();
+            java.util.List<Item> items = new ArrayList<>();
+        try {
+                items = itemDAO.getAll();
+            } catch (SQLException E) {
+                System.out.println(E.getMessage());
+            }
+            int i = 0;
+            for (Item item : items) {
+                itemlist.add(new ArrayList<>());
+                itemlist.get(i).add((item.getItemID())+"");
+                itemlist.get(i).add(userDAO.get(item.getSellerID()).getFirstName());
+                itemlist.get(i).add(item.getTitle());
+                itemlist.get(i).add(item.getDescription());
+                itemlist.get(i).add(item.getImage());// to be edited
+                itemlist.get(i).add(item.getCategory());
+                itemlist.get(i).add(item.getStartDate()+"");
+                itemlist.get(i).add(item.getCurrentBid()+"");
+                itemlist.get(i).add(item.getAuctionStatus()+"");
+                itemlist.get(i).add(item.getStartPrice()+"");
+                itemlist.get(i).add(item.getEndDate()+"");
+                i++;
+            }
+            return itemlist;
+    };
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton clickedButton = (JButton) e.getSource();
-        String[] column = {"UserID" ,"FirstName" ,"LastName" ,"Email" ,"Password" ,"RegistrationDate" ,"BankName", "AccountHolderName", "AccountNumber" };
+        String[] column = {"ID" ,"FirstName" ,"LastName" ,"Email" ,"Password" ,"RegistrationDate" ,"BankName", "AccountHolderName", "AccountNumber" };
         
         if (clickedButton == button1) {
             panel3.removeAll(); 
             panel3.add(contentLabel);
             panel3.revalidate();
             panel3.repaint();
-        } else if (clickedButton == button5) {
+        } 
+                else if(clickedButton == button2) {}
+        else if(clickedButton == button3) {}
+        else if(clickedButton == button4) {}
+        else if (clickedButton == button5) {
             ArrayList<ArrayList<String>> userslist = new ArrayList<ArrayList<String>>();
             userslist = users();
             int rows = userslist.get(0).size();
@@ -209,11 +247,14 @@ public class Admin extends JFrame implements ActionListener {
                 i++;
             }
             table.setRowHeight(30);
+            setColumnsWidth(table, 1060, 2,10,10,18,10,10,10,10,20);
             panel3.removeAll(); 
             panel3.add(new JScrollPane(table));
             panel3.revalidate();
             panel3.repaint();
         }
+            else if(clickedButton == button6) {}
+            else if(clickedButton == button7) {}
     }
 
     public static void main(String[] args) {
