@@ -22,12 +22,15 @@ public class Admin extends JFrame implements ActionListener {
     JTable table;
     DefaultTableModel model;
     JButton startbutton;
+    JButton deleteuser;
+    UserDAO userDAO;
 
     Admin() {
         table = new JTable(2,9);
         panel3 = new JPanel();
         label2 = new JLabel();
         startbutton = CustomButton("START AUCTION");
+        deleteuser = CustomButton("DELETE USER");
         ImageIcon welcome = new ImageIcon(
                 "/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/Welcome.jpeg");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -38,6 +41,8 @@ public class Admin extends JFrame implements ActionListener {
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
         ImageIcon icon = new ImageIcon("/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/auction2.jpg");
         JPanel panel2 = new JPanel();
+        userDAO = new UserDAOImplementation();
+
         contentLabel = new JLabel();
         contentLabel.setOpaque(true);
         contentLabel.setBounds(50, 30, 950, 570);
@@ -160,7 +165,6 @@ public class Admin extends JFrame implements ActionListener {
     }
 
     public ArrayList<ArrayList<String>> users(){
-        UserDAO userDAO = new UserDAOImplementation();
             ArrayList<ArrayList<String>> userslist = new ArrayList<ArrayList<String>>();
             java.util.List<User> users = new ArrayList<>();
         try {
@@ -176,7 +180,6 @@ public class Admin extends JFrame implements ActionListener {
                 userslist.get(i).add(user.getLastName());
                 userslist.get(i).add(user.getEmail());
                 userslist.get(i).add(user.getRegistrationDate());
-                System.out.println(userslist.get(i));
                 i++;
             }
             return userslist;
@@ -206,6 +209,21 @@ public class Admin extends JFrame implements ActionListener {
             }
             return itemlist;
     };
+
+    public void removeSelectedRow(){
+        deleteuser.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                if(table.getSelectedRow()!=-1){
+                    try {
+                        userDAO.delete(userDAO.get(table.getSelectedRow()+1));
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                    model.removeRow(table.getSelectedRow());
+                }
+            }
+        });
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -252,9 +270,12 @@ public class Admin extends JFrame implements ActionListener {
             Dimension d = table.getPreferredSize();
             JScrollPane scrollPane = new JScrollPane(table);
             scrollPane.setBorder(new EmptyBorder(50,50,50,50));
-            scrollPane.setBounds(0, 0, d.width,table.getRowHeight()*rows+1);
+            scrollPane.setBounds(0, 0, d.width,table.getRowHeight()*rows+150);
+            deleteuser.setBounds((panel3.getWidth()/2)+50, (panel3.getHeight()/2)+100, 300, 50);
+            removeSelectedRow();
             panel3.removeAll(); 
             panel3.add(scrollPane);
+            panel3.add(deleteuser);
             panel3.revalidate();
             panel3.repaint();
         }
