@@ -25,7 +25,7 @@ CREATE TABLE Seller (
     SellerID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT NOT NULL,
     SellerProfile TEXT,
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
 -- Create Buyer table
@@ -33,7 +33,7 @@ CREATE TABLE Buyer (
     BuyerID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT NOT NULL,
     BuyerProfile TEXT,
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
 -- Create Item table
@@ -49,7 +49,7 @@ CREATE TABLE Item (
     AuctionStatus ENUM('Active', 'Sold', 'Expired') NOT NULL,
     StartDate DATETIME NOT NULL,
     EndDate DATETIME NOT NULL,
-    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID)
+    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID) ON DELETE CASCADE
 );
 
 -- Create Bid table
@@ -61,8 +61,8 @@ CREATE TABLE Bid (
     BeginningBid DECIMAL(10, 2) NOT NULL,
     MinIncrement DECIMAL(10, 2) NOT NULL,
     BidTime DATETIME NOT NULL,
-    FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
-    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID)
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE,
+    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE
 );
 
 
@@ -73,7 +73,7 @@ CREATE TABLE Notification (
     UserID INT NOT NULL,
     Message TEXT NOT NULL,
     Timestamp DATETIME NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
 
@@ -87,7 +87,7 @@ CREATE TABLE BankAccount (
     Balance DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     INDEX idx_BuyerAccountNo (AccountNumber),
     INDEX idx_SellerAccountNo (AccountNumber),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 -- Create Payment table
 CREATE TABLE Payment (
@@ -102,8 +102,8 @@ CREATE TABLE Payment (
     AccountHolderName VARCHAR(50),
     AccountNumber INT,
     PaymentReference VARCHAR(50),
-    FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber),
-    FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber)
+    FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
+    FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE
 );
 
 
@@ -115,9 +115,9 @@ CREATE TABLE Transaction (
     PaymentID INT NOT NULL,
     TransactionStatus ENUM('Pending', 'Completed', 'Cancelled') NOT NULL,
     TransactionDate DATETIME NOT NULL,
-    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID),
-    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID),
-    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID)
+    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE,
+    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID) ON DELETE CASCADE,
+    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID) ON DELETE CASCADE
 );
 
 
@@ -129,5 +129,5 @@ CREATE TABLE Taxes (
     SellerID INT,
     TaxType VARCHAR(50),
     TaxAmount DECIMAL(10, 2),
-    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID)
+    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID) ON DELETE CASCADE
 );

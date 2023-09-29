@@ -32,14 +32,14 @@ public class Admin extends JFrame implements ActionListener {
         startbutton = CustomButton("START AUCTION");
         deleteuser = CustomButton("DELETE USER");
         ImageIcon welcome = new ImageIcon(
-                "/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/Welcome.jpeg");
+                "Java_UI/Java_connection/Administrator/Welcome.jpeg");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
         JPanel Panel1 = new JPanel(new BorderLayout());table = new JTable(model);
         JLabel label1 = new JLabel();
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
-        ImageIcon icon = new ImageIcon("/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/Java_UI/Java_connection/Administrator/auction2.jpg");
+        ImageIcon icon = new ImageIcon("Java_UI/Java_connection/Administrator/auction2.jpg");
         JPanel panel2 = new JPanel();
         userDAO = new UserDAOImplementation();
 
@@ -164,8 +164,8 @@ public class Admin extends JFrame implements ActionListener {
         }
     }
 
-    public ArrayList<ArrayList<String>> users(){
-            ArrayList<ArrayList<String>> userslist = new ArrayList<ArrayList<String>>();
+    public ArrayList<Object[]> users(){
+            ArrayList<Object[]> userslist = new ArrayList<Object[]>();
             java.util.List<User> users = new ArrayList<>();
         try {
                 users = userDAO.getAll();
@@ -174,37 +174,37 @@ public class Admin extends JFrame implements ActionListener {
             }
             int i = 0;
             for (User user : users) {
-                userslist.add(new ArrayList<>());
-                userslist.get(i).add((user.getUserID())+"");
-                userslist.get(i).add(user.getFirstName());
-                userslist.get(i).add(user.getLastName());
-                userslist.get(i).add(user.getEmail());
-                userslist.get(i).add(user.getRegistrationDate());
+                userslist.add(new Object[6]);
+                userslist.get(i)[0] = (user.getUserID());
+                userslist.get(i)[1] = (user.getFirstName());
+                userslist.get(i)[2] = (user.getLastName());
+                userslist.get(i)[3] = (user.getEmail());
+                userslist.get(i)[4] = (user.getRegistrationDate());
                 i++;
             }
             return userslist;
     };
 
-    public ArrayList<ArrayList<String>> items()throws SQLException{
+    public ArrayList<Object[]> items()throws SQLException{
         UserDAO userDAO = new UserDAOImplementation();
         ItemDAO itemDAO = new ItemDAOImplementation();
-            ArrayList<ArrayList<String>> itemlist = new ArrayList<ArrayList<String>>();
+            ArrayList<Object[]> itemlist = new ArrayList<Object[]>();
             java.util.List<Item> items = new ArrayList<>();
             items = itemDAO.getAll();
             int i = 0;
             for (Item item : items) {
-                itemlist.add(new ArrayList<>());
-                itemlist.get(i).add((item.getItemID())+"");
-                itemlist.get(i).add(userDAO.get(item.getSellerID()).getFirstName());
-                itemlist.get(i).add(item.getTitle());
-                itemlist.get(i).add(item.getDescription());
-                itemlist.get(i).add(item.getImage()+"");// to be edited
-                itemlist.get(i).add(item.getCategory());
-                itemlist.get(i).add(item.getStartDate()+"");
-                itemlist.get(i).add(item.getCurrentBid()+"");
-                itemlist.get(i).add(item.getAuctionStatus()+"");
-                itemlist.get(i).add(item.getStartPrice()+"");
-                itemlist.get(i).add(item.getEndDate()+"");
+                itemlist.add(new Object[11]);
+                itemlist.get(i)[0] = ((item.getItemID()));
+                itemlist.get(i)[1] = (userDAO.get(item.getSellerID()).getFirstName());
+                itemlist.get(i)[2] = (item.getTitle());
+                itemlist.get(i)[3] = (item.getDescription());
+                itemlist.get(i)[4] = (item.getImage());
+                itemlist.get(i)[5] = (item.getCategory());
+                itemlist.get(i)[6] = (item.getStartDate());
+                itemlist.get(i)[7] = (item.getCurrentBid());
+                itemlist.get(i)[8] = (item.getAuctionStatus());
+                itemlist.get(i)[9] = (item.getStartPrice());
+                itemlist.get(i)[10] = (item.getEndDate());
                 i++;
             }
             return itemlist;
@@ -215,11 +215,12 @@ public class Admin extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e){
                 if(table.getSelectedRow()!=-1){
                     try {
-                        userDAO.delete(userDAO.get(table.getSelectedRow()+1));
+                        userDAO.delete(userDAO.get((int) table.getValueAt(table.getSelectedRow(),0)));
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
                     model.removeRow(table.getSelectedRow());
+                    int selectedOption =  JOptionPane.showOptionDialog(null, "User Deleted Succesfully!!!", null,JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, 0);
                 }
             }
         });
@@ -248,19 +249,19 @@ public class Admin extends JFrame implements ActionListener {
             panel3.repaint();
         }
         else if (clickedButton == button5) {
-            ArrayList<ArrayList<String>> userslist = new ArrayList<ArrayList<String>>();
+            ArrayList<Object[]> userslist = new ArrayList<Object[]>();
             userslist = users();
             int rows = userslist.size();
             int i=0;
             model = new DefaultTableModel(rows,5);
             model.setColumnIdentifiers(column);
             table = new JTable(model);
-            for (ArrayList<String> userdata : userslist) {
-                table.setValueAt(userdata.get(0),i,0);
-                table.setValueAt(userdata.get(1),i,1);
-                table.setValueAt(userdata.get(2),i,2);
-                table.setValueAt(userdata.get(3),i,3);
-                table.setValueAt(userdata.get(4),i,4);
+            for (Object[] userdata : userslist) {
+                table.setValueAt(userdata[0],i,0);
+                table.setValueAt(userdata[1],i,1);
+                table.setValueAt(userdata[2],i,2);
+                table.setValueAt(userdata[3],i,3);
+                table.setValueAt(userdata[4],i,4);
                 i++;
             }
             table.setRowHeight(30);
@@ -270,14 +271,14 @@ public class Admin extends JFrame implements ActionListener {
             Dimension d = table.getPreferredSize();
             JScrollPane scrollPane = new JScrollPane(table);
             scrollPane.setBorder(new EmptyBorder(50,50,50,50));
-            scrollPane.setBounds(0, 0, d.width,table.getRowHeight()*rows+150);
-            deleteuser.setBounds((panel3.getWidth()/2)+50, (panel3.getHeight()/2)+100, 300, 50);
-            removeSelectedRow();
+            scrollPane.setBounds(0, 0, d.width,500);
+            deleteuser.setBounds((panel3.getWidth()/2)+50, (panel3.getHeight()/2)+200, 300, 50);
             panel3.removeAll(); 
             panel3.add(scrollPane);
             panel3.add(deleteuser);
             panel3.revalidate();
             panel3.repaint();
+            removeSelectedRow();
         }
             else if(clickedButton == button6) {}
             else if(clickedButton == button7) {}

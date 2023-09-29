@@ -6,21 +6,14 @@ public class User {
     private String Email;
     private String Password;
     private String RegistrationDate;
-    private String BankName;
-    private String AccountHolderName;
-    private int AccountNumber;
 
-    public User(int userID, String firstName, String lastName, String email, String password, String registrationDate,
-            String bankName, String accountHolderName, int accountNumber) {
+    public User(int userID, String firstName, String lastName, String email, String password, String registrationDate) {
         UserID = userID;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         Password = password;
         RegistrationDate = registrationDate;
-        BankName = bankName;
-        AccountHolderName = accountHolderName;
-        AccountNumber = accountNumber;
     }
 
     public int getUserID() {
@@ -71,35 +64,10 @@ public class User {
         RegistrationDate = registrationDate;
     }
 
-    public String getBankName() {
-        return BankName;
-    }
-
-    public void setBankName(String bankName) {
-        BankName = bankName;
-    }
-
-    public String getAccountHolderName() {
-        return AccountHolderName;
-    }
-
-    public void setAccountHolderName(String accountHolderName) {
-        AccountHolderName = accountHolderName;
-    }
-
-    public int getAccountNumber() {
-        return AccountNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        AccountNumber = accountNumber;
-    }
-
     @Override
     public String toString() {
         return "User [UserID=" + UserID + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Email=" + Email
-                + ", Password=" + Password + ", RegistrationDate=" + RegistrationDate + ", BankName=" + BankName
-                + ", AccountNumber=" + AccountNumber + "]";
+                + ", Password=" + Password + ", RegistrationDate=" + RegistrationDate + "]";
     }
 
 }
