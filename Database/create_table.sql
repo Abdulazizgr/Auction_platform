@@ -24,7 +24,7 @@ CREATE TABLE Admin (
 CREATE TABLE Seller (
     SellerID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT NOT NULL,
-    SellerProfile TEXT,
+    ItemID INT,
     FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
 
@@ -56,7 +56,7 @@ CREATE TABLE Item (
 CREATE TABLE Bid (
     BidID INT AUTO_INCREMENT PRIMARY KEY,
     ItemID INT NOT NULL,
-    BuyerID INT NOT NULL,
+    UserID INT NOT NULL,
     BidAmount DECIMAL(10, 2) NOT NULL,
     BeginningBid DECIMAL(10, 2) NOT NULL,
     MinIncrement DECIMAL(10, 2) NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE Payment (
 -- Transaction table
 CREATE TABLE Transaction (
     TransactionID INT AUTO_INCREMENT PRIMARY KEY,
-    BuyerID INT NOT NULL,
+    UserID INT NOT NULL,
     SellerID INT NOT NULL,
     PaymentID INT NOT NULL,
     TransactionStatus ENUM('Pending', 'Completed', 'Cancelled') NOT NULL,
