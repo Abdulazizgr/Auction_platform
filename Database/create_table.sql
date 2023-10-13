@@ -17,6 +17,7 @@ CREATE TABLE Admin (
     LastName VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
     Password VARCHAR(50) NOT NULL,
+    ItemID INT NULL,
     RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -43,6 +44,7 @@ CREATE TABLE Item (
     Title VARCHAR(255) NOT NULL,
     Description TEXT,
     Image BLOB,
+    ItemState boolean DEFAULT FALSE,
     Category VARCHAR(50) NOT NULL,
     StartPrice DECIMAL(10, 2) NOT NULL,
     CurrentBid DECIMAL(10, 2) NOT NULL,
