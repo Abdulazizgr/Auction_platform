@@ -11,6 +11,7 @@ CREATE TABLE Users (
     RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP -- Date and time when the user registered
 );
 
+<<<<<<< HEAD
 -- Item Table
 CREATE TABLE Item (
     ItemID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each item
@@ -24,6 +25,50 @@ CREATE TABLE Item (
     AuctionStatus ENUM('Active', 'Sold', 'Expired') NOT NULL, -- Status of the auction
     StartDate DATETIME NOT NULL, -- Date and time when the auction starts
     EndDate DATETIME NOT NULL -- Date and time when the auction ends
+=======
+-- Create Admin table
+CREATE TABLE Admin (
+    AdminID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Password VARCHAR(50) NOT NULL,
+    ItemID INT NULL,
+    RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Seller table
+CREATE TABLE Seller (
+    SellerID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT NOT NULL,
+    ItemID INT,
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
+);
+
+-- Create Buyer table
+CREATE TABLE Buyer (
+    BuyerID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT NOT NULL,
+    BidID INT,
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
+);
+
+-- Create Item table
+CREATE TABLE Item (
+    ItemID INT AUTO_INCREMENT PRIMARY KEY,
+    SellerID INT NOT NULL,
+    Title VARCHAR(255) NOT NULL,
+    Description TEXT,
+    Image BLOB,
+    ItemState boolean DEFAULT FALSE,
+    Category VARCHAR(50) NOT NULL,
+    StartPrice DECIMAL(10, 2) NOT NULL,
+    CurrentBid DECIMAL(10, 2) NOT NULL,
+    AuctionStatus ENUM('Active', 'Sold', 'Expired') NOT NULL,
+    StartDate DATETIME NOT NULL,
+    EndDate DATETIME NOT NULL,
+    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID) ON DELETE CASCADE
+>>>>>>> 911551d9e5a27bd02ec08b0b41c770b9ad5ded42
 );
 
 -- Sellers Table
@@ -56,6 +101,7 @@ CREATE TABLE Buyer (
 
 -- Bid Table
 CREATE TABLE Bid (
+<<<<<<< HEAD
     BidID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each bid
     ItemID INT NOT NULL, -- Foreign key referencing the ItemID in the Item table
     UserID INT NOT NULL, -- Foreign key referencing the BuyerID in the Buyer table
@@ -64,10 +110,22 @@ CREATE TABLE Bid (
     BidTime DATETIME NOT NULL, -- Date and time when the bid was placed
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE, -- Constraint to ensure the item exists
     FOREIGN KEY (UserID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE -- Constraint to ensure the buyer exists
+=======
+    BidID INT AUTO_INCREMENT PRIMARY KEY,
+    ItemID INT NOT NULL,
+    UserID INT NOT NULL,
+    BidAmount DECIMAL(10, 2) NOT NULL,
+    BeginningBid DECIMAL(10, 2) NOT NULL,
+    MinIncrement DECIMAL(10, 2) NOT NULL,
+    BidTime DATETIME NOT NULL,
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE,
+    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE
+>>>>>>> 911551d9e5a27bd02ec08b0b41c770b9ad5ded42
 );
 
 -- Notification Table
 CREATE TABLE Notification (
+<<<<<<< HEAD
     NotificationID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each notification
     SellerID INT NOT NULL, -- Foreign key referencing the SellerID in the Sellers table
     BuyerID INT NOT NULL, -- Foreign key referencing the BuyerID in the Buyer table
@@ -77,10 +135,18 @@ CREATE TABLE Notification (
     Timestamp DATETIME NOT NULL, -- Date and time when the notification was sent
     FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID) ON DELETE CASCADE, -- Constraint to ensure the seller exists
     FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE -- Constraint to ensure the buyer exists
+=======
+    NotificationID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT NOT NULL,
+    Message TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
+>>>>>>> 911551d9e5a27bd02ec08b0b41c770b9ad5ded42
 );
 
 -- BankAccount Table
 CREATE TABLE BankAccount (
+<<<<<<< HEAD
     BankAccountID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each bank account
     UserID INT NOT NULL, -- Foreign key referencing the UserID in the Users table
     BankName VARCHAR(50) NOT NULL, -- Name of the bank
@@ -90,10 +156,22 @@ CREATE TABLE BankAccount (
     INDEX idx_BuyerAccountNo (AccountNumber), -- Index for buyer account number
     INDEX idx_SellerAccountNo (AccountNumber), -- Index for seller account number
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE -- Constraint to ensure the user exists
+=======
+    BankAccountID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT NOT NULL,
+    BankName VARCHAR(50) NOT NULL,
+    AccountHolderName VARCHAR(50) NOT NULL,
+    AccountNumber INT NOT NULL,
+    Balance DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    INDEX idx_BuyerAccountNo (AccountNumber),
+    INDEX idx_SellerAccountNo (AccountNumber),
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
+>>>>>>> 911551d9e5a27bd02ec08b0b41c770b9ad5ded42
 );
 
 -- Payment Table
 CREATE TABLE Payment (
+<<<<<<< HEAD
     PaymentID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each payment
     Amount DECIMAL(10, 2) NOT NULL, -- Amount of the payment
     PaymentDate DATETIME NOT NULL, -- Date and time of the payment
@@ -107,10 +185,26 @@ CREATE TABLE Payment (
     PaymentReference VARCHAR(50), -- Reference for the payment
     FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE, -- Constraint to ensure the buyer account exists
     FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE -- Constraint to ensure the seller account exists
+=======
+    PaymentID INT AUTO_INCREMENT PRIMARY KEY,
+    Amount DECIMAL(10, 2) NOT NULL,
+    PaymentDate DATETIME NOT NULL,
+    BuyerAccountNo INT NOT NULL,
+    SellerAccountNo INT NOT NULL,
+    PaymentStatus ENUM('Pending', 'Completed', 'Failed') NOT NULL,
+    PaymentMethod ENUM('Credit/Debit Card', 'Bank Transfer', 'PayPal', 'Other') NOT NULL,
+    BankName VARCHAR(50),
+    AccountHolderName VARCHAR(50),
+    AccountNumber INT,
+    PaymentReference VARCHAR(50),
+    FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
+    FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE
+>>>>>>> 911551d9e5a27bd02ec08b0b41c770b9ad5ded42
 );
 
 -- Transaction Table
 CREATE TABLE Transaction (
+<<<<<<< HEAD
     TransactionID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each transaction
     BuyerID INT NOT NULL, -- Foreign key referencing the BuyerID in the Buyer table
     SellerID INT NOT NULL, -- Foreign key referencing the SellerID in the Sellers table
@@ -120,13 +214,32 @@ CREATE TABLE Transaction (
     FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE, -- Constraint to ensure the buyer exists
     FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID) ON DELETE CASCADE, -- Constraint to ensure the seller exists
     FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID) ON DELETE CASCADE -- Constraint to ensure the payment exists
+=======
+    TransactionID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT NOT NULL,
+    SellerID INT NOT NULL,
+    PaymentID INT NOT NULL,
+    TransactionStatus ENUM('Pending', 'Completed', 'Cancelled') NOT NULL,
+    TransactionDate DATETIME NOT NULL,
+    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE,
+    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID) ON DELETE CASCADE,
+    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID) ON DELETE CASCADE
+>>>>>>> 911551d9e5a27bd02ec08b0b41c770b9ad5ded42
 );
 
 -- Taxes Table
 CREATE TABLE Taxes (
+<<<<<<< HEAD
     TaxID INT PRIMARY KEY, -- Unique identifier for each tax
     SellerID INT, -- Foreign key referencing the SellerID in the Sellers table
     TaxType VARCHAR(50), -- Type of tax
     TaxAmount DECIMAL(10, 2), -- Amount of tax
     FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID) ON DELETE CASCADE -- Constraint to ensure the seller exists
+=======
+    TaxID INT PRIMARY KEY,
+    SellerID INT,
+    TaxType VARCHAR(50),
+    TaxAmount DECIMAL(10, 2),
+    FOREIGN KEY (SellerID) REFERENCES Seller(SellerID) ON DELETE CASCADE
+>>>>>>> 911551d9e5a27bd02ec08b0b41c770b9ad5ded42
 );
