@@ -1,4 +1,4 @@
--- Users Table
+-- Users Table to
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each user
     FirstName VARCHAR(50) NOT NULL, -- First name of the user
