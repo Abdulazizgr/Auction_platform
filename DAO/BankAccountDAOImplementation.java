@@ -41,12 +41,6 @@ public class BankAccountDAOImplementation implements BankAccountDAO {
     }
 
     @Override
-    public int save(BanckAccount t) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
-
-    @Override
     public int insert(BanckAccount t) throws SQLException {
         Connection con = Database.getConnection();
         String sql = "inset into BankAccount(BankAccountID, UserID, BankName, AccountHolderName, AccountNumber, Balance) values (?, ?, ?, ?, ?, ?)";

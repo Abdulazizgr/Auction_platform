@@ -2,10 +2,9 @@ import java.sql.Timestamp;
 
 public class Item {
     private int ItemID;
-    private int SellerID;
     private String Title;
     private String Description;
-    private byte[] Image;
+    private String ImagePath;
     private String Category;
     private double StartPrice;
     private double CurrentBid;
@@ -13,14 +12,13 @@ public class Item {
     private Timestamp StartDate;
     private Timestamp EndDate;
 
-    public Item(int itemID, int sellerID, String title, String description, byte[] image2, String category,
+    public Item(int itemID,String title, String description, String Path, String category,
             double startPrice,
             double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2) {
         ItemID = itemID;
-        SellerID = sellerID;
         Title = title;
         Description = description;
-        Image = image2;
+        ImagePath = Path;
         Category = category;
         StartPrice = startPrice;
         CurrentBid = currentBid;
@@ -37,13 +35,6 @@ public class Item {
         ItemID = itemID;
     }
 
-    public int getSellerID() {
-        return SellerID;
-    }
-
-    public void setSellerID(int sellerID) {
-        SellerID = sellerID;
-    }
 
     public String getTitle() {
         return Title;
@@ -61,12 +52,12 @@ public class Item {
         Description = description;
     }
 
-    public byte[] getImage() {
-        return Image;
+    public String getImagePath() {
+        return ImagePath;
     }
 
-    public void setImage(byte[] image) {
-        Image = image;
+    public void setImage(String imagepath) {
+        ImagePath = imagepath;
     }
 
     public double getStartPrice() {
@@ -119,9 +110,9 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item [ItemID=" + ItemID + ", SellerID=" + SellerID + ", Title=" + Title + ", Description=" + Description
+        return "Item [ItemID=" + ItemID + ", Title=" + Title + ", Description=" + Description
                 +
-                ", Image=" + Image + ", Category=" + Category + ", StartProe=" + StartPrice + ", CurrentBid="
+                ", Image=" + ImagePath + ", Category=" + Category + ", StartProe=" + StartPrice + ", CurrentBid="
                 + CurrentBid + ", AuctionStatus="
                 + AuctionStatus + ", StartDate=" + StartDate + ", EndDate=" + EndDate + "]";
     }
