@@ -10,7 +10,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.Font.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -31,8 +30,8 @@ public class UserHome extends JFrame {
     UserHome() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
-        ImageIcon homepage = new ImageIcon("Users/userImages/welcome.jpg");
-        ImageIcon icon = new ImageIcon("Users/userImages/law.png");
+        ImageIcon homepage = new ImageIcon("Administrator/AdminImages/Welcome.jpeg");
+        ImageIcon icon = new ImageIcon("Administrator/AdminImages/auction2.jpg");
         JPanel title_bar = new JPanel(new BorderLayout());
 
         title_bar.setBounds(0, 0, screensize.width, 80);
@@ -225,8 +224,9 @@ public class UserHome extends JFrame {
         title_bar.add(firstlabel, BorderLayout.SOUTH);
         title_bar.add(label_1, BorderLayout.WEST);
         firstlabel.setPreferredSize(new Dimension(screensize.width - 10, 25));
-        add(control_Panel, BorderLayout.EAST);
         add(control_Panel, BorderLayout.WEST);
+        add(content_panel, BorderLayout.EAST);
+
         setVisible(true);
 
     }
