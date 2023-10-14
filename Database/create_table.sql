@@ -20,7 +20,9 @@ CREATE TABLE Item (
     CurrentBid DECIMAL(10, 2) NOT NULL, -- Current highest bid on the item
     AuctionStatus ENUM('Active', 'Sold', 'Expired') NOT NULL, -- Status of the auction
     StartDate DATETIME NOT NULL, -- Date and time when the auction starts
-    EndDate DATETIME NOT NULL -- Date and time when the auction ends
+    EndDate DATETIME NOT NULL, -- Date and time when the auction ends
+    UserID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE SET NULL
 );
 
 -- Sellers Table
