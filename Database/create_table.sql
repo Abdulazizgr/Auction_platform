@@ -1,4 +1,7 @@
--- Users Table to
+-- CREATE DATABASE test;
+
+
+-- Users Table 
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each user
     FirstName VARCHAR(50) NOT NULL, -- First name of the user
@@ -50,7 +53,9 @@ CREATE TABLE Admins (
 CREATE TABLE Buyer (
     BuyerID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each buyer
     UserID INT NOT NULL, -- Foreign key referencing the UserID in the Users table
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE -- Constraint to ensure the user exists
+    ItemID INT NOT NULL, -- Foreign key referencing the ItemID in the Items table
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE, -- Constraint to ensure the user exists
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE -- Constraint to ensure the item exists
 );
 
 -- Bid Table
@@ -129,3 +134,7 @@ CREATE TABLE Taxes (
     TaxAmount DECIMAL(10, 2), -- Amount of tax
     FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID) ON DELETE CASCADE -- Constraint to ensure the seller exists
 );
+
+
+
+

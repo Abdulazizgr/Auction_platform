@@ -1,11 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
-import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AdminFrame extends JFrame {
-    public JButton butt_home, butt_add_item, butt_show_item, butt_start_auction, butt_cust, butt_sold_items, butt_logout;
+    public JButton butt_home, butt_add_item, butt_show_item, butt_start_auction, butt_cust, butt_sold_items,
+            butt_logout;
     public ArrayList<JButton> buttons;
     public JPanel home;
     private JPanel contentpanel;
@@ -22,10 +21,10 @@ public class AdminFrame extends JFrame {
     public ShowUsers users;
     public ShowItems items;
     public SoldItems slitems;
-    public AddItem  additem;
+    public AddItem additem;
     public StartAuction start;
 
-    AdminFrame() {
+    AdminFrame() throws SQLException {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
         ImageIcon welcome = new ImageIcon("Administrator/AdminImages/Welcome.jpeg");
@@ -36,18 +35,17 @@ public class AdminFrame extends JFrame {
         titlebar.setBackground(Color.white);
         titlebar.setPreferredSize(new Dimension(screensize.width, 100));
 
-         labelh = new JLabel();
-       labelh.setOpaque(true);
-       labelh.setBounds(50, 30, 950, 500);
-       labelh.setHorizontalAlignment(JLabel.CENTER);
-       labelh.setVerticalAlignment(JLabel.CENTER);
-       labelh.setIcon(welcome);
+        labelh = new JLabel();
+        labelh.setOpaque(true);
+        labelh.setBounds(50, 30, 950, 500);
+        labelh.setHorizontalAlignment(JLabel.CENTER);
+        labelh.setVerticalAlignment(JLabel.CENTER);
+        labelh.setIcon(welcome);
 
         contentpanel = new JPanel();
         contentpanel.setLayout(null);
         contentpanel.setBackground(new Color(167, 192, 232));
         contentpanel.setPreferredSize(new Dimension(1060, 500));
-        
 
         JPanel controlpanel = new JPanel();
         controlpanel.setBackground(new Color(167, 192, 232));
@@ -60,7 +58,6 @@ public class AdminFrame extends JFrame {
         additem = new AddItem();
         start = new StartAuction();
 
-      
         home = new JPanel();
         home.setBounds(25, 5, 1000, 600);
         home.add(labelh);
@@ -77,12 +74,10 @@ public class AdminFrame extends JFrame {
         contentpanel.add(slitems);
         slitems.setVisible(false);
 
-
         label2 = new JLabel();
         JLabel label1 = new JLabel();
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
-        
 
         butt_home = CustomButton("Home");
         butt_add_item = CustomButton("Add Item");
@@ -95,89 +90,88 @@ public class AdminFrame extends JFrame {
         buttons = new ArrayList<>(7);
         buttons.add(butt_home);
         butt_home.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 home.setVisible(true);
-				additem.setVisible(false);
-				start.setVisible(false);
-				users.setVisible(false);
-			    slitems.setVisible(false);
-				items.setVisible(false);
+                additem.setVisible(false);
+                start.setVisible(false);
+                users.setVisible(false);
+                slitems.setVisible(false);
+                items.setVisible(false);
             }
         });
 
         buttons.add(butt_add_item);
         butt_add_item.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-				additem.setVisible(true);
-				start.setVisible(false);
-				users.setVisible(false);
-			    slitems.setVisible(false);
-				items.setVisible(false);
+                additem.setVisible(true);
+                start.setVisible(false);
+                users.setVisible(false);
+                slitems.setVisible(false);
+                items.setVisible(false);
             }
         });
 
         buttons.add(butt_show_item);
         butt_show_item.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-				additem.setVisible(false);
-				start.setVisible(false);
-				users.setVisible(false);
-			    slitems.setVisible(false);
-				items.setVisible(true);
+                additem.setVisible(false);
+                start.setVisible(false);
+                users.setVisible(false);
+                slitems.setVisible(false);
+                items.setVisible(true);
             }
         });
 
         buttons.add(butt_start_auction);
         butt_start_auction.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-				additem.setVisible(false);
-				start.setVisible(true);
-				users.setVisible(false);
-			    slitems.setVisible(false);
-				items.setVisible(false);
+                additem.setVisible(false);
+                start.setVisible(true);
+                users.setVisible(false);
+                slitems.setVisible(false);
+                items.setVisible(false);
             }
         });
 
         buttons.add(butt_cust);
         butt_cust.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                home.setVisible(true);
-				additem.setVisible(false);
-				start.setVisible(false);
-				users.setVisible(true);
-			    slitems.setVisible(false);
-				items.setVisible(false);
+            public void actionPerformed(ActionEvent e) {
+                home.setVisible(false);
+                additem.setVisible(false);
+                start.setVisible(false);
+                users.setVisible(true);
+                slitems.setVisible(false);
+                items.setVisible(false);
             }
         });
 
         buttons.add(butt_sold_items);
         butt_sold_items.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-				additem.setVisible(false);
-				start.setVisible(false);
-				users.setVisible(false);
-			    slitems.setVisible(true);
-				items.setVisible(false);
+                additem.setVisible(false);
+                start.setVisible(false);
+                users.setVisible(false);
+                slitems.setVisible(true);
+                items.setVisible(false);
             }
         });
 
         buttons.add(butt_logout);
         butt_logout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-				AdminLogin login;
-				try 
-				{
-					login = new AdminLogin();
-					login.setVisible(true);
-				} catch (Exception e2) {
-					e2.printStackTrace();
-				}
-			    dispose();
+                AdminLogin login;
+                try {
+                    login = new AdminLogin();
+                    login.setVisible(true);
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+                dispose();
             }
         });
 
@@ -186,7 +180,7 @@ public class AdminFrame extends JFrame {
             controlpanel.add(buttons.get(i));
         }
 
-        label1.setSize(1000,200);
+        label1.setSize(1000, 200);
         label1.setBackground(Color.white);
         label1.setOpaque(true);
         label1.setHorizontalAlignment(JLabel.CENTER);
@@ -242,11 +236,12 @@ public class AdminFrame extends JFrame {
                 } else {
                     button.setBackground(new Color(35, 59, 97));
                 }
-            }});
-            return button;
-        }
-
-        public static void main(String[] args) {
-            new AdminFrame();
-        }
+            }
+        });
+        return button;
     }
+
+    public static void main(String[] args) throws SQLException {
+        new AdminFrame();
+    }
+}
