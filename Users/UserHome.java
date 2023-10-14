@@ -9,13 +9,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.*;
+
+import DAO.User;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class UserHome extends JFrame {
-    JButton home, personalDet, purchase, showItems, myOrder, soldItems, logOut;
+
+    JButton butt_homee, butt_homepersonalDet, butt_chase, butt_wItems, butt_rder, butt_dItems, butt_Out;
     public MyOrder my_order;
     public PersonalDetail per_detail;
     public Purchase pur_chase;
@@ -56,7 +60,12 @@ public class UserHome extends JFrame {
         control_Panel.setPreferredSize(new Dimension(300, 200));
 
         my_order = new MyOrder();
-        per_detail = new PersonalDetail();
+        try {
+            per_detail = new PersonalDetail(1);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         pur_chase = new Purchase();
         show_items = new ShowItems();
         sold_items = new soldItems();
@@ -83,94 +92,88 @@ public class UserHome extends JFrame {
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
 
         // showItems, myOrder, soldItems, logOut;
-        home = Custom_Button("Home");
-        personalDet = Custom_Button("Personal Detail");
-        purchase = Custom_Button("Purchase");
-        showItems = Custom_Button("Show Items");
-        myOrder = Custom_Button("My Order");
-        soldItems = Custom_Button("Sold Items");
-        logOut = Custom_Button("Log Out");
+        butt_homee = Custom_Button("Home");
+        butt_homepersonalDet = Custom_Button("Personal Detail");
+        butt_chase = Custom_Button("Purchase");
+        butt_wItems = Custom_Button("Show Items");
+        butt_rder = Custom_Button("My Order");
+        butt_dItems = Custom_Button("Sold Items");
+        butt_Out = Custom_Button("Log Out");
 
         butt_ons = new ArrayList<>(7);
-        butt_ons.add(home);
-        home.addActionListener(new ActionListener() {
+        butt_ons.add(butt_homee);
+        butt_homee.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                home.setVisible(true);
-                personalDet.setVisible(true);
-                purchase.setVisible(true);
-                showItems.setVisible(true);
-                myOrder.setVisible(true);
-                soldItems.setVisible(true);
-                logOut.setVisible(true);
+                home_Panel.setVisible(true);
+                per_detail.setVisible(true);
+                pur_chase.setVisible(true);
+                show_items.setVisible(true);
+                my_order.setVisible(true);
+                sold_items.setVisible(true);
             }
         });
 
-        butt_ons.add(personalDet);
-        home.addActionListener(new ActionListener() {
+        butt_ons.add(butt_homepersonalDet);
+        butt_homepersonalDet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                home.setVisible(false);
-                personalDet.setVisible(true);
-                purchase.setVisible(false);
-                showItems.setVisible(false);
-                myOrder.setVisible(false);
-                soldItems.setVisible(false);
-                logOut.setVisible(false);
+                home_Panel.setVisible(false);
+                per_detail.setVisible(true);
+                pur_chase.setVisible(false);
+                show_items.setVisible(false);
+                my_order.setVisible(false);
+                sold_items.setVisible(false);
             }
         });
 
-        butt_ons.add(purchase);
-        home.addActionListener(new ActionListener() {
+        butt_ons.add(butt_chase);
+        butt_chase.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                home.setVisible(false);
-                personalDet.setVisible(false);
-                purchase.setVisible(true);
-                showItems.setVisible(false);
-                myOrder.setVisible(false);
-                soldItems.setVisible(false);
-                logOut.setVisible(false);
+                home_Panel.setVisible(false);
+                per_detail.setVisible(false);
+                pur_chase.setVisible(true);
+                show_items.setVisible(false);
+                my_order.setVisible(false);
+                sold_items.setVisible(false);
             }
         });
-        butt_ons.add(showItems);
-        home.addActionListener(new ActionListener() {
+        butt_ons.add(butt_wItems);
+        butt_wItems.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                home.setVisible(false);
-                personalDet.setVisible(false);
-                purchase.setVisible(false);
-                showItems.setVisible(true);
-                myOrder.setVisible(false);
-                soldItems.setVisible(false);
-                logOut.setVisible(false);
-            }
-        });
-
-        butt_ons.add(myOrder);
-        home.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                home.setVisible(false);
-                personalDet.setVisible(false);
-                purchase.setVisible(false);
-                showItems.setVisible(false);
-                myOrder.setVisible(true);
-                soldItems.setVisible(false);
-                logOut.setVisible(false);
+                home_Panel.setVisible(false);
+                per_detail.setVisible(false);
+                show_items.setVisible(false);
+                show_items.setVisible(true);
+                my_order.setVisible(false);
+                sold_items.setVisible(false);
             }
         });
 
-        butt_ons.add(soldItems);
-        home.addActionListener(new ActionListener() {
+        butt_ons.add(butt_rder);
+        butt_rder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                home.setVisible(false);
-                personalDet.setVisible(false);
-                purchase.setVisible(false);
-                showItems.setVisible(false);
-                myOrder.setVisible(true);
-                soldItems.setVisible(false);
-                logOut.setVisible(false);
+                home_Panel.setVisible(false);
+                per_detail.setVisible(false);
+                pur_chase.setVisible(false);
+                show_items.setVisible(false);
+                my_order.setVisible(true);
+                sold_items.setVisible(false);
             }
         });
 
-        butt_ons.add(logOut);
-        logOut.addActionListener(new ActionListener() {
+        butt_ons.add(butt_dItems);
+        butt_dItems.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                home_Panel.setVisible(false);
+                per_detail.setVisible(false);
+                pur_chase.setVisible(false);
+                show_items.setVisible(false);
+                my_order.setVisible(true);
+                sold_items.setVisible(false);
+            }
+        });
+
+        butt_ons.add(butt_Out);
+        butt_Out.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 // UserLogin Login ;

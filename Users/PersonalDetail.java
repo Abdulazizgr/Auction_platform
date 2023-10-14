@@ -14,6 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import DAO.*;
+import DAO.User;
+import DAO.UserDAO;
+
 public class PersonalDetail extends JPanel {
     public JLabel Intro, fname, lname, e_mail, reg_date, fanswer, lanswer, eanswer, ranswer;
     public String ffname, llname, ee_mail, rreg_date;
@@ -28,7 +32,7 @@ public class PersonalDetail extends JPanel {
         home_personal_content.setBackground(new Color(167, 192, 232));
         home_personal_content.setPreferredSize(new Dimension(1060, 500));
 
-        User = null;
+        u = null;
         udao = new UserDAOImplementation();
         u = udao.get(ID);
         ffname = u.getFirstName();
@@ -79,11 +83,11 @@ public class PersonalDetail extends JPanel {
         home_personal_content.setVisible(true);
     }
 
-    public static void main(String args[]) throws Exception {
-        JFrame test = new JFrame("test");
-        test.setSize(500, 500);
-        JPanel pan = new PersonalDetail(1);
-        test.add(pan);
-        test.setVisible(true);
-    }
+    // public static void main(String args[]) throws Exception {
+    // JFrame test = new JFrame("test");
+    // test.setSize(500, 500);
+    // JPanel pan = new PersonalDetail(1);
+    // test.add(pan);
+    // test.setVisible(true);
+    // }
 }
