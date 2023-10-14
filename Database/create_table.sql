@@ -1,7 +1,7 @@
 -- CREATE DATABASE test;
 
 
--- Users Table to
+-- Users Table 
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each user
     FirstName VARCHAR(50) NOT NULL, -- First name of the user
