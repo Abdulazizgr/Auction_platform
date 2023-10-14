@@ -1,5 +1,5 @@
 -- Insert some users
-INSERT INTO User (FirstName, LastName, Email, Password)
+INSERT INTO Users (FirstName, LastName, Email, Password)
 VALUES
     ('John1', 'Doe', 'john1@gmail.com', 'password1'),
     ('John2', 'Doe', 'john2@gmail.com', 'password2'),
@@ -52,110 +52,62 @@ VALUES
     ('John49', 'Doe', 'john49@gmail.com', 'password49'),
     ('John50', 'Doe', 'john50@gmail.com', 'password50');
 
-INSERT INTO Admin (FirstName, LastName, Email, Password)
+INSERT INTO Admins (FirstName, LastName, Email, Password)
 VALUES ('Abdulaziz', 'Isa', 'abdu1234@gmail.com', 'admin1234');
 
-
-
--- Insert seller data for UserIDs 1 to 10 with concise descriptions
-INSERT INTO Seller (UserID, SellerProfile)
-VALUES
-    (1, 'Experienced seller specializing in electronics.'),
-    (2, 'Home appliance expert offering kitchenware.'),
-    (3, 'Fashionista with a variety of clothing items.'),
-    (4, 'Collector of rare antiques and collectibles.'),
-    (5, 'Automotive parts and accessories expert.'),
-    (6, 'Artisan crafting unique jewelry and accessories.'),
-    (7, 'Sports equipment guru for athletes.'),
-    (8, 'Book lover with a collection of novels and literature.'),
-    (9, 'Music enthusiast selling musical instruments.'),
-    (10, 'Talented artist showcasing artwork and paintings.');
-
-
--- Insert buyer data for UserIDs 11 to 25
-INSERT INTO Buyer (UserID, BuyerProfile)
-VALUES
-    (11, 'I am an avid shopper looking for great deals on electronics.'),
-    (12, 'I am a home improvement enthusiast searching for quality kitchenware.'),
-    (13, 'I love fashion and am always on the lookout for stylish clothing.'),
-    (14, 'I enjoy collecting unique items and antiques.'),
-    (15, 'I am passionate about cars and need automotive parts.'),
-    (16, 'I have a passion for jewelry and accessories.'),
-    (17, 'I am a sports enthusiast in need of sports equipment.'),
-    (18, 'I am an avid reader looking for new books and novels.'),
-    (19, 'I am a musician searching for musical instruments.'),
-    (20, 'I appreciate art and am interested in artwork and paintings.'),
-    (21, 'I enjoy tech gadgets and electronics.'),
-    (22, 'I am a culinary enthusiast looking for kitchenware.'),
-    (23, 'I love fashion and am seeking trendy clothing.'),
-    (24, 'I collect rare items and antiques.'),
-    (25, 'I am a car enthusiast in need of automotive parts.');
-
-
-
-
-INSERT INTO Item(SellerID,Title,Description,Image,Category,StartPrice,CurrentBid,AuctionStatus,StartDate,EndDate)
-VALUES (1,"Paint","An original painting by , Leonardo da Vinci created in 1503-1519.",LOAD_FILE('//path//to//Monalisa.jpg'),"Art",  10000.00,12000.00,"Active","2023-09-27 10:00:00","2023-10-04 18:00:00"  ),
-(2, "Vintage Watch", "A classic vintage wristwatch from the 1960s.", LOAD_FILE('//path//to//watch.jpg'), "Fashion", 500.00, 600.00, "Active", "2023-09-28 09:00:00", "2023-10-05 17:00:00"),
- (3,  "Vintage Vinyl Records", "A collection of rare vintage vinyl records from various artists.",LOAD_FILE('//path//to//Vintage Vinyl Record.jpg'), "Music", 300.00, 350.00, "Active", "2023-10-01 11:00:00", "2023-10-08 19:00:00"),
- ( 4,"Diamond Necklace", "A stunning diamond necklace with a platinum setting.", LOAD_FILE('//path//to//Diamond Necklace image.jpg'), "Jewelry", 5000.00, 6000.00, "Active", "2023-09-30 14:00:00", "2023-10-07 22:00:00"),
-( 5,"Collectible Coins", "A collection of rare and valuable collectible coins from different eras.",LOAD_FILE('//path//to//Ethiopian coin.jpg'), "Collectibles", 400.00, 450.00, "Active", "2023-10-04 10:00:00", "2023-10-11 18:00:00"),
-( 6,"Sports Memorabilia", "A collection of autographed sports memorabilia from famous athletes.", LOAD_FILE('//path//to//NBA.jpg'), "Sports", 800.00, 900.00, "Active", "2023-10-02 15:00:00", "2023-10-09 23:00:00"),
-( 7,"Designer Handbag", "A luxurious designer handbag made from high-quality leather.", LOAD_FILE('//path//to//Bags.jpg'), "Fashion", 700.00, 800.00, "Active", "2023-10-05 12:00:00", "2023-10-12 20:00:00"),
-(8, "Vintage Camera", "A classic vintage camera from the 1950s with original accessories.", LOAD_FILE('//path//to//Camera.jpg'), "Electronics", 400.00, 450.00, "Active", "2023-10-07 10:00:00", "2023-10-14 18:00:00"),
-( 9, "Rare Stamps", "A collection of rare postage stamps from different countries.", LOAD_FILE('//path//to//Stamps.jpg'), "Collectibles", 200.00, 250.00, "Active", "2023-10-06 09:00:00", "2023-10-13 17:00:00"),
-( 10,"Art Deco Sculpture", "An exquisite art deco sculpture made from bronze.", LOAD_FILE('//path//to//Art deco sculpture.jpg'), "Art", 1200.00, 1400.00, "Active", "2023-10-08 09:00:00", "2023-10-15 17:00:00");
-
--- Insert bid data for the items
-INSERT INTO Bid (ItemID, BuyerID, BidAmount, BeginningBid, MinIncrement, BidTime)
-VALUES
-    (1, 11, 11000.00, 10000.00, 100.00, '2023-09-27 10:15:00'),
-    (1, 12, 11500.00, 11000.00, 100.00, '2023-09-27 10:30:00'),
-    (1, 13, 12000.00, 11500.00, 100.00, '2023-09-27 10:45:00'),
-    (2, 14, 550.00, 500.00, 50.00, '2023-09-28 09:15:00'),
-    (2, 15, 600.00, 550.00, 50.00, '2023-09-28 09:30:00'),
-    (3, 1, 320.00, 300.00, 20.00, '2023-10-01 11:30:00'),
-    (3, 2, 350.00, 320.00, 20.00, '2023-10-01 11:45:00'),
-    (4, 3, 5200.00, 5000.00, 200.00, '2023-09-30 14:15:00'),
-    (4, 4, 5500.00, 5200.00, 200.00, '2023-09-30 14:30:00'),
-    (4, 5, 6000.00, 5500.00, 200.00, '2023-09-30 14:45:00');
-
-
-
-INSERT INTO Notification (UserID, Message, Timestamp)
-VALUES
-    (1, 'You have a new message.', NOW()),
-    (2, 'Your order has been shipped.', NOW()),
-    (3, 'Reminder: Meeting at 3 PM today.', NOW()),
-    (12, 'New item listed: Vintage Watch.', NOW()),
-    (11, 'Your bid has been accepted.', NOW());
-
-
-
-
--- Insert values into the BankAccount table for User IDs 1 to 20 with different banks and account holders
 INSERT INTO BankAccount (UserID, BankName, AccountHolderName, AccountNumber, Balance)
 VALUES
     (1, 'Bank A', 'John1', 1001, 1000.00),
     (2, 'Bank B', 'John2', 1002, 2000.00),
-    (3, 'Bank C', 'John3', 1003, 1500.00),
-    (4, 'Bank D', 'John4', 1004, 500.00),
-    (5, 'Bank E', 'John5', 1005, 3000.00),
-    (6, 'Bank F', 'John6', 1006, 2500.00),
-    (7, 'Bank G', 'John7', 1007, 1800.00),
-    (8, 'Bank H', 'John8', 1008, 3500.00),
-    (9, 'Bank I', 'John9', 1009, 1200.00),
-    (10, 'Bank J', 'John10', 1010, 900.00),
-    (11, 'Bank K', 'John11', 1011, 3000.00),
-    (12, 'Bank L', 'John12', 1012, 2200.00),
-    (13, 'Bank M', 'John13', 1013, 500.00),
-    (14, 'Bank N', 'John14', 1014, 600.00),
-    (15, 'Bank O', 'John15', 1015, 700.00),
-    (16, 'Bank P', 'John16', 1016, 800.00),
-    (17, 'Bank Q', 'John17', 1017, 2500.00),
-    (18, 'Bank R', 'John18', 1018, 300.00),
-    (19, 'Bank S', 'John19', 1019, 1200.00),
-    (20, 'Bank T', 'John20', 1020, 750.00);
+    (3, 'Bank C', 'John3', 1003, 3000.00),
+    (4, 'Bank D', 'John4', 1004, 4000.00),
+    (5, 'Bank E', 'John5', 1005, 5000.00),
+    (6, 'Bank F', 'John6', 1006, 6000.00),
+    (7, 'Bank G', 'John7', 1007, 7000.00),
+    (8, 'Bank H', 'John8', 1008, 8000.00),
+    (9, 'Bank I', 'John9', 1009, 9000.00),
+    (10, 'Bank J', 'John10', 1010, 10000.00),
+    (11, 'Bank K', 'John11', 1011, 11000.00),
+    (12, 'Bank L', 'John12', 1012, 12000.00),
+    (13, 'Bank M', 'John13', 1013, 13000.00),
+    (14, 'Bank N', 'John14', 1014, 14000.00),
+    (15, 'Bank O', 'John15', 1015, 15000.00),
+    (16, 'Bank P', 'John16', 1016, 16000.00),
+    (17, 'Bank Q', 'John17', 1017, 17000.00),
+    (18, 'Bank R', 'John18', 1018, 18000.00),
+    (19, 'Bank S', 'John19', 1019, 19000.00),
+    (20, 'Bank T', 'John20', 1020, 20000.00),
+    (21, 'Bank U', 'John21', 1021, 21000.00),
+    (22, 'Bank V', 'John22', 1022, 22000.00),
+    (23, 'Bank W', 'John23', 1023, 23000.00),
+    (24, 'Bank X', 'John24', 1024, 24000.00),
+    (25, 'Bank Y', 'John25', 1025, 25000.00),
+    (26, 'Bank Z', 'John26', 1026, 26000.00),
+    (27, 'Bank AA', 'John27', 1027, 27000.00),
+    (28, 'Bank BB', 'John28', 1028, 28000.00),
+    (29, 'Bank CC', 'John29', 1029, 29000.00),
+    (30, 'Bank DD', 'John30', 1030, 30000.00),
+    (31, 'Bank EE', 'John31', 1031, 31000.00),
+    (32, 'Bank FF', 'John32', 1032, 32000.00),
+    (33, 'Bank GG', 'John33', 1033, 33000.00),
+    (34, 'Bank HH', 'John34', 1034, 34000.00),
+    (35, 'Bank II', 'John35', 1035, 35000.00),
+    (36, 'Bank JJ', 'John36', 1036, 36000.00),
+    (37, 'Bank KK', 'John37', 1037, 37000.00),
+    (38, 'Bank LL', 'John38', 1038, 38000.00),
+    (39, 'Bank MM', 'John39', 1039, 39000.00),
+    (40, 'Bank NN', 'John40', 1040, 40000.00),
+    (41, 'Bank OO', 'John41', 1041, 41000.00),
+    (42, 'Bank PP', 'John42', 1042, 42000.00),
+    (43, 'Bank QQ', 'John43', 1043, 43000.00),
+    (44, 'Bank RR', 'John44', 1044, 44000.00),
+    (45, 'Bank SS', 'John45', 1045, 45000.00),
+    (46, 'Bank TT', 'John46', 1046, 46000.00),
+    (47, 'Bank UU', 'John47', 1047, 47000.00),
+    (48, 'Bank VV', 'John48', 1048, 48000.00),
+    (49, 'Bank WW', 'John49', 1049, 49000.00),
+    (50, 'Bank XX', 'John50', 1050, 50000.00);
+
 
 
 
