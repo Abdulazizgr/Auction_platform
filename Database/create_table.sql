@@ -60,7 +60,7 @@ CREATE TABLE Bid (
     MinIncrement DECIMAL(10, 2) NOT NULL, -- Minimum increment for the bid
     BidTime DATETIME NOT NULL, -- Date and time when the bid was placed
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE, -- Constraint to ensure the item exists
-    FOREIGN KEY (UserID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE -- Constraint to ensure the buyer exists
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE -- Constraint to ensure the buyer exists
 );
 
 -- Notification Table
