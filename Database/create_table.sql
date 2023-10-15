@@ -98,19 +98,18 @@ CREATE TABLE BankAccount (
 
 -- Payment Table
 CREATE TABLE Payment (
-    PaymentID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each payment
-    Amount DECIMAL(10, 2) NOT NULL, -- Amount of the payment
-    PaymentDate DATETIME NOT NULL, -- Date and time of the payment
-    BuyerAccountNo INT NOT NULL, -- Account number of the buyer
-    SellerAccountNo INT NOT NULL, -- Account number of the seller
-    PaymentStatus ENUM('Pending', 'Completed', 'Failed') NOT NULL, -- Status of the payment
-    PaymentMethod ENUM('Credit/Debit Card', 'Bank Transfer', 'PayPal', 'Other') NOT NULL, -- Payment method used
-    BankName VARCHAR(50), -- Name of the bank (if applicable)
-    AccountHolderName VARCHAR(50), -- Name of the account holder (if applicable)
-    AccountNumber INT, -- Account number (if applicable)
-    PaymentReference VARCHAR(50), -- Reference for the payment
-    FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE, -- Constraint to ensure the buyer account exists
-    FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE -- Constraint to ensure the seller account exists
+  PaymentID INT AUTO_INCREMENT PRIMARY KEY,
+  Amount DECIMAL(10, 2) NOT NULL,
+  PaymentDate DATETIME NOT NULL,
+  BuyerAccountNo INT NOT NULL,
+  SellerAccountNo INT NOT NULL,
+  PaymentStatus ENUM('Pending', 'Completed', 'Failed') NOT NULL,
+  PaymentMethod ENUM('Credit/Debit Card', 'Bank Transfer', 'PayPal', 'Other') NOT NULL,
+  PaymentReference VARCHAR(50),
+  UserID INT,
+  FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
+  FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
 -- Transaction Table
