@@ -64,7 +64,7 @@ public class ShowUsers extends JPanel {
     } 
     
     public ArrayList<Object[]> users(){
-            UserDAO userdao = new UserDAOImplementation();
+            UserDAO userdao = new UserDAO();
             ArrayList<Object[]> userslist = new ArrayList<Object[]>();
             java.util.List<User> users = new ArrayList<>();
         try {

@@ -21,7 +21,6 @@ public class AdminFrame extends JFrame {
     public ShowUsers users;
     public ShowItems items;
     public SoldItems slitems;
-    public AddItem additem;
     public StartAuction start;
 
     AdminFrame() throws SQLException {
@@ -55,7 +54,6 @@ public class AdminFrame extends JFrame {
         users = new ShowUsers();
         items = new ShowItems();
         slitems = new SoldItems();
-        additem = new AddItem();
         start = new StartAuction();
 
         home = new JPanel();
@@ -63,8 +61,6 @@ public class AdminFrame extends JFrame {
         home.add(labelh);
         contentpanel.add(home);
         home.setVisible(true);
-        contentpanel.add(additem);
-        additem.setVisible(false);
         contentpanel.add(items);
         items.setVisible(false);
         contentpanel.add(start);
@@ -80,7 +76,6 @@ public class AdminFrame extends JFrame {
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
 
         butt_home = CustomButton("Home");
-        butt_add_item = CustomButton("Add Item");
         butt_show_item = CustomButton("Show Item");
         butt_start_auction = CustomButton("Start Auction");
         butt_cust = CustomButton("Show Customers");
@@ -92,7 +87,6 @@ public class AdminFrame extends JFrame {
         butt_home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 home.setVisible(true);
-                additem.setVisible(false);
                 start.setVisible(false);
                 users.setVisible(false);
                 slitems.setVisible(false);
@@ -100,23 +94,11 @@ public class AdminFrame extends JFrame {
             }
         });
 
-        buttons.add(butt_add_item);
-        butt_add_item.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                home.setVisible(false);
-                additem.setVisible(true);
-                start.setVisible(false);
-                users.setVisible(false);
-                slitems.setVisible(false);
-                items.setVisible(false);
-            }
-        });
 
         buttons.add(butt_show_item);
         butt_show_item.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-                additem.setVisible(false);
                 start.setVisible(false);
                 users.setVisible(false);
                 slitems.setVisible(false);
@@ -128,7 +110,6 @@ public class AdminFrame extends JFrame {
         butt_start_auction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-                additem.setVisible(false);
                 start.setVisible(true);
                 users.setVisible(false);
                 slitems.setVisible(false);
@@ -140,7 +121,6 @@ public class AdminFrame extends JFrame {
         butt_cust.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-                additem.setVisible(false);
                 start.setVisible(false);
                 users.setVisible(true);
                 slitems.setVisible(false);
@@ -152,7 +132,6 @@ public class AdminFrame extends JFrame {
         butt_sold_items.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
-                additem.setVisible(false);
                 start.setVisible(false);
                 users.setVisible(false);
                 slitems.setVisible(true);
@@ -175,7 +154,7 @@ public class AdminFrame extends JFrame {
             }
         });
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             buttons.get(i).setBounds(0, i * 55, 300, 50);
             controlpanel.add(buttons.get(i));
         }

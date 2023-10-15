@@ -41,7 +41,7 @@ public class Seller{
     }
 
     public void addItem(Item item) throws SQLException {
-        ItemDAO itemDAO = new ItemDAOImplementation();
+        ItemDAO itemDAO = new ItemDAO();
         itemDAO.insert(item);
     }
 }

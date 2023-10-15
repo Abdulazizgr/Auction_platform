@@ -2,6 +2,8 @@ import java.sql.Timestamp;
 
 public class Item {
     private int ItemID;
+    private int SellerID;
+    private int BuyerID;
     private String Title;
     private String Description;
     private String ImagePath;
@@ -14,7 +16,7 @@ public class Item {
 
     public Item(int itemID,String title, String description, String Path, String category,
             double startPrice,
-            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2) {
+            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2, int SellerID) {
         ItemID = itemID;
         Title = title;
         Description = description;
@@ -107,10 +109,31 @@ public class Item {
     public void setCategory(String category) {
         Category = category;
     }
+     public int getSellerID() {
+        return SellerID;
+    }
+
+    public void setSellerID(int sellerID) {
+        SellerID = sellerID;
+    }
+
+    public void setImagePath(String imagePath) {
+        ImagePath = imagePath;
+    }
+     public int getBuyerID() {
+        return BuyerID;
+    }
+
+    public void setBuyerID(int buyerID) {
+        BuyerID = buyerID;
+    }
+
+
+
 
     @Override
     public String toString() {
-        return "Item [ItemID=" + ItemID + ", Title=" + Title + ", Description=" + Description
+        return "Item [ItemID=" + ItemID + " , SellerID="+ SellerID + " , BuyerID="+BuyerID+" , Title=" + Title + ", Description=" + Description
                 +
                 ", Image=" + ImagePath + ", Category=" + Category + ", StartProe=" + StartPrice + ", CurrentBid="
                 + CurrentBid + ", AuctionStatus="

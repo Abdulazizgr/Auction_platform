@@ -1,4 +1,4 @@
-// this is the data object  for the entity user
+
 public class User {
     private int UserID;
     private String FirstName;
