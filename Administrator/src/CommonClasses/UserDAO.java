@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class UserDAO implements DAO<User> {
     @Override
-    
+
     public int delete(User t) throws SQLException {
         Connection con = Database.getConnection();
         String sql = "delete from Users where UserID = ?";
@@ -44,10 +44,10 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public List<User> getAll() throws SQLException{
+    public List<User> getAll() throws SQLException {
         List<User> users = new ArrayList<User>();
-         Connection con = Database.getConnection();
-          String sql = "select * from Users";
+        Connection con = Database.getConnection();
+        String sql = "select * from Users";
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

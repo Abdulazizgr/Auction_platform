@@ -1,3 +1,5 @@
+package Admin;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -94,7 +96,6 @@ public class AdminFrame extends JFrame {
             }
         });
 
-
         buttons.add(butt_show_item);
         butt_show_item.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -143,7 +144,7 @@ public class AdminFrame extends JFrame {
         butt_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                ///AdminLogin login;
+                /// AdminLogin login;
                 try {
                     // login = new AdminLogin();
                     // login.setVisible(true);

@@ -1,4 +1,5 @@
 package Admin;
+
 import CommonClasses.*;
 import java.awt.Color;
 import java.awt.Component;
@@ -48,7 +49,7 @@ public class SoldItems extends JPanel {
         setLayout(null);
         setBounds(0, 0, 1060, 564);
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
-        String[] column = { "ID", "Item Name", "Description", "Image", "SellerName","Buyer Name", "StartPrice" };
+        String[] column = { "ID", "Item Name", "Description", "Image", "SellerName", "Buyer Name", "StartPrice" };
         itemslist = items();
         model = new DefaultTableModel(itemslist.size(), 7);
         model.setColumnIdentifiers(column);
@@ -66,7 +67,7 @@ public class SoldItems extends JPanel {
             table.setValueAt(userdata[6], i, 6);
             i++;
         }
-        setColumnsWidth(table, 1060, 5, 15, 15, 30, 15, 10,10);
+        setColumnsWidth(table, 1060, 5, 15, 15, 30, 15, 10, 10);
         table.setFont(new Font("Arial", Font.PLAIN, 15));
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
         Dimension d = table.getPreferredSize();
@@ -77,7 +78,8 @@ public class SoldItems extends JPanel {
 
     }
 
-    // ===================================== a 2 dimensional array of items =========================
+    // ===================================== a 2 dimensional array of items
+    // =========================
     public ArrayList<String[]> items() throws SQLException {
         ItemDAO itemdao = new ItemDAO();
         UserDAO userdao = new UserDAO();
@@ -92,22 +94,25 @@ public class SoldItems extends JPanel {
         }
         int i = 0;
         for (Item item : items) {
-            if(item.getAuctionStatus().equals("Sold")){ 
-            itemslist.add(new String[6]);
-            itemslist.get(i)[0] = (item.getItemID() + "");
-            itemslist.get(i)[1] = (item.getTitle());
-            itemslist.get(i)[2] = (item.getDescription());
-            itemslist.get(i)[3] = (item.getImagePath());
-            itemslist.get(i)[4] = userdao.get(item.getUserID()).getFirstName();
-            itemslist.get(i)[5] = userdao.get(biddao.get(buyerdao.get((item.())).getBidID()).getUserID()).getFirstName();
-            itemslist.get(i)[6] = (item.getStartPrice()) + "";
-            i++;}
+            if (item.getAuctionStatus().equals("Sold")) {
+                itemslist.add(new String[6]);
+                itemslist.get(i)[0] = (item.getItemID() + "");
+                itemslist.get(i)[1] = (item.getTitle());
+                itemslist.get(i)[2] = (item.getDescription());
+                itemslist.get(i)[3] = (item.getImagePath());
+                itemslist.get(i)[4] = userdao.get(item.getUserID()).getFirstName();
+                // itemslist.get(i)[5] =
+                // userdao.get(biddao.get(buyerdao.get((item.())).getBidID()).getUserID()).getFirstName();
+                itemslist.get(i)[6] = (item.getStartPrice()) + "";
+                i++;
+            }
         }
         return itemslist;
     }
 
     // ====================================================================================================
-    // ====================================table image renderer================================================================
+    // ====================================table image
+    // renderer================================================================
     class ImageTableCellRenderer extends DefaultTableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -145,7 +150,8 @@ public class SoldItems extends JPanel {
     }
     // ==========================================================================================================//
 
-    // ========================================table column configuration==================================//
+    // ========================================table column
+    // configuration==================================//
     public static void setColumnsWidth(JTable table, int tablePreferredWidth,
             double... percentages) {
         double total = 0;

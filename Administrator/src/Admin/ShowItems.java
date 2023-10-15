@@ -1,4 +1,5 @@
 package Admin;
+
 import CommonClasses.*;
 import java.awt.Color;
 import java.awt.Component;
@@ -76,7 +77,8 @@ public class ShowItems extends JPanel {
 
     }
 
-    // ===================================== a 2 dimensional array of items =========================
+    // ===================================== a 2 dimensional array of items
+    // =========================
     public ArrayList<String[]> items() throws SQLException {
         ItemDAO itemdao = new ItemDAO();
         UserDAO userdao = new UserDAO();
@@ -89,22 +91,24 @@ public class ShowItems extends JPanel {
         }
         int i = 0;
         for (Item item : items) {
-            if(item.getAuctionStatus().equals("Active")){ 
-            itemslist.add(new String[6]);
-            itemslist.get(i)[0] = (item.getItemID() + "");
-            itemslist.get(i)[1] = (item.getTitle());
-            itemslist.get(i)[2] = (item.getDescription());
-            itemslist.get(i)[3] = (item.getImagePath());
-            itemslist.get(i)[4] = userdao.get(item.getUserID())
-                    .getFirstName();
-            itemslist.get(i)[5] = (item.getStartPrice()) + "";
-            i++;}
+            if (item.getAuctionStatus().equals("Active")) {
+                itemslist.add(new String[6]);
+                itemslist.get(i)[0] = (item.getItemID() + "");
+                itemslist.get(i)[1] = (item.getTitle());
+                itemslist.get(i)[2] = (item.getDescription());
+                itemslist.get(i)[3] = (item.getImagePath());
+                itemslist.get(i)[4] = userdao.get(item.getUserID())
+                        .getFirstName();
+                itemslist.get(i)[5] = (item.getStartPrice()) + "";
+                i++;
+            }
         }
         return itemslist;
     }
 
     // ====================================================================================================
-    // ====================================table image renderer================================================================
+    // ====================================table image
+    // renderer================================================================
     class ImageTableCellRenderer extends DefaultTableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -142,7 +146,8 @@ public class ShowItems extends JPanel {
     }
     // ==========================================================================================================//
 
-    // ========================================table column configuration==================================//
+    // ========================================table column
+    // configuration==================================//
     public static void setColumnsWidth(JTable table, int tablePreferredWidth,
             double... percentages) {
         double total = 0;

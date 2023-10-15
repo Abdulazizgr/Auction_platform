@@ -1,3 +1,5 @@
+package Admin;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,28 +13,30 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class StartAuction extends JPanel {
-	public JButton btnStartAuction;
+    public JButton btnStartAuction;
     private Start start;
-	
-	public StartAuction(){
-		setLayout(null);
+
+    public StartAuction() {
+        setLayout(null);
         setBounds(0, 0, 1060, 564);
-		
-		start=new Start();
-		add(start);
-		start.setVisible(false);
-		
-		btnStartAuction = CustomButton("Start Auction");
-		btnStartAuction.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnStartAuction.setVisible(false);
+
+        start = new Start();
+        add(start);
+        start.setVisible(false);
+
+        btnStartAuction = CustomButton("Start Auction");
+        btnStartAuction.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btnStartAuction.setVisible(false);
                 start.setVisible(true);
-				
-		}});
-		btnStartAuction.setBounds(355, 230, 266, 57);
-		add(btnStartAuction);
-	}
-	 public JButton CustomButton(String text) {
+
+            }
+        });
+        btnStartAuction.setBounds(355, 230, 266, 57);
+        add(btnStartAuction);
+    }
+
+    public JButton CustomButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 25));
         button.setBackground(new Color(35, 59, 97));
@@ -53,4 +57,4 @@ public class StartAuction extends JPanel {
         return button;
     }
 
-	}
+}

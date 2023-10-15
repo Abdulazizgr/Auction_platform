@@ -1,12 +1,17 @@
 package CommonClasses;
 
 import java.sql.Timestamp;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.crypto.Data;
+
+import com.mysql.cj.jdbc.CallableStatement;
 
 public class ItemDAO implements DAO<Item> {
 
@@ -32,7 +37,7 @@ public class ItemDAO implements DAO<Item> {
             Timestamp EndDate = rs.getTimestamp("EndDate");
             int UserID = rs.getInt("ItemID");
             item = new Item(ItemID, Title, Description, imagePath, Category, Startprice, CurrentBid,
-                    AuctionStatus, StartDate, EndDate,UserID,ItemState);
+                    AuctionStatus, StartDate, EndDate, UserID, ItemState);
         }
 
         return item;
@@ -41,8 +46,8 @@ public class ItemDAO implements DAO<Item> {
     @Override
     public List<Item> getAll() throws SQLException {
         List<Item> items = new ArrayList<Item>();
-         Connection con = Database.getConnection();
-          String sql = "select * from Items";
+        Connection con = Database.getConnection();
+        String sql = "select * from Item";
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -60,7 +65,7 @@ public class ItemDAO implements DAO<Item> {
             Timestamp EndDate = rs.getTimestamp("EndDate");
             int UserID = rs.getInt("ItemID");
             item = new Item(ItemID, Title, Description, imagePath, Category, Startprice, CurrentBid,
-                    AuctionStatus, StartDate, EndDate,UserID,ItemState);
+                    AuctionStatus, StartDate, EndDate, UserID, ItemState);
             items.add(item);
         }
         return items;
@@ -83,9 +88,32 @@ public class ItemDAO implements DAO<Item> {
         ps.setTimestamp(10, t.getEndDate());
         ps.setInt(11, t.getUserID());
         int result = ps.executeUpdate();
+
+        ResultSet generatedKeys = ps.getGeneratedKeys();
+        int itemID = -1;
+        if (generatedKeys.next()) {
+            itemID = generatedKeys.getInt(1);
+        }
+
+        // Database.closeResultSet(generatedKeys);
         Database.closePreparedStatement(ps);
         Database.closeConnection(con);
+
+        if (itemID != -1) {
+            callAddItemToSeller(itemID, t.getUserID());
+        }
         return result;
+    }
+
+    private void callAddItemToSeller(int itemID, int userID) throws SQLException {
+        Connection con = Database.getConnection();
+        String sql = "CALL AddItemToSeller(?, ?)";
+        java.sql.CallableStatement statement = con.prepareCall(sql);
+        statement.setInt(1, itemID);
+        statement.setInt(2, userID);
+        statement.execute();
+        Database.closePreparedStatement(statement);
+        Database.closeConnection(con);
     }
 
     @Override
