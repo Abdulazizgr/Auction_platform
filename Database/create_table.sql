@@ -130,9 +130,11 @@ CREATE TABLE Transaction (
 CREATE TABLE Taxes (
     TaxID INT PRIMARY KEY, -- Unique identifier for each tax
     SellerID INT, -- Foreign key referencing the SellerID in the Sellers table
+    BuyerID INT, -- Foreign key referencing the BuyerID in the Buyer table
     TaxType VARCHAR(50), -- Type of tax
     TaxAmount DECIMAL(10, 2), -- Amount of tax
-    FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID) ON DELETE CASCADE -- Constraint to ensure the seller exists
+    FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID) ON DELETE CASCADE, -- Constraint to ensure the seller exists
+    FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE -- Constraint to ensure the buyer exists
 );
 
 
