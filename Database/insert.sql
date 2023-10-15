@@ -54,6 +54,13 @@ VALUES
 
 INSERT INTO Admins (FirstName, LastName, Email, Password)
 VALUES ('Abdulaziz', 'Isa', 'abdu1234@gmail.com', 'admin1234');
+INSERT INTO Admins (FirstName, LastName, Email, Password, ItemID)
+VALUES
+('John', 'Doe', 'johndoe@example.com', 'password1', NULL),
+('Jane', 'Smith', 'janesmith@example.com', 'password2', NULL),
+('Michael', 'Johnson', 'michaeljohnson@example.com', 'password3', NULL),
+('Emily', 'Davis', 'emilydavis@example.com', 'password4', NULL),
+('David', 'Wilson', 'davidwilson@example.com', 'password5', NULL);
 
 INSERT INTO BankAccount (UserID, BankName, AccountHolderName, AccountNumber, Balance)
 VALUES
