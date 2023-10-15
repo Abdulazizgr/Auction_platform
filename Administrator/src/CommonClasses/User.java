@@ -1,4 +1,4 @@
-
+package CommonClasses;
 public class User {
     private int UserID;
     private String FirstName;

@@ -26,8 +26,8 @@ public class AdminFrame extends JFrame {
     AdminFrame() throws SQLException {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
-        ImageIcon welcome = new ImageIcon("Administrator/AdminImages/Welcome.jpeg");
-        ImageIcon icon = new ImageIcon("Administrator/AdminImages/auction2.jpg");
+        ImageIcon welcome = new ImageIcon("Administrator/Images/Welcome.jpeg");
+        ImageIcon icon = new ImageIcon("Administrator/Images/auction2.jpg");
         JPanel titlebar = new JPanel(new BorderLayout());
 
         titlebar.setBounds(0, 0, screensize.width, 80);

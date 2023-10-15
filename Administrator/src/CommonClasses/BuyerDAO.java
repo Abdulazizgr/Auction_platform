@@ -1,3 +1,5 @@
+package CommonClasses;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,16 +13,15 @@ public class BuyerDAO implements DAO<Buyer> {
     public Buyer get(int ID) throws SQLException {
       Connection con = Database.getConnection();
         Buyer buyer = null;
-        String sql = "select BidID ,Title ,Description ,ImagePath ,Category ,StartPrice ,CurrentBid ,AuctionStatus ,StartDate ,EndDate from Bid where BidId = ?";
+        String sql = "select BuyerID ,BidID, UserID from Buyer where BuyerId = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, ID);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             int BuyerID = rs.getInt("BuyerID");
             int BidID = rs.getInt("BidID");
-            buyer = new Buyer();
-            buyer.setBidID(BidID);
-            buyer.setBuyerID(BuyerID);
+            int UserID = rs.getInt("UserID");
+            buyer = new Buyer(BuyerID,BidID,UserID);
         }
         return buyer;
     }
@@ -35,10 +36,9 @@ public class BuyerDAO implements DAO<Buyer> {
         while (rs.next()) {
             Buyer buyer = null;
             int BuyerID = rs.getInt("BuyerID");
-            int BidID = rs.getInt("BidID");
-            buyer = new Buyer();
-            buyer.setBidID(BidID);
-            buyer.setBuyerID(BuyerID);
+            int ItemID = rs.getInt("ItemID");
+            int UserID = rs.getInt("UserID");
+            buyer = new Buyer(BuyerID, ItemID, UserID);
             buyers.add(buyer);
 
         }

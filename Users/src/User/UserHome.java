@@ -26,12 +26,11 @@ public class UserHome extends JFrame {
     private JPanel content_panel;
     public JLabel firstlabel;
     public JLabel flabel;
-
     UserHome() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
-        ImageIcon homepage = new ImageIcon("Administrator/AdminImages/Welcome.jpeg");
-        ImageIcon icon = new ImageIcon("Administrator/AdminImages/auction2.jpg");
+        ImageIcon homepage = new ImageIcon("Users/images/Welcome.jpeg");
+        ImageIcon icon = new ImageIcon("Users/images/auction2.jpg");
         JPanel title_bar = new JPanel(new BorderLayout());
 
         title_bar.setBounds(0, 0, screensize.width, 80);
@@ -48,7 +47,7 @@ public class UserHome extends JFrame {
         content_panel = new JPanel();
         content_panel.setLayout(null);
         content_panel.setBackground(new Color(167, 192, 232));
-        content_panel.setPreferredSize(new Dimension(500, 1280));
+        content_panel.setPreferredSize(new Dimension(1060, 500));
 
         JPanel control_Panel = new JPanel();
         control_Panel.setBackground(new Color(167, 192, 232));

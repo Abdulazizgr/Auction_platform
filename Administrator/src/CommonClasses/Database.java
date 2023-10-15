@@ -1,3 +1,5 @@
+package CommonClasses;
+
 import java.sql.*;
 
 // this class covers database connection

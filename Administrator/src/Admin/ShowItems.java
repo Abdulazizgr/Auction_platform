@@ -1,3 +1,5 @@
+package Admin;
+import CommonClasses.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -93,7 +95,7 @@ public class ShowItems extends JPanel {
             itemslist.get(i)[1] = (item.getTitle());
             itemslist.get(i)[2] = (item.getDescription());
             itemslist.get(i)[3] = (item.getImagePath());
-            itemslist.get(i)[4] = userdao.get(item.getSellerID())
+            itemslist.get(i)[4] = userdao.get(item.getUserID())
                     .getFirstName();
             itemslist.get(i)[5] = (item.getStartPrice()) + "";
             i++;}

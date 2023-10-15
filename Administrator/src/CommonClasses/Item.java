@@ -1,32 +1,36 @@
+package CommonClasses;
+
 import java.sql.Timestamp;
 
 public class Item {
     private int ItemID;
-    private int SellerID;
-    private int BuyerID;
     private String Title;
     private String Description;
     private String ImagePath;
+    private String ItemState;
     private String Category;
     private double StartPrice;
     private double CurrentBid;
     private String AuctionStatus;
     private Timestamp StartDate;
     private Timestamp EndDate;
+    private int UserID;
 
     public Item(int itemID,String title, String description, String Path, String category,
             double startPrice,
-            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2, int SellerID) {
-        ItemID = itemID;
-        Title = title;
-        Description = description;
-        ImagePath = Path;
-        Category = category;
-        StartPrice = startPrice;
-        CurrentBid = currentBid;
-        AuctionStatus = auctionStatus;
-        StartDate = startDate2;
-        EndDate = endDate2;
+            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2,int UserID,String ItemState) {
+        this.ItemID = itemID;
+        this.Title = title;
+        this.Description = description;
+        this.ImagePath = Path;
+        this.ItemState = ItemState;
+        this.Category = category;
+        this.StartPrice = startPrice;
+        this.CurrentBid = currentBid;
+        this.AuctionStatus = auctionStatus;
+        this.StartDate = startDate2;
+        this.EndDate = endDate2;
+        this.UserID = UserID;
     }
 
     public int getItemID() {
@@ -109,31 +113,22 @@ public class Item {
     public void setCategory(String category) {
         Category = category;
     }
-     public int getSellerID() {
-        return SellerID;
-    }
-
-    public void setSellerID(int sellerID) {
-        SellerID = sellerID;
-    }
-
     public void setImagePath(String imagePath) {
         ImagePath = imagePath;
     }
-     public int getBuyerID() {
-        return BuyerID;
+     public int getUserID() {
+        return UserID;
     }
 
-    public void setBuyerID(int buyerID) {
-        BuyerID = buyerID;
+      public String getItemState() {
+        return ItemState;
     }
-
 
 
 
     @Override
     public String toString() {
-        return "Item [ItemID=" + ItemID + " , SellerID="+ SellerID + " , BuyerID="+BuyerID+" , Title=" + Title + ", Description=" + Description
+        return "Item [ItemID=" + ItemID + " , Title=" + Title + ", Description=" + Description
                 +
                 ", Image=" + ImagePath + ", Category=" + Category + ", StartProe=" + StartPrice + ", CurrentBid="
                 + CurrentBid + ", AuctionStatus="
