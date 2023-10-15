@@ -12,7 +12,6 @@ import javax.swing.event.ChangeListener;
 
 public class StartAuction extends JPanel {
 	public JButton btnStartAuction;
-	public boolean status,flag=false;
     private Start start;
 	
 	public StartAuction(){

@@ -1,5 +1,3 @@
-package Users;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import javax.swing.border.Border;
@@ -9,8 +7,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.*;
-
-import DAO.User;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,7 +48,7 @@ public class UserHome extends JFrame {
         content_panel = new JPanel();
         content_panel.setLayout(null);
         content_panel.setBackground(new Color(167, 192, 232));
-        content_panel.setPreferredSize(new Dimension(1060, 500));
+        content_panel.setPreferredSize(new Dimension(500, 1280));
 
         JPanel control_Panel = new JPanel();
         control_Panel.setBackground(new Color(167, 192, 232));
@@ -67,7 +63,12 @@ public class UserHome extends JFrame {
             e.printStackTrace();
         }
         pur_chase = new Purchase();
-        show_items = new ShowItems();
+        try {
+            show_items = new ShowItems();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         sold_items = new soldItems();
 
         home_Panel = new JPanel();
@@ -141,7 +142,6 @@ public class UserHome extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 home_Panel.setVisible(false);
                 per_detail.setVisible(false);
-                show_items.setVisible(false);
                 show_items.setVisible(true);
                 my_order.setVisible(false);
                 sold_items.setVisible(false);
@@ -256,7 +256,7 @@ public class UserHome extends JFrame {
         return cbuttons;
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         new UserHome();
 
     }

@@ -143,10 +143,10 @@ public class AdminFrame extends JFrame {
         butt_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                AdminLogin login;
+                ///AdminLogin login;
                 try {
-                    login = new AdminLogin();
-                    login.setVisible(true);
+                    // login = new AdminLogin();
+                    // login.setVisible(true);
                 } catch (Exception e2) {
                     e2.printStackTrace();
                 }

@@ -1,5 +1,3 @@
-package Users;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import javax.swing.border.Border;
@@ -14,8 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import DAO.*;
-
 public class PersonalDetail extends JPanel {
     public JLabel Intro, fname, lname, e_mail, reg_date, fanswer, lanswer, eanswer, ranswer;
     public String ffname, llname, ee_mail, rreg_date;
@@ -28,7 +24,7 @@ public class PersonalDetail extends JPanel {
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
 
         u = null;
-        udao = new UserDAOImplementation();
+        udao = new UserDAO();
         u = udao.get(ID);
         ffname = u.getFirstName();
         llname = u.getLastName();
