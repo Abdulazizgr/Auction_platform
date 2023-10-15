@@ -118,3 +118,44 @@ VALUES
 
 
 
+INSERT INTO Item (Title, Description, ImagePath, ItemState, Category, StartPrice, CurrentBid, AuctionStatus, StartDate, EndDate, UserID)
+VALUES
+('iPhone 12 Pro', 'Description for iPhone 12 Pro', '/images/iphone12pro.jpg', 1, 'Electronics', 999.99, 999.99, 'Active', NOW(), NOW(), 1),
+('Samsung Galaxy S21', 'Description for Samsung Galaxy S21', '/images/galaxys21.jpg', 1, 'Electronics', 899.99, 899.99, 'Active', NOW(), NOW(), 2),
+('Nike Air Max', 'Description for Nike Air Max', '/images/airmax.jpg', 1, 'Footwear', 129.99, 129.99, 'Active', NOW(), NOW(), 3),
+('Sony PlayStation 5', 'Description for Sony PlayStation 5', '/images/ps5.jpg', 1, 'Electronics', 499.99, 499.99, 'Active', NOW(), NOW(), 4),
+('Levi\'s Jeans', 'Description for Levi\'s Jeans', '/images/levisjeans.jpg', 1, 'Apparel', 79.99, 79.99, 'Active', NOW(), NOW(), 5),
+('Canon EOS R5', 'Description for Canon EOS R5', '/images/eosr5.jpg', 1, 'Electronics', 3499.99, 3499.99, 'Active', NOW(), NOW(), 6),
+('Apple Watch Series 6', 'Description for Apple Watch Series 6', '/images/applewatch.jpg', 1, 'Electronics', 399.99, 399.99, 'Active', NOW(), NOW(), 7),
+('Adidas Ultraboost', 'Description for Adidas Ultraboost', '/images/ultraboost.jpg', 1, 'Footwear', 169.99, 169.99, 'Active', NOW(), NOW(), 8),
+('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '/images/samsungtv.jpg', 1, 'Electronics', 899.99, 899.99, 'Active', NOW(), NOW(), 9),
+('Coach Handbag', 'Description for Coach Handbag', '/images/coachhandbag.jpg', 1, 'Accessories', 249.99, 249.99, 'Active', NOW(), NOW(), 10);
+
+
+INSERT INTO Bid (ItemID, UserID, BidAmount, MinIncrement, BidTime)
+VALUES 
+    (1, 1, 100.00, 10.00, '2022-01-01 09:00:00'),
+    (2, 2, 150.00, 10.00, '2022-01-02 10:00:00'),
+    (3, 3, 200.00, 20.00, '2022-01-03 11:00:00'),
+    (4, 4, 250.00, 10.00, '2022-01-04 12:00:00'),
+    (5, 5, 300.00, 10.00, '2022-01-05 13:00:00'),
+    (6, 6, 350.00, 20.00, '2022-01-06 14:00:00'),
+    (7, 7, 400.00, 10.00, '2022-01-07 15:00:00'),
+    (8, 8, 450.00, 10.00, '2022-01-08 16:00:00'),
+    (9, 9, 500.00, 20.00, '2022-01-09 17:00:00'),
+    (10, 10, 550.00, 10.00, '2022-01-10 18:00:00');
+
+
+INSERT INTO Notification (SellerID, BuyerID, MessageType, SellerMessage, BuyerMessage, Timestamp)
+VALUES
+(1, 1, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(2, 2, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(3, 3, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(4, 4, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(5, 5, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(6, 6, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(7, 7, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(8, 8, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(9, 9, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
+(10, 10, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW());
+
