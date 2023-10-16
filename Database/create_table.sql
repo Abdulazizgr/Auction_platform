@@ -105,10 +105,8 @@ CREATE TABLE Payment (
   PaymentStatus ENUM('Pending', 'Completed', 'Failed') NOT NULL,
   PaymentMethod ENUM('Credit/Debit Card', 'Bank Transfer', 'PayPal', 'Other') NOT NULL,
   PaymentReference VARCHAR(50),
-  UserID INT,
   FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
-  FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
-  FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+  FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE
 );
 
 -- Transaction Table
