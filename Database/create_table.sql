@@ -4,7 +4,7 @@
 -- Users Table
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each user
-    FirstName VARCHAR(50) NOT NULL, -- First name of the user
+    FirstName VARCHAR(50) NOT NULL UNIQUE, -- First name of the user
     LastName VARCHAR(50) NOT NULL, -- Last name of the user
     Email VARCHAR(50) NOT NULL UNIQUE, -- Email address of the user (must be unique)
     Password VARCHAR(50) NOT NULL, -- Password of the user
