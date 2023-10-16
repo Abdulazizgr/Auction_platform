@@ -118,18 +118,18 @@ VALUES
 
 
 
-INSERT INTO Item (Title, Description, ImagePath, ItemState, Category, StartPrice, CurrentBid, AuctionStatus, StartDate, EndDate, UserID)
+INSERT INTO Item (Title, Description, ImagePath, ItemState, Category, StartPrice, AuctionStatus, StartDate, UserID)
 VALUES
-('iPhone 12 Pro', 'Description for iPhone 12 Pro', '/images/iphone12pro.jpg', 1, 'Electronics', 999.99, 999.99, 'Active', NOW(), NOW(), 1),
-('Samsung Galaxy S21', 'Description for Samsung Galaxy S21', '/images/galaxys21.jpg', 1, 'Electronics', 899.99, 899.99, 'Active', NOW(), NOW(), 2),
-('Nike Air Max', 'Description for Nike Air Max', '/images/airmax.jpg', 1, 'Footwear', 129.99, 129.99, 'Active', NOW(), NOW(), 3),
-('Sony PlayStation 5', 'Description for Sony PlayStation 5', '/images/ps5.jpg', 1, 'Electronics', 499.99, 499.99, 'Active', NOW(), NOW(), 4),
-('Levi\'s Jeans', 'Description for Levi\'s Jeans', '/images/levisjeans.jpg', 1, 'Apparel', 79.99, 79.99, 'Active', NOW(), NOW(), 5),
-('Canon EOS R5', 'Description for Canon EOS R5', '/images/eosr5.jpg', 1, 'Electronics', 3499.99, 3499.99, 'Active', NOW(), NOW(), 6),
-('Apple Watch Series 6', 'Description for Apple Watch Series 6', '/images/applewatch.jpg', 1, 'Electronics', 399.99, 399.99, 'Active', NOW(), NOW(), 7),
-('Adidas Ultraboost', 'Description for Adidas Ultraboost', '/images/ultraboost.jpg', 1, 'Footwear', 169.99, 169.99, 'Active', NOW(), NOW(), 8),
-('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '/images/samsungtv.jpg', 1, 'Electronics', 899.99, 899.99, 'Active', NOW(), NOW(), 9),
-('Coach Handbag', 'Description for Coach Handbag', '/images/coachhandbag.jpg', 1, 'Accessories', 249.99, 249.99, 'Active', NOW(), NOW(), 10);
+  ('iPhone 12 Pro', 'Description for iPhone 12 Pro', '/images/iphone12pro.jpg', 1, 'Electronics', 999.99, 'Active', NOW(), 1),
+  ('Samsung Galaxy S21', 'Description for Samsung Galaxy S21', '/images/galaxys21.jpg', 1, 'Electronics', 899.99, 'Active', NOW(), 2),
+  ('Nike Air Max', 'Description for Nike Air Max', '/images/airmax.jpg', 1, 'Footwear', 129.99, 'Active', NOW(), 3),
+  ('Sony PlayStation 5', 'Description for Sony PlayStation 5', '/images/ps5.jpg', 1, 'Electronics', 499.99, 'Active', NOW(), 4),
+  ('Levi\'s Jeans', 'Description for Levi\'s Jeans', '/images/levisjeans.jpg', 1, 'Apparel', 79.99, 'Sold', NOW(), 5),
+  ('Canon EOS R5', 'Description for Canon EOS R5', '/images/eosr5.jpg', 1, 'Electronics', 3499.99, 'Sold', NOW(), 6),
+  ('Apple Watch Series 6', 'Description for Apple Watch Series 6', '/images/applewatch.jpg', 1, 'Electronics', 399.99, 'Expired', NOW(), 7),
+  ('Adidas Ultraboost', 'Description for Adidas Ultraboost', '/images/ultraboost.jpg', 1, 'Footwear', 169.99, 'Expired', NOW(), 8),
+  ('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '/images/samsungtv.jpg', 1, 'Electronics', 899.99, 'Sold', NOW(), 9),
+  ('Coach Handbag', 'Description for Coach Handbag', '/images/coachhandbag.jpg', 1, 'Accessories', 249.99, 'Sold', NOW(), 10);
 
 
 INSERT INTO Bid (ItemID, UserID, BidAmount, MinIncrement, BidTime)
