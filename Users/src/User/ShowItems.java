@@ -67,6 +67,7 @@ public class ShowItems extends JPanel {
             i++;
         }
         setColumnsWidth(table, 1060, 5, 15, 20, 30, 20, 10);
+        table.setRowHeight(100);
         table.setFont(new Font("Arial", Font.PLAIN, 15));
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
         Dimension d = table.getPreferredSize();
@@ -116,7 +117,7 @@ public class ShowItems extends JPanel {
                 int row, int column) {
             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            if (value instanceof File) {
+            if (value instanceof String) {
                 String imagePath = (String) value;
                 try {
                     // Read the image file and create an ImageIcon

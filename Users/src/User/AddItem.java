@@ -51,51 +51,50 @@ public class AddItem extends JPanel {
         Intro_FIll.setForeground(Color.white);
         Intro_FIll.setHorizontalAlignment(JLabel.CENTER);
         Intro_FIll.setBorder(glassyBorder);
-        Intro_FIll.setBounds(100, 50, 500, 50);
+        Intro_FIll.setBounds(250, 50, 500, 50);
 
         add(Intro_FIll);
         setLayout(null);
         setBounds(0, 0, 1060, 564);
 
         Item_Name = new JLabel("Item Name");
-        Item_Name.setBounds(50, 150, 100, 30);
+        Item_Name.setBounds(200, 150, 100, 30);
         add(Item_Name);
 
         getitem = new JTextField();
-        getitem.setBounds(150, 150, 300, 30);
+        getitem.setBounds(300, 150, 300, 30);
         add(getitem);
 
-        first_name = new JLabel("First Name");
-        first_name.setBounds(50, 200, 100, 30);
+        first_name = new JLabel("Description");
+        first_name.setBounds(200, 200, 100, 30);
         add(first_name);
 
         getfirst = new JTextField();
-        getfirst.setBounds(150, 200, 300, 30);
+        getfirst.setBounds(300, 200, 300, 30);
         add(getfirst);
 
-        last_name = new JLabel("Last Name");
-        last_name.setBounds(50, 250, 100, 30);
+        last_name = new JLabel("Category");
+        last_name.setBounds(200, 250, 100, 30);
         add(last_name);
 
         getlast = new JTextField();
-        getlast.setBounds(150, 250, 300, 30);
+        getlast.setBounds(300, 250, 300, 30);
         add(getlast);
 
         Reserve_Price = new JLabel("Reserve Price");
-        Reserve_Price.setBounds(50, 300, 100, 30);
+        Reserve_Price.setBounds(200, 300, 100, 30);
         add(Reserve_Price);
 
         getreserve = new JTextField();
-        getreserve.setBounds(150, 300, 300, 30);
+        getreserve.setBounds(300, 300, 300, 30);
         add(getreserve);
 
         Image_Path = new JLabel("Image Path");
-        Image_Path.setBounds(50, 350, 100, 30);
+        Image_Path.setBounds(200, 350, 100, 30);
         add(Image_Path);
 
         lblSelected = new JLabel("Selected");
         lblSelected.setForeground(new Color(0, 128, 0));
-        lblSelected.setIcon(new ImageIcon("/home/ashish/Downloads/mark.png"));
         lblSelected.setBounds(534, 381, 121, 43);
         lblSelected.setVisible(false);
         add(lblSelected);
@@ -120,7 +119,7 @@ public class AddItem extends JPanel {
         get_image.setForeground(Color.white);
         get_image.setHorizontalAlignment(JLabel.CENTER);
         get_image.setBorder(glassyBorder);
-        get_image.setBounds(150, 350, 300, 30);
+        get_image.setBounds(350, 350, 300, 30);
         get_image.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent Ac_ev) {
                 status = file_chooser.showOpenDialog(null);
@@ -171,15 +170,20 @@ public class AddItem extends JPanel {
         butt_additem.setForeground(Color.white);
         butt_additem.setHorizontalAlignment(JLabel.CENTER);
         butt_additem.setBorder(glassyBorder);
-        butt_additem.setBounds(150, 400, 150, 50);
+        butt_additem.setBounds(300, 400, 150, 50);
         add(butt_additem);
 
         butt_additem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                Item i_tem = new Item(getitem.getText(), "General", path, "Electronics",
+                Item i_tem = new Item(getitem.getText(), getfirst.getText(), path, getlast.getText(),
                         Double.parseDouble(getreserve.getText()), "Active",
                         1);
 
+                getitem.setText("");
+                get_image.setText("");
+                getreserve.setText("");
+                getfirst.setText("");
+                getlast.setText("");
                 ItemDAO in = new ItemDAO();
                 try {
                     in.insert(i_tem);
