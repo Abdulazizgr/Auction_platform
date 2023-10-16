@@ -54,13 +54,13 @@ VALUES
 
 INSERT INTO Admins (FirstName, LastName, Email, Password)
 VALUES ('Abdulaziz', 'Isa', 'abdu1234@gmail.com', 'admin1234');
-INSERT INTO Admins (FirstName, LastName, Email, Password, ItemID)
+INSERT INTO Admins (FirstName, LastName, Email, Password)
 VALUES
-('John', 'Doe', 'johndoe@example.com', 'password1', NULL),
-('Jane', 'Smith', 'janesmith@example.com', 'password2', NULL),
-('Michael', 'Johnson', 'michaeljohnson@example.com', 'password3', NULL),
-('Emily', 'Davis', 'emilydavis@example.com', 'password4', NULL),
-('David', 'Wilson', 'davidwilson@example.com', 'password5', NULL);
+('John', 'Doe', 'johndoe@example.com', 'password1'),
+('Jane', 'Smith', 'janesmith@example.com', 'password2'),
+('Michael', 'Johnson', 'michaeljohnson@example.com', 'password3'),
+('Emily', 'Davis', 'emilydavis@example.com', 'password4'),
+('David', 'Wilson', 'davidwilson@example.com', 'password5');
 
 INSERT INTO BankAccount (UserID, BankName, AccountHolderName, AccountNumber, Balance)
 VALUES
@@ -158,4 +158,3 @@ VALUES
 (8, 8, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
 (9, 9, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
 (10, 10, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW());
-
