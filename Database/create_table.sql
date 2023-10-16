@@ -39,13 +39,12 @@ CREATE TABLE Sellers (
 
 -- Admins Table
 CREATE TABLE Admins (
-    AdminID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each admin
-    FirstName VARCHAR(50) NOT NULL, -- First name of the admin
-    LastName VARCHAR(50) NOT NULL, -- Last name of the admin
-    Email VARCHAR(50) NOT NULL UNIQUE, -- Email address of the admin (must be unique)
-    Password VARCHAR(50) NOT NULL, -- Password of the admin
-    RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Date and time when the admin registered
-
+    AdminID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL UNIQUE,
+    Password VARCHAR(50) NOT NULL,
+    RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Buyer Table
