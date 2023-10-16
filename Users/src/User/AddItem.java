@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
+
 import javax.swing.Timer;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,6 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.BorderUIResource;
+
+import Commonclasses.ItemDAO;
+import Commonclasses.Item;
+import Commonclasses.*;
 
 public class AddItem extends JPanel {
     public JLabel Intro_FIll, Item_Name, first_name, last_name, Reserve_Price, Image_Path, lblSelected,
@@ -170,7 +176,16 @@ public class AddItem extends JPanel {
 
         butt_additem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                Item item = new Item()
+                Item i_tem = new Item(getitem.getText(), "General", path, "Electronics",
+                        Double.parseDouble(getreserve.getText()), "Active",
+                        1);
+
+                ItemDAO in = new ItemDAO();
+                try {
+                    in.insert(i_tem);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

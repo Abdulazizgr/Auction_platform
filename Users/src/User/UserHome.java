@@ -31,8 +31,8 @@ public class UserHome extends JFrame {
     UserHome() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
-        ImageIcon homepage = new ImageIcon("Users/images/Welcome.jpeg");
-        ImageIcon icon = new ImageIcon("Users/images/auction2.jpg");
+        ImageIcon homepage = new ImageIcon("images/Welcome.jpeg");
+        ImageIcon icon = new ImageIcon("images/auction2.jpg");
         JPanel title_bar = new JPanel(new BorderLayout());
 
         title_bar.setBounds(0, 0, screensize.width, 80);

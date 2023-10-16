@@ -10,15 +10,13 @@ public class Item {
     private String ItemState;
     private String Category;
     private double StartPrice;
-    private double CurrentBid;
     private String AuctionStatus;
     private Timestamp StartDate;
-    private Timestamp EndDate;
+    private Timestamp soldDate;
     private int UserID;
 
     public Item(int itemID, String title, String description, String Path, String category,
-            double startPrice,
-            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2, int UserID,
+            double startPrice, String auctionStatus, Timestamp startDate2, Timestamp soldDate2, int UserID,
             String ItemState) {
         this.ItemID = itemID;
         this.Title = title;
@@ -27,27 +25,20 @@ public class Item {
         this.ItemState = ItemState;
         this.Category = category;
         this.StartPrice = startPrice;
-        this.CurrentBid = currentBid;
         this.AuctionStatus = auctionStatus;
         this.StartDate = startDate2;
-        this.EndDate = endDate2;
+        this.soldDate = soldDate2;
         this.UserID = UserID;
     }
 
     public Item(String title, String description, String Path, String category,
-            double startPrice,
-            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2, int UserID,
-            String ItemState) {
+            double startPrice, String auctionStatus, int UserID) {
         this.Title = title;
         this.Description = description;
         this.ImagePath = Path;
-        this.ItemState = ItemState;
         this.Category = category;
         this.StartPrice = startPrice;
-        this.CurrentBid = currentBid;
         this.AuctionStatus = auctionStatus;
-        this.StartDate = startDate2;
-        this.EndDate = endDate2;
         this.UserID = UserID;
     }
 
@@ -91,14 +82,6 @@ public class Item {
         StartPrice = startPrice;
     }
 
-    public double getCurrentBid() {
-        return CurrentBid;
-    }
-
-    public void setCurrentBid(double currentBid) {
-        CurrentBid = currentBid;
-    }
-
     public String getAuctionStatus() {
         return AuctionStatus;
     }
@@ -115,12 +98,12 @@ public class Item {
         StartDate = startDate;
     }
 
-    public Timestamp getEndDate() {
-        return EndDate;
+    public Timestamp getsoldDate() {
+        return soldDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
-        EndDate = endDate;
+    public void setsoldDate(Timestamp soldDate) {
+        soldDate = soldDate;
     }
 
     public String getCategory() {
@@ -147,9 +130,8 @@ public class Item {
     public String toString() {
         return "Item [ItemID=" + ItemID + " , Title=" + Title + ", Description=" + Description
                 +
-                ", Image=" + ImagePath + ", Category=" + Category + ", StartProe=" + StartPrice + ", CurrentBid="
-                + CurrentBid + ", AuctionStatus="
-                + AuctionStatus + ", StartDate=" + StartDate + ", EndDate=" + EndDate + "]";
+                ", Image=" + ImagePath + ", Category=" + Category + ", StartProe=" + StartPrice + ", AuctionStatus="
+                + AuctionStatus + ", StartDate=" + StartDate + ", soldDate=" + soldDate + "]";
     }
 
 }
