@@ -1,7 +1,7 @@
--- CREATE DATABASE test;
+-- CREATE DATABASE db1;
 
 
--- Users Table 
+-- Users Table
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each user
     FirstName VARCHAR(50) NOT NULL, -- First name of the user
@@ -21,20 +21,23 @@ CREATE TABLE Item (
     Category VARCHAR(50) NOT NULL,
     StartPrice DECIMAL(10, 2) NOT NULL,
     AuctionStatus ENUM('Active', 'Sold', 'Expired') NOT NULL,
-     StartDate DATETIME NOT NULL, -- Set StartDate to current date and time
-    soldDate DATETIME , -- Set a default sold date, replace with your desired value or leave as NULL
+    StartDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Set StartDate to current date and time
+    soldDate DATETIME DEFAULT NULL, -- Set a default sold date, replace with your desired value or leave as NULL
     UserID INT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE SET NULL
 );
+
 
 -- Sellers Table
 CREATE TABLE Sellers (
     SellerID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each seller
     UserID INT NOT NULL, -- Foreign key referencing the UserID in the Users table
     ItemID INT, -- Foreign key referencing the ItemID in the Item table
+    Message Varchar(500),
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE, -- Constraint to ensure the user exists
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE SET NULL -- Constraint to ensure the item exists (can be null if item is removed)
 );
+
 
 -- Admins Table
 CREATE TABLE Admins (
@@ -51,9 +54,11 @@ CREATE TABLE Buyer (
     BuyerID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each buyer
     UserID INT NOT NULL, -- Foreign key referencing the UserID in the Users table
     ItemID INT NOT NULL, -- Foreign key referencing the ItemID in the Items table
+    Message Varchar(500),
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE, -- Constraint to ensure the user exists
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE -- Constraint to ensure the item exists
 );
+
 
 -- Bid Table
 CREATE TABLE Bid (
@@ -94,18 +99,22 @@ CREATE TABLE BankAccount (
 );
 
 -- Payment Table
+
 CREATE TABLE Payment (
   PaymentID INT AUTO_INCREMENT PRIMARY KEY,
   Amount DECIMAL(10, 2) NOT NULL,
   PaymentDate DATETIME NOT NULL,
   BuyerAccountNo INT NOT NULL,
   SellerAccountNo INT NOT NULL,
+  ItemID INT NOT NULL,
   PaymentStatus ENUM('Pending', 'Completed', 'Failed') NOT NULL,
   PaymentMethod ENUM('Credit/Debit Card', 'Bank Transfer', 'PayPal', 'Other') NOT NULL,
   PaymentReference VARCHAR(50),
-  FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
-  FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE
+  FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON   DELETE CASCADE,
+  FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE,
+  FOREIGN KEY (ItemID) REFERENCES Item(ItemID)
 );
+
 
 -- Transaction Table
 CREATE TABLE Transaction (
@@ -113,12 +122,15 @@ CREATE TABLE Transaction (
     BuyerID INT NOT NULL, -- Foreign key referencing the BuyerID in the Buyer table
     SellerID INT NOT NULL, -- Foreign key referencing the SellerID in the Sellers table
     PaymentID INT NOT NULL, -- Foreign key referencing the PaymentID in the Payment table
+    ItemID INT NOT NULL, -- Foreign key referencing the ItemID in the Item table
     TransactionStatus ENUM('Pending', 'Completed', 'Cancelled') NOT NULL, -- Status of the transaction
     TransactionDate DATETIME NOT NULL, -- Date and time of the transaction
     FOREIGN KEY (BuyerID) REFERENCES Buyer(BuyerID) ON DELETE CASCADE, -- Constraint to ensure the buyer exists
     FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID) ON DELETE CASCADE, -- Constraint to ensure the seller exists
-    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID) ON DELETE CASCADE -- Constraint to ensure the payment exists
+    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID) ON DELETE CASCADE, -- Constraint to ensure the payment exists
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID) -- Constraint to ensure the item exists
 );
+
 
 -- Taxes Table
 CREATE TABLE Taxes (
@@ -130,7 +142,6 @@ CREATE TABLE Taxes (
     FOREIGN KEY (SellerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE, -- Constraint to ensure the seller account exists
     FOREIGN KEY (BuyerAccountNo) REFERENCES BankAccount(AccountNumber) ON DELETE CASCADE -- Constraint to ensure the buyer account exists
 );
-
 
 
 

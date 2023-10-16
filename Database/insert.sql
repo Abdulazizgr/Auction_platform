@@ -1,3 +1,4 @@
+
 -- Insert some users
 INSERT INTO Users (FirstName, LastName, Email, Password)
 VALUES
@@ -54,6 +55,10 @@ VALUES
 
 INSERT INTO Admins (FirstName, LastName, Email, Password)
 VALUES ('Abdulaziz', 'Isa', 'abdu1234@gmail.com', 'admin1234');
+
+
+
+
 INSERT INTO Admins (FirstName, LastName, Email, Password)
 VALUES
 ('John', 'Doe', 'johndoe@example.com', 'password1'),
@@ -117,23 +122,22 @@ VALUES
 
 
 
-
 INSERT INTO Item (Title, Description, ImagePath, ItemState, Category, StartPrice, AuctionStatus, StartDate, UserID)
 VALUES
-  ('iPhone 12 Pro', 'Description for iPhone 12 Pro', '/images/iphone12pro.jpg', 1, 'Electronics', 999.99, 'Active', NOW(), 1),
-  ('Samsung Galaxy S21', 'Description for Samsung Galaxy S21', '/images/galaxys21.jpg', 1, 'Electronics', 899.99, 'Active', NOW(), 2),
-  ('Nike Air Max', 'Description for Nike Air Max', '/images/airmax.jpg', 1, 'Footwear', 129.99, 'Active', NOW(), 3),
-  ('Sony PlayStation 5', 'Description for Sony PlayStation 5', '/images/ps5.jpg', 1, 'Electronics', 499.99, 'Active', NOW(), 4),
-  ('Levi\'s Jeans', 'Description for Levi\'s Jeans', '/images/levisjeans.jpg', 1, 'Apparel', 79.99, 'Sold', NOW(), 5),
-  ('Canon EOS R5', 'Description for Canon EOS R5', '/images/eosr5.jpg', 1, 'Electronics', 3499.99, 'Sold', NOW(), 6),
-  ('Apple Watch Series 6', 'Description for Apple Watch Series 6', '/images/applewatch.jpg', 1, 'Electronics', 399.99, 'Expired', NOW(), 7),
-  ('Adidas Ultraboost', 'Description for Adidas Ultraboost', '/images/ultraboost.jpg', 1, 'Footwear', 169.99, 'Expired', NOW(), 8),
-  ('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '/images/samsungtv.jpg', 1, 'Electronics', 899.99, 'Sold', NOW(), 9),
-  ('Coach Handbag', 'Description for Coach Handbag', '/images/coachhandbag.jpg', 1, 'Accessories', 249.99, 'Sold', NOW(), 10);
+  ('iPhone 12 Pro', 'Description for iPhone 12 Pro', '/images/iphone12pro.jpg', FALSE, 'Electronics', 999.99, 'Active', NOW(), 1),
+  ('Samsung Galaxy S21', 'Description for Samsung Galaxy S21', '/images/galaxys21.jpg', FALSE, 'Electronics', 899.99, 'Active', NOW(), 2),
+  ('Nike Air Max', 'Description for Nike Air Max', '/images/airmax.jpg', FALSE, 'Footwear', 129.99, 'Active', NOW(), 3),
+  ('Sony PlayStation 5', 'Description for Sony PlayStation 5', '/images/ps5.jpg', FALSE, 'Electronics', 499.99, 'Active', NOW(), 4),
+  ('Levi\'s Jeans', 'Description for Levi\'s Jeans', '/images/levisjeans.jpg', FALSE, 'Apparel', 79.99, 'Sold', NOW(), 5),
+  ('Canon EOS R5', 'Description for Canon EOS R5', '/images/eosr5.jpg', FALSE, 'Electronics', 3499.99, 'Sold', NOW(), 6),
+  ('Apple Watch Series 6', 'Description for Apple Watch Series 6', '/images/applewatch.jpg', FALSE, 'Electronics', 399.99, 'Expired', NOW(), 7),
+  ('Adidas Ultraboost', 'Description for Adidas Ultraboost', '/images/ultraboost.jpg', FALSE, 'Footwear', 169.99, 'Expired', NOW(), 8),
+  ('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '/images/samsungtv.jpg', FALSE, 'Electronics', 899.99, 'Sold', NOW(), 9),
+  ('Coach Handbag', 'Description for Coach Handbag', '/images/coachhandbag.jpg', FALSE, 'Accessories', 249.99, 'Sold', NOW(), 10);
 
 
 INSERT INTO Bid (ItemID, UserID, BidAmount, MinIncrement, BidTime)
-VALUES 
+VALUES
     (1, 1, 100.00, 10.00, '2022-01-01 09:00:00'),
     (2, 2, 150.00, 10.00, '2022-01-02 10:00:00'),
     (3, 3, 200.00, 20.00, '2022-01-03 11:00:00'),
@@ -146,15 +150,3 @@ VALUES
     (10, 10, 550.00, 10.00, '2022-01-10 18:00:00');
 
 
-INSERT INTO Notification (SellerID, BuyerID, MessageType, SellerMessage, BuyerMessage, Timestamp)
-VALUES
-(1, 1, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(2, 2, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(3, 3, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(4, 4, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(5, 5, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(6, 6, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(7, 7, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(8, 8, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(9, 9, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW()),
-(10, 10, 'Sold', 'Congratulations! Your item has been sold.', 'Congratulations! You have successfully purchased an item.', NOW());
