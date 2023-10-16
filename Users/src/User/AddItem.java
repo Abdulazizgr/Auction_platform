@@ -170,7 +170,7 @@ public class AddItem extends JPanel {
 
         butt_additem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-
+                Item item = new Item()
             }
         });
 

@@ -1,3 +1,5 @@
+package Commonclasses;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +11,7 @@ public class BuyerDAO implements DAO<Buyer> {
 
     @Override
     public Buyer get(int ID) throws SQLException {
-      Connection con = Database.getConnection();
+        Connection con = Database.getConnection();
         Buyer buyer = null;
         String sql = "select BidID ,Title ,Description ,ImagePath ,Category ,StartPrice ,CurrentBid ,AuctionStatus ,StartDate ,EndDate from Bid where BidId = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -62,5 +64,5 @@ public class BuyerDAO implements DAO<Buyer> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
-    
+
 }

@@ -1,6 +1,8 @@
+package Commonclasses;
+
 import java.sql.SQLException;
 
-public class Seller{
+public class Seller {
     private int sellerID;
     private int UserID;
 
@@ -14,7 +16,6 @@ public class Seller{
 
     private User user;
     private Item item;
-
 
     public int getSellerID() {
         return sellerID;

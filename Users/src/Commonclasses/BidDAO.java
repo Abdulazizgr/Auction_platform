@@ -1,3 +1,5 @@
+package Commonclasses;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -5,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BidDAO implements DAO<Bid>{
+public class BidDAO implements DAO<Bid> {
 
     @Override
     public Bid get(int ID) throws SQLException {
@@ -15,7 +17,7 @@ public class BidDAO implements DAO<Bid>{
 
     @Override
     public List<Bid> getAll() throws SQLException {
-          List<Bid> bids = new ArrayList<Bid>();
+        List<Bid> bids = new ArrayList<Bid>();
         Connection con = Database.getConnection();
         String sql = "select * from Bid";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -52,5 +54,5 @@ public class BidDAO implements DAO<Bid>{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
-    
+
 }
