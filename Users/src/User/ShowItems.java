@@ -51,17 +51,30 @@ public class ShowItems extends JPanel {
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
         String[] column = { "ID", "Item Name", "Description", "Image", "SellerName", "StartPrice" };
         itemslist = items();
-        model = new DefaultTableModel(itemslist.size(), 6);
+        model = new DefaultTableModel(itemslist.size(), 6) {
+            @Override
+            public Class<?> getColumnClass(int column) {
+                switch (column) {
+                    case 3:
+                        return ImageIcon.class;
+                    default:
+                        return String.class;
+
+                }
+
+            }
+        };
         model.setColumnIdentifiers(column);
         table = new JTable(model);
+        ImageIcon ic_on;
         TableColumnModel columnModel = table.getColumnModel();
         int i = 0;
         for (Object[] userdata : itemslist) {
             table.setValueAt(userdata[0], i, 0);
             table.setValueAt(userdata[1], i, 1);
             table.setValueAt(userdata[2], i, 2);
-            table.setValueAt(userdata[3], i, 3);
-            columnModel.getColumn(3).setCellRenderer(new ImageTableCellRenderer());
+            ic_on = new ImageIcon((String) userdata[3]);
+            table.setValueAt(ic_on, i, 3);
             table.setValueAt(userdata[4], i, 4);
             table.setValueAt(userdata[5], i, 5);
             i++;
@@ -108,44 +121,6 @@ public class ShowItems extends JPanel {
         return itemslist;
     }
 
-    // ====================================================================================================
-    // ====================================table image
-    // renderer================================================================
-    class ImageTableCellRenderer extends DefaultTableCellRenderer {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-                int row, int column) {
-            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if (value instanceof String) {
-                String imagePath = (String) value;
-                try {
-                    // Read the image file and create an ImageIcon
-                    Image image = ImageIO.read(new File(imagePath));
-                    ImageIcon icon = new ImageIcon(image);
-
-                    // Scale the image to fit the cell dimensions
-                    int cellWidth = table.getColumnModel().getColumn(column).getWidth();
-                    int cellHeight = table.getRowHeight(row);
-                    Image scaledImage = icon.getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
-                    icon = new ImageIcon(scaledImage);
-
-                    // Set the ImageIcon as the cell value
-                    setIcon(icon);
-                    setText(null);
-                } catch (Exception e) {
-                    // Handle any exceptions when reading or scaling the image
-                    e.printStackTrace();
-                }
-            } else {
-                // Reset the cell content if the value is not an image file
-                setIcon(null);
-                setText(value != null ? value.toString() : "");
-            }
-
-            return component;
-        }
-    }
     // ==========================================================================================================//
 
     // ========================================table column
