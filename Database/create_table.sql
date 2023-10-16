@@ -13,17 +13,16 @@ CREATE TABLE Users (
 
 -- Item Table
 CREATE TABLE Item (
-    ItemID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each item
-    Title VARCHAR(255) NOT NULL, -- Title of the item
-    Description TEXT, -- Description of the item
-    ImagePath VARCHAR(255), -- Path to the image of the item
-    ItemState BOOLEAN DEFAULT FALSE, -- State of the item (e.g., available or not)
-    Category VARCHAR(50) NOT NULL, -- Category of the item
-    StartPrice DECIMAL(10, 2) NOT NULL, -- Starting price of the item
-    CurrentBid DECIMAL(10, 2) NOT NULL, -- Current highest bid on the item
-    AuctionStatus ENUM('Active', 'Sold', 'Expired') NOT NULL, -- Status of the auction
-    StartDate DATETIME NOT NULL, -- Date and time when the auction starts
-    EndDate DATETIME NOT NULL, -- Date and time when the auction ends
+    ItemID INT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    Description TEXT,
+    ImagePath VARCHAR(255),
+    ItemState BOOLEAN DEFAULT FALSE,
+    Category VARCHAR(50) NOT NULL,
+    StartPrice DECIMAL(10, 2) NOT NULL,
+    AuctionStatus ENUM('Active', 'Sold', 'Expired') NOT NULL,
+     StartDate DATETIME NOT NULL, -- Set StartDate to current date and time
+    soldDate DATETIME , -- Set a default sold date, replace with your desired value or leave as NULL
     UserID INT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE SET NULL
 );
