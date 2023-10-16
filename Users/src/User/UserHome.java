@@ -28,7 +28,7 @@ public class UserHome extends JFrame {
     public Cantpurchase cant_purchase;
     public AddItem add_item;
 
-    UserHome() {
+    public UserHome(int ID) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
         ImageIcon homepage = new ImageIcon("images/Welcome.jpeg");
@@ -58,7 +58,7 @@ public class UserHome extends JFrame {
 
         my_order = new MyOrder();
         try {
-            per_detail = new PersonalDetail(1);
+            per_detail = new PersonalDetail(ID);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class UserHome extends JFrame {
             e.printStackTrace();
         }
         try {
-            add_item = new AddItem();
+            add_item = new AddItem(ID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -302,10 +302,4 @@ public class UserHome extends JFrame {
         });
         return cbuttons;
     }
-
-    public static void main(String args[]) throws Exception {
-        new UserHome();
-
-    }
-
 }

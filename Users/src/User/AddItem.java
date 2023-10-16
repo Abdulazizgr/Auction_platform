@@ -38,7 +38,7 @@ public class AddItem extends JPanel {
     public Boolean selected = false, flag;
     public JTextField getfirst, getlast, getreserve, getitem;
 
-    AddItem() throws Exception {
+    AddItem(int ID) throws Exception {
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
 
@@ -177,7 +177,7 @@ public class AddItem extends JPanel {
             public void actionPerformed(ActionEvent ev) {
                 Item i_tem = new Item(getitem.getText(), getfirst.getText(), path, getlast.getText(),
                         Double.parseDouble(getreserve.getText()), "Active",
-                        1);
+                        ID);
 
                 getitem.setText("");
                 get_image.setText("");
