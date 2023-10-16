@@ -1,3 +1,6 @@
+package User;
+
+import Commonclasses.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,7 +13,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

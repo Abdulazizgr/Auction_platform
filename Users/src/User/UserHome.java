@@ -1,13 +1,12 @@
+package User;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
-import javax.swing.table.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 
 public class UserHome extends JFrame {
 
-    JButton butt_homee, butt_homepersonalDet, butt_chase, butt_wItems, butt_rder, butt_dItems, butt_Out;
+    JButton butt_homee, butt_homepersonalDet, butt_chase, butt_wItems, butt_rder, butt_dItems, butt_Out, butt_add_item;
     public MyOrder my_order;
     public PersonalDetail per_detail;
     public Purchase pur_chase;
@@ -26,6 +25,9 @@ public class UserHome extends JFrame {
     private JPanel content_panel;
     public JLabel firstlabel;
     public JLabel flabel;
+    public Cantpurchase cant_purchase;
+    public AddItem add_item;
+
     UserHome() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
@@ -58,14 +60,31 @@ public class UserHome extends JFrame {
         try {
             per_detail = new PersonalDetail(1);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
-        pur_chase = new Purchase();
+        try {
+            pur_chase = new Purchase();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
         try {
             show_items = new ShowItems();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+        }
+
+        try {
+            cant_purchase = new Cantpurchase();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        try {
+            add_item = new AddItem();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         sold_items = new soldItems();
@@ -85,6 +104,10 @@ public class UserHome extends JFrame {
         show_items.setVisible(false);
         content_panel.add(sold_items);
         sold_items.setVisible(false);
+        content_panel.add(cant_purchase);
+        cant_purchase.setVisible(false);
+        content_panel.add(add_item);
+        add_item.setVisible(false);
 
         firstlabel = new JLabel();
         JLabel label_1 = new JLabel();
@@ -99,17 +122,19 @@ public class UserHome extends JFrame {
         butt_rder = Custom_Button("My Order");
         butt_dItems = Custom_Button("Sold Items");
         butt_Out = Custom_Button("Log Out");
+        butt_add_item = Custom_Button("Add Item");
 
         butt_ons = new ArrayList<>(7);
         butt_ons.add(butt_homee);
         butt_homee.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 home_Panel.setVisible(true);
-                per_detail.setVisible(true);
-                pur_chase.setVisible(true);
-                show_items.setVisible(true);
-                my_order.setVisible(true);
-                sold_items.setVisible(true);
+                per_detail.setVisible(false);
+                pur_chase.setVisible(false);
+                show_items.setVisible(false);
+                my_order.setVisible(false);
+                sold_items.setVisible(false);
+                add_item.setVisible(false);
             }
         });
 
@@ -122,6 +147,8 @@ public class UserHome extends JFrame {
                 show_items.setVisible(false);
                 my_order.setVisible(false);
                 sold_items.setVisible(false);
+                cant_purchase.setVisible(false);
+                add_item.setVisible(false);
             }
         });
 
@@ -130,10 +157,12 @@ public class UserHome extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 home_Panel.setVisible(false);
                 per_detail.setVisible(false);
-                pur_chase.setVisible(true);
+                pur_chase.setVisible(false);
                 show_items.setVisible(false);
                 my_order.setVisible(false);
                 sold_items.setVisible(false);
+                cant_purchase.setVisible(true);
+                add_item.setVisible(false);
             }
         });
         butt_ons.add(butt_wItems);
@@ -144,6 +173,8 @@ public class UserHome extends JFrame {
                 show_items.setVisible(true);
                 my_order.setVisible(false);
                 sold_items.setVisible(false);
+                cant_purchase.setVisible(false);
+                add_item.setVisible(false);
             }
         });
 
@@ -156,6 +187,8 @@ public class UserHome extends JFrame {
                 show_items.setVisible(false);
                 my_order.setVisible(true);
                 sold_items.setVisible(false);
+                cant_purchase.setVisible(false);
+                add_item.setVisible(false);
             }
         });
 
@@ -168,9 +201,24 @@ public class UserHome extends JFrame {
                 show_items.setVisible(false);
                 my_order.setVisible(true);
                 sold_items.setVisible(false);
+                cant_purchase.setVisible(false);
+                add_item.setVisible(false);
             }
         });
 
+        butt_ons.add(butt_add_item);
+        butt_add_item.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                home_Panel.setVisible(false);
+                per_detail.setVisible(false);
+                pur_chase.setVisible(false);
+                show_items.setVisible(false);
+                my_order.setVisible(false);
+                sold_items.setVisible(false);
+                cant_purchase.setVisible(false);
+                add_item.setVisible(true);
+            }
+        });
         butt_ons.add(butt_Out);
         butt_Out.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -186,7 +234,7 @@ public class UserHome extends JFrame {
             }
         });
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             butt_ons.get(i).setBounds(0, i * 55, 300, 50);
             control_Panel.add(butt_ons.get(i));
         }

@@ -1,15 +1,11 @@
+package User;
+
+import Commonclasses.*;
 import javax.swing.*;
-import java.util.ArrayList;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
-import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class PersonalDetail extends JPanel {
