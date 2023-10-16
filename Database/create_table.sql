@@ -127,7 +127,7 @@ CREATE TABLE Transaction (
 
 -- Taxes Table
 CREATE TABLE Taxes (
-    TaxID INT PRIMARY KEY, -- Unique identifier for each tax
+    TaxID INT AUTO_INCREMENT PRIMARY KEY, -- Auto-incrementing unique identifier for each tax
     SellerAccountNo INT, -- Foreign key referencing the AccountNumber in the BankAccount table for seller
     BuyerAccountNo INT, -- Foreign key referencing the AccountNumber in the BankAccount table for buyer
     TaxType VARCHAR(50), -- Type of tax
