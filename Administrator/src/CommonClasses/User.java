@@ -15,6 +15,12 @@ public class User {
         Password = password;
         RegistrationDate = registrationDate;
     }
+     public User(String firstName, String lastName, String email, String password) {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        Password = password;
+    }
 
     public int getUserID() {
         return UserID;

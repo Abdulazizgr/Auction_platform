@@ -83,7 +83,6 @@ public class SoldItems extends JPanel {
     public ArrayList<String[]> items() throws SQLException {
         ItemDAO itemdao = new ItemDAO();
         UserDAO userdao = new UserDAO();
-        BuyerDAO buyerdao = new BuyerDAO();
         BidDAO biddao = new BidDAO();
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
         java.util.List<Item> items = new ArrayList<>();
@@ -101,8 +100,7 @@ public class SoldItems extends JPanel {
                 itemslist.get(i)[2] = (item.getDescription());
                 itemslist.get(i)[3] = (item.getImagePath());
                 itemslist.get(i)[4] = userdao.get(item.getUserID()).getFirstName();
-                // itemslist.get(i)[5] =
-                // userdao.get(biddao.get(buyerdao.get((item.())).getBidID()).getUserID()).getFirstName();
+                itemslist.get(i)[5] = userdao.get((biddao.getBidderforHighestbid(item.getItemID()).getUserID())).getFirstName();
                 itemslist.get(i)[6] = (item.getStartPrice()) + "";
                 i++;
             }

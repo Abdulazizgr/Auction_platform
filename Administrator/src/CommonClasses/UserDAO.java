@@ -67,13 +67,12 @@ public class UserDAO implements DAO<User> {
     @Override
     public int insert(User t) throws SQLException {
         Connection con = Database.getConnection();
-        String sql = "insert into Users (FirstName ,LastName ,Email ,Password ,RegistrationDate) values(?,?,?,?,?)";
+        String sql = "insert into Users (FirstName ,LastName ,Email ,Password) values(?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, t.getFirstName());
         ps.setString(2, t.getLastName());
         ps.setString(3, t.getEmail());
         ps.setString(4, t.getPassword());
-        ps.setString(5, t.getRegistrationDate());
         int result = ps.executeUpdate();
         Database.closePreparedStatement(ps);
         Database.closeConnection(con);

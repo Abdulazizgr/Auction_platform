@@ -7,7 +7,6 @@ public class Bid {
     private int bidAmount;
     private int minIncrement;
     private String bidTime;
-    private boolean isWinningBid; // Flag indicating if the bid is the winning bid
 
     public Bid(int bidID, int userID, int itemID, int bidAmount, int minIncrement, String bidTime) {
         this.bidID = bidID;
@@ -16,7 +15,6 @@ public class Bid {
         this.bidAmount = bidAmount;
         this.minIncrement = minIncrement;
         this.bidTime = bidTime;
-        this.isWinningBid = false; // By default, the bid is not the winning bid
     }
 
     public int getBidID() {
@@ -65,13 +63,5 @@ public class Bid {
 
     public void setBidTime(String bidTime) {
         this.bidTime = bidTime;
-    }
-
-    public boolean isWinningBid() {
-        return isWinningBid;
-    }
-
-    public void setWinningBid(boolean winningBid) {
-        isWinningBid = winningBid;
     }
 }

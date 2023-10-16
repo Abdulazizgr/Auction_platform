@@ -4,6 +4,7 @@ public class Buyer {
     private int BuyerID;
     private int ItemID;
     private int UserID;
+    
     public Buyer(int buyerID, int ItemID, int userID) {
         this.BuyerID = buyerID;
         this.ItemID = ItemID;
@@ -21,11 +22,11 @@ public class Buyer {
     public void setBuyerID(int buyerID) {
         BuyerID = buyerID;
     }
-    public int getBidID() {
-        return BidID;
+    public int getItemID() {
+        return ItemID;
     }
-    public void setBidID(int bidID) {
-        BidID = bidID;
+    public void setItemID(int itemID) {
+        ItemID = itemID;
     }
     
     

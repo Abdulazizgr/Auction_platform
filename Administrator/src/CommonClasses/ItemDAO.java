@@ -1,17 +1,12 @@
 package CommonClasses;
 
 import java.sql.Timestamp;
-import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.crypto.Data;
-
-import com.mysql.cj.jdbc.CallableStatement;
 
 public class ItemDAO implements DAO<Item> {
 
@@ -95,7 +90,6 @@ public class ItemDAO implements DAO<Item> {
             itemID = generatedKeys.getInt(1);
         }
 
-        // Database.closeResultSet(generatedKeys);
         Database.closePreparedStatement(ps);
         Database.closeConnection(con);
 

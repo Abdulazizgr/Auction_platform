@@ -33,6 +33,22 @@ public class Item {
         this.UserID = UserID;
     }
 
+    public Item(String title, String description, String Path, String category,
+            double startPrice,
+            double currentBid, String auctionStatus, Timestamp startDate2, Timestamp endDate2,int UserID,String ItemState) {
+        this.Title = title;
+        this.Description = description;
+        this.ImagePath = Path;
+        this.ItemState = ItemState;
+        this.Category = category;
+        this.StartPrice = startPrice;
+        this.CurrentBid = currentBid;
+        this.AuctionStatus = auctionStatus;
+        this.StartDate = startDate2;
+        this.EndDate = endDate2;
+        this.UserID = UserID;
+    }
+
     public int getItemID() {
         return ItemID;
     }

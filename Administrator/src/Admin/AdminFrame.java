@@ -1,5 +1,5 @@
 package Admin;
-
+import CommonClasses.Button;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -28,10 +28,9 @@ public class AdminFrame extends JFrame {
     AdminFrame() throws SQLException {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
-        ImageIcon welcome = new ImageIcon("Administrator/Images/Welcome.jpeg");
-        ImageIcon icon = new ImageIcon("Administrator/Images/auction2.jpg");
+        ImageIcon welcome = new ImageIcon("Images/Welcome.jpeg");
+        ImageIcon icon = new ImageIcon("Images/auction2.jpg");
         JPanel titlebar = new JPanel(new BorderLayout());
-
         titlebar.setBounds(0, 0, screensize.width, 80);
         titlebar.setBackground(Color.white);
         titlebar.setPreferredSize(new Dimension(screensize.width, 100));
@@ -77,12 +76,12 @@ public class AdminFrame extends JFrame {
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
 
-        butt_home = CustomButton("Home");
-        butt_show_item = CustomButton("Show Item");
-        butt_start_auction = CustomButton("Start Auction");
-        butt_cust = CustomButton("Show Customers");
-        butt_sold_items = CustomButton("Show Sold Items");
-        butt_logout = CustomButton("Logout");
+        butt_home = Button.CustomButton("home");
+        butt_show_item = Button.CustomButton("Show Item");
+        butt_start_auction = Button.CustomButton("Start Auction");
+        butt_cust = Button.CustomButton("Show Customers");
+        butt_sold_items = Button.CustomButton("Show Sold Items");
+        butt_logout = Button.CustomButton("Logout");
 
         buttons = new ArrayList<>(7);
         buttons.add(butt_home);
@@ -198,27 +197,6 @@ public class AdminFrame extends JFrame {
         add(controlpanel, BorderLayout.WEST);
         add(contentpanel, BorderLayout.EAST);
         setVisible(true);
-    }
-
-    public JButton CustomButton(String text) {
-        JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.BOLD, 25));
-        button.setBackground(new Color(35, 59, 97));
-        button.setForeground(Color.white);
-        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        button.setFocusable(false);
-        button.getModel().addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                ButtonModel model = (ButtonModel) e.getSource();
-                if (model.isRollover()) {
-                    button.setBackground(new Color(60, 123, 240));
-                } else {
-                    button.setBackground(new Color(35, 59, 97));
-                }
-            }
-        });
-        return button;
     }
 
     public static void main(String[] args) throws SQLException {
