@@ -3,6 +3,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,26 +14,29 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextPane;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import CommonClasses.Button;
+import Admin.AdminFrame;
+import CommonClasses.*;
 
 public class AdminLogin extends JFrame{
 
 	private JPanel contentPane;
 	public boolean n;
-	public String username,pass;
+	public String Firstname,pass;
     public ImageIcon icon,icon2;
     public JLabel label3;
 	public JPanel panel;
 	public JLabel usericon,Usernaicon,locklabel,PleaseFillAll,PleaseFillValid;
-	public JTextPane usernamefield;
+	public JTextPane Firstnamefield;
 	public JPasswordField password;
 	public JButton LoginButton_1,LoginButton;
     public Dimension screenSize;
 	private JLabel AdminPortal;
 	private JLabel label_1;
+	public AdminDAO adminDAO;
+	public Admin admin;
 
 	public AdminLogin(){
 		
@@ -71,10 +77,10 @@ public class AdminLogin extends JFrame{
 		usericon.setBounds(250, 12, 100, 100);
 		panel.add(usericon);
 		
-		usernamefield = new JTextPane();
-		usernamefield.setBounds(92, 124, 414, 37);
-		usernamefield.setFont(new Font("Arial", Font.PLAIN, 25));
-		panel.add(usernamefield);
+		Firstnamefield = new JTextPane();
+		Firstnamefield.setBounds(92, 124, 414, 37);
+		Firstnamefield.setFont(new Font("Arial", Font.PLAIN, 25));
+		panel.add(Firstnamefield);
 		
 		Usernaicon = new JLabel("");
 		Usernaicon.setIcon(new ImageIcon("Images/user-128.png"));
@@ -91,30 +97,6 @@ public class AdminLogin extends JFrame{
 		locklabel.setBounds(49, 173, 37, 37);
 		panel.add(locklabel);
 		
-		LoginButton_1 = Button.CustomButton("Forgot Password?");
-		// LoginButton_1.addActionListener(new ActionListener() {
-		// 	public void actionPerformed(ActionEvent arg0) {
-				
-		// 		try {
-		// 			output.reset();
-		// 		} catch (SocketException e1) 
-		// 		{	
-		// 			JOptionPane.showMessageDialog(null,"Server Down");
-		// 			return;
-		// 		}
-		// 		catch (IOException e) {
-					
-		// 			e.printStackTrace();
-		// 		}
-		// 		panel.setVisible(false);
-		// 		forgotpass.setVisible(true);
-		// 	}
-		// });
-		
-		
-		LoginButton_1.setBounds(329, 325, 260, 25);
-		panel.add(LoginButton_1);
-		
 		label3=new JLabel(icon2);
 		label3.setBounds(0, 0, screenSize.width, screenSize.height);
 		contentPane.add(label3);
@@ -127,7 +109,9 @@ public class AdminLogin extends JFrame{
 		
 		PleaseFillValid = new JLabel("Please fill valid credentials");
 		PleaseFillValid.setForeground(new Color(139, 0, 0));
-		PleaseFillValid.setBounds(199, 234, 196, 15);
+		PleaseFillValid.setBounds(199, 234, 196, 25);
+		PleaseFillValid.setBackground(Color.RED);
+		PleaseFillValid.setOpaque(true);
 		PleaseFillValid.setVisible(false);		
 		panel.add(PleaseFillValid);
 
@@ -135,8 +119,12 @@ public class AdminLogin extends JFrame{
 		LoginButton.setBounds(92, 261, 414, 37);
 		LoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				pass = "";
+				for (char i : password.getPassword()) {
+					pass+=(""+i);
+				}
 				
-				if(usernamefield.getText().isEmpty() || password.getText().isEmpty())
+				if(Firstnamefield.getText().isEmpty() || pass.isEmpty())
 				{
 					   PleaseFillAll.setVisible(true);
 					
@@ -151,29 +139,26 @@ public class AdminLogin extends JFrame{
 					t.setRepeats(false);
 					return;
 				}
-				username=usernamefield.getText();
-				pass=password.getText();
-				usernamefield.setText("");
+				Firstname=Firstnamefield.getText();
+				Firstnamefield.setText("");
 				password.setText("");
 				try 
 				{
-					admin.name=username;
-					admin.password=pass;
-					output.writeObject(admin);	
-					output.reset();
-					n=(boolean) input.readObject();
+					adminDAO = new AdminDAO();
+					admin = adminDAO.get(1);
 				}
 				catch (Exception e)
 				{
 					e.printStackTrace();
 				}
-				if(n)
+
+				if(admin.getFirstName().equals(Firstname)&&admin.getPassword().equals(pass))
 				{
 					AdminFrame frame;
 					try {
-						frame = new AdminFrame(thisframe,input,output);
+						frame = new AdminFrame();
 						frame.setVisible(true);
-						thisframe.setVisible(false);
+						dispose();
 						} catch (Exception e)
 					    {
 							e.printStackTrace();

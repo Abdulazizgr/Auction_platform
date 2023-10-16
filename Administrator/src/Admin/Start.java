@@ -6,14 +6,19 @@ import java.awt.Font;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.DefaultTableModel;
 
 public class Start extends JPanel {
@@ -47,9 +52,16 @@ public class Start extends JPanel {
 		j1.setBounds(225, 341, 513, 161);
 		add(j1);
 
+		 Border glassyBorder = new BorderUIResource(
+                BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
+
 		lblFillTheFollowing = new JLabel("Item for Auction");
+		lblFillTheFollowing.setBorder(glassyBorder);
+        lblFillTheFollowing.setBackground(new Color(35, 59, 97));
 		lblFillTheFollowing.setBounds(388, 23, 225, 30);
-		lblFillTheFollowing.setForeground(Color.BLUE);
+		lblFillTheFollowing.setOpaque(true);
+		lblFillTheFollowing.setHorizontalAlignment(JLabel.CENTER);
+		lblFillTheFollowing.setForeground(Color.WHITE);
 		lblFillTheFollowing.setFont(new Font("Arial", Font.PLAIN, 25));
 		add(lblFillTheFollowing);
 

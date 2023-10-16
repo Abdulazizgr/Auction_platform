@@ -1,10 +1,10 @@
 package Admin;
 import CommonClasses.Button;
+import Login.AdminLogin;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ public class AdminFrame extends JFrame {
     public SoldItems slitems;
     public StartAuction start;
 
-    AdminFrame() throws SQLException {
+    public AdminFrame() throws SQLException {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
         ImageIcon welcome = new ImageIcon("Images/Welcome.jpeg");
@@ -142,11 +142,11 @@ public class AdminFrame extends JFrame {
         buttons.add(butt_logout);
         butt_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                /// AdminLogin login;
+                dispose();
+                AdminLogin login;
                 try {
-                    // login = new AdminLogin();
-                    // login.setVisible(true);
+                    login = new AdminLogin();
+                    login.setVisible(true);
                 } catch (Exception e2) {
                     e2.printStackTrace();
                 }
@@ -197,9 +197,5 @@ public class AdminFrame extends JFrame {
         add(controlpanel, BorderLayout.WEST);
         add(contentpanel, BorderLayout.EAST);
         setVisible(true);
-    }
-
-    public static void main(String[] args) throws SQLException {
-        new AdminFrame();
     }
 }
