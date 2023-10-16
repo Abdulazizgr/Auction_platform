@@ -44,9 +44,8 @@ CREATE TABLE Admins (
     LastName VARCHAR(50) NOT NULL, -- Last name of the admin
     Email VARCHAR(50) NOT NULL UNIQUE, -- Email address of the admin (must be unique)
     Password VARCHAR(50) NOT NULL, -- Password of the admin
-    ItemID INT NULL, -- Foreign key referencing the ItemID in the Item table (can be null)
     RegistrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Date and time when the admin registered
-    FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE SET NULL -- Constraint to ensure the item exists (can be null if item is removed)
+
 );
 
 -- Buyer Table
