@@ -63,38 +63,33 @@ public class UserHome extends JFrame {
         try {
             per_detail = new PersonalDetail(ID);
         } catch (Exception e) {
-
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
             pur_chase = new Purchase();
         } catch (Exception e) {
-
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
             show_items = new ShowItems();
         } catch (SQLException e) {
-
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
         try {
             cant_purchase = new Cantpurchase();
         } catch (Exception e) {
-
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
             add_item = new AddItem(ID);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
             sold_items = new soldItems();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
         home_Panel = new JPanel();
@@ -237,7 +232,7 @@ public class UserHome extends JFrame {
                     log_in = new Login();
                     log_in.setVisible(true);
                 } catch (Exception e2) {
-                    e2.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e2.getMessage());
                 }
 
                 dispose();

@@ -3,13 +3,22 @@ package Login;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,11 +47,6 @@ public class Login extends JFrame {
 	public User us_er;
 
 	public UserHome UHome;
-
-	public static void main(String[] args) throws Exception {
-		Login login = new Login();
-		login.setVisible(true);
-	}
 
 	public JLabel label3;
 	public JPanel panel;
@@ -191,7 +195,7 @@ public class Login extends JFrame {
 					userdao = new UserDAO();
 					us_er = userdao.get(Firstname);
 				} catch (Exception e) {
-
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				if (!(us_er == null) && us_er.getPassword().equals(pass)) {
 					int IDstore = us_er.getUserID();
@@ -207,5 +211,10 @@ public class Login extends JFrame {
 		panel.add(btnNewButton);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnNewButton.setBorder(emptyBorder);
+	}
+
+	public static void main(String[] args) throws Exception {
+		Login login = new Login();
+		login.setVisible(true);
 	}
 }

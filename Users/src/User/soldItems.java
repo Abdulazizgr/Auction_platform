@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -118,7 +119,7 @@ public class soldItems extends JPanel {
         try {
             items = itemdao.getAll();
         } catch (SQLException E) {
-            E.printStackTrace();
+            JOptionPane.showMessageDialog(null, E.getMessage());
         }
         int i = 0;
         for (Item item : items) {
@@ -131,15 +132,13 @@ public class soldItems extends JPanel {
                 try {
                     itemslist.get(i)[4] = userdao.get(item.getUserID()).getFirstName();
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
                 try {
                     itemslist.get(i)[5] = userdao.get((biddao.getBidderforHighestbid(item.getItemID()).getUserID()))
                             .getFirstName();
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
                 itemslist.get(i)[6] = (item.getStartPrice()) + "";
                 i++;

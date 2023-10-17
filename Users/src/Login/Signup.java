@@ -107,11 +107,9 @@ public class Signup extends JPanel {
                         Login log = new Login();
                         log.setVisible(true);
                     } catch (UnknownHostException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.getMessage());
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.getMessage());
                     }
 
                 }

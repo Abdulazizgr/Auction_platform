@@ -2,18 +2,15 @@ package User;
 
 import Commonclasses.*;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,7 +18,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.BorderUIResource;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -102,7 +98,7 @@ public class ShowItems extends JPanel {
         try {
             items = itemdao.getAll();
         } catch (SQLException E) {
-            E.printStackTrace();
+            JOptionPane.showMessageDialog(null, E.getMessage());
         }
         int i = 0;
         for (Item item : items) {

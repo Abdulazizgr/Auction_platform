@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -148,7 +149,7 @@ public class AddItem extends JPanel {
                         file_input = new FileInputStream(file);
                         selected = true;
                     } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.getMessage());
                     }
 
                 } else if (status == JFileChooser.CANCEL_OPTION) {
@@ -187,7 +188,7 @@ public class AddItem extends JPanel {
                 try {
                     in.insert(i_tem);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
             }
         });

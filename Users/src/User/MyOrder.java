@@ -97,7 +97,7 @@ public class MyOrder extends JPanel {
         try {
             items = getter.getItemfromBuyer(ID);
         } catch (SQLException E) {
-            E.printStackTrace();
+            JOptionPane.showMessageDialog(null, E.getMessage());
         }
         int i = 0;
         for (Item item : items) {
@@ -111,7 +111,7 @@ public class MyOrder extends JPanel {
                     itemslist.get(i)[4] = userdao.get(item.getUserID())
                             .getFirstName();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
                 itemslist.get(i)[5] = (item.getStartPrice()) + "";
                 i++;
