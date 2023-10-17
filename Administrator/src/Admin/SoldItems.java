@@ -48,11 +48,11 @@ public class SoldItems extends JPanel {
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
         String[] column = { "ID", "Item Name", "Description", "Image", "SellerName", "Buyer Name", "StartPrice" };
         itemslist = items();
-        model = new DefaultTableModel() {
+        model = new DefaultTableModel(itemslist.size(), 6) {
             @Override
             public Class<?> getColumnClass(int column) {
                 switch (column) {
-                    case 4:
+                    case 3:
                         return ImageIcon.class;
                     default:
                         return String.class;
@@ -62,9 +62,6 @@ public class SoldItems extends JPanel {
             }
         };
         model.setColumnIdentifiers(column);
-        for (Object[] item : itemslist) {
-            model.addRow(item);
-        }
         table = new JTable(model);
         int i = 0;
         for (Object[] userdata : itemslist) {

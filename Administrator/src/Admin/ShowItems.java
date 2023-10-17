@@ -50,7 +50,7 @@ public class ShowItems extends JPanel {
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
         String[] column = { "ID", "Item Name", "Description", "Image", "SellerName", "StartPrice" };
         itemslist = items();
-        model = new DefaultTableModel() {
+        model = new DefaultTableModel(itemslist.size(), 6) {
             @Override
             public Class<?> getColumnClass(int column) {
                 switch (column) {
@@ -63,22 +63,19 @@ public class ShowItems extends JPanel {
 
             }
         };
-        model.setColumnIdentifiers(column);
-        for (Object[] item : itemslist) {
-            model.addRow(item);
-        }
+
         model.setColumnIdentifiers(column);
         table = new JTable(model);
         ImageIcon ic_on;
         int i = 0;
-        for (Object[] userdata : itemslist) {
-            table.setValueAt(userdata[0], i, 0);
-            table.setValueAt(userdata[1], i, 1);
-            table.setValueAt(userdata[2], i, 2);
-            ic_on = new ImageIcon((String) userdata[3]);
+        for (Object[] items : itemslist) {
+            table.setValueAt(items[0], i, 0);
+            table.setValueAt(items[1], i, 1);
+            table.setValueAt(items[2], i, 2);
+            ic_on = new ImageIcon((String) items[3]);
             table.setValueAt(ic_on, i, 3);
-            table.setValueAt(userdata[4], i, 4);
-            table.setValueAt(userdata[5], i, 5);
+            table.setValueAt(items[4], i, 4);
+            table.setValueAt(items[5], i, 5);
             i++;
         }
         setColumnsWidth(table, 1060, 5, 15, 20, 30, 20, 10);
@@ -125,12 +122,13 @@ public class ShowItems extends JPanel {
         }
         int i = 0;
         for (Item item : items) {
-            if (item.getAuctionStatus().equals("Active")) {
+            if (item.getAuctionStatus().equals("Active")&&(!(item.getUserID()==0))) {
                 itemslist.add(new String[6]);
                 itemslist.get(i)[0] = (item.getItemID() + "");
                 itemslist.get(i)[1] = (item.getTitle());
                 itemslist.get(i)[2] = (item.getDescription());
                 itemslist.get(i)[3] = (item.getImagePath());
+                System.out.println(item.getUserID());
                 try {
                     itemslist.get(i)[4] = userdao.get(item.getUserID())
                             .getFirstName();

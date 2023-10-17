@@ -11,10 +11,12 @@ import CommonClasses.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -28,6 +30,7 @@ public class ShowUsers extends JPanel {
     public JScrollPane j1;
     public JLabel title;
     private JButton refresh;
+    private JButton delUser;
 
     public ShowUsers() {
         Border glassyBorder = new BorderUIResource(
@@ -69,9 +72,37 @@ public class ShowUsers extends JPanel {
                 refreshTableData();
             }
         });
+        delUser = Button.CustomButton("Delete");
+        delUser.setBounds(900, 510, 182, 30);
+        delUser.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                deleteUser();
+                 JDialog dialog = new JDialog(); // Modal dialog
+            dialog.setSize(300, 150);
+            dialog.setLocationRelativeTo(null);
+            JLabel label = new JLabel("You Have Succesfully Deleted A user");
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setBackground(new Color(113, 163, 240));
+            dialog.getContentPane().add(label);
+
+            dialog.setVisible(true);
+            }
+        });
+        add(delUser);
         add(refresh);
         add(scrollPane);
+    }
 
+    private void deleteUser(){
+       int ID = (int) table.getValueAt(table.getSelectedRow(),0);
+       UserDAO userdao = new UserDAO();
+       try {
+        userdao.delete(userdao.get(ID));
+    } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+       model.removeRow(table.getSelectedRow());
     }
     private void refreshTableData() {
         ArrayList<Object[]> userslist = users();
