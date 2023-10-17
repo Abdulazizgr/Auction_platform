@@ -7,6 +7,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
+
+import Login.Login;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -222,15 +225,17 @@ public class UserHome extends JFrame {
         butt_ons.add(butt_Out);
         butt_Out.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                // UserLogin Login ;
-                // try {
-                // login = new AdminLogin();
-                // login.setVisible(true);
-                // } catch (Exception e2) {
-                // e2.printStackTrace();
-                // }
-                // dispose();
+                dispose();
+                Login log_in;
+                try {
+
+                    log_in = new Login();
+                    log_in.setVisible(true);
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+
+                dispose();
             }
         });
 

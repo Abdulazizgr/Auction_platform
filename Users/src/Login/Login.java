@@ -63,12 +63,12 @@ public class Login extends JFrame {
 	public JTextPane emil_text;
 	public JPasswordField password;
 	public JButton btnNewButton_1, btnNewButton, btnNewUser;
+	public Signup sign_up;
 
 	public Login() throws UnknownHostException, IOException {
 
 		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(0, 0, screenSize.width, screenSize.height);
@@ -79,8 +79,12 @@ public class Login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(113, 163, 240));
-		setContentPane(contentPane);
+		add(contentPane);
 		contentPane.setLayout(null);
+
+		sign_up = new Signup();
+		contentPane.add(sign_up);
+		sign_up.setVisible(false);
 
 		lblAdminPortal = new JLabel("Customer Portal");
 		lblAdminPortal.setBounds(screenSize.width / 2 - 70, 140, 200, 26);
@@ -143,6 +147,12 @@ public class Login extends JFrame {
 		btnNewUser = Button.CustomButton("New User");
 		btnNewUser.setBounds(410, 320, 180, 50);
 		panel.add(btnNewUser);
+		btnNewUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+				panel.setVisible(false);
+				sign_up.setVisible(true);
+			}
+		});
 
 		label3 = new JLabel(icon2);
 		label3.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -192,11 +202,13 @@ public class Login extends JFrame {
 				} catch (Exception e) {
 
 				}
-				if (!(us_er == null)) {
+				if (!(us_er == null) && us_er.getPassword().equals(pass)) {
 					int IDstore = us_er.getUserID();
 					UHome = new UserHome(IDstore);
 					UHome.setVisible(true);
 					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Password Not Right");
 				}
 			}
 		});
