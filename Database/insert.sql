@@ -135,20 +135,21 @@ VALUES
   ('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '"C:\Users\adefi\Auction_platform\images\samsungtv.jpg"', 0, 'Electronics', 899.99, 'Active', NOW(), 9),
   ('Coach Handbag', 'Description for Coach Handbag', '"C:\Users\adefi\Auction_platform\images\coachhandbag.jpg"', 0, 'Accessories', 249.99, 'Active', NOW(), 10);
 
-INSERT INTO Bid (ItemID, UserID, BidAmount, MinIncrement, BidTime)
+
+
+INSERT INTO Bid (ItemID, UserID, BidAmount)
 VALUES
-    (1, 1, 100.00, 10.00, '2022-01-01 09:00:00'),
-    (2, 2, 150.00, 10.00, '2022-01-02 10:00:00'),
-    (3, 3, 200.00, 20.00, '2022-01-03 11:00:00'),
-    (4, 4, 250.00, 10.00, '2022-01-04 12:00:00'),
-    (5, 5, 300.00, 10.00, '2022-01-05 13:00:00'),
-    (6, 6, 350.00, 20.00, '2022-01-06 14:00:00'),
-    (7, 7, 400.00, 10.00, '2022-01-07 15:00:00'),
-    (8, 8, 450.00, 10.00, '2022-01-08 16:00:00'),
-    (9, 9, 500.00, 20.00, '2022-01-09 17:00:00'),
-    (10, 10, 550.00, 10.00, '2022-01-10 18:00:00');
-
-
+    -- User ID 10
+    (1, 10, 100.00),
+    (2, 11, 150.00),
+    (3, 12, 200.00),
+    (4, 13, 175.00),
+    (5, 14, 250.00),
+    (6, 15, 300.00),
+    (7, 16, 225.00),
+    (8, 17, 275.00),
+    (9, 18, 350.00),
+    (10, 19, 400.00);
 
 
 
