@@ -20,7 +20,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 public class ShowItems extends JPanel {
     public DefaultTableModel model;
@@ -63,16 +62,15 @@ public class ShowItems extends JPanel {
         model.setColumnIdentifiers(column);
         table = new JTable(model);
         ImageIcon ic_on;
-        TableColumnModel columnModel = table.getColumnModel();
         int i = 0;
-        for (Object[] userdata : itemslist) {
-            table.setValueAt(userdata[0], i, 0);
-            table.setValueAt(userdata[1], i, 1);
-            table.setValueAt(userdata[2], i, 2);
-            ic_on = new ImageIcon((String) userdata[3]);
+        for (Object[] item : itemslist) {
+            table.setValueAt(item[0], i, 0);
+            table.setValueAt(item[1], i, 1);
+            table.setValueAt(item[2], i, 2);
+            ic_on = new ImageIcon((String) item[3]);
             table.setValueAt(ic_on, i, 3);
-            table.setValueAt(userdata[4], i, 4);
-            table.setValueAt(userdata[5], i, 5);
+            table.setValueAt(item[4], i, 4);
+            table.setValueAt(item[5], i, 5);
             i++;
         }
         setColumnsWidth(table, 1060, 5, 15, 20, 30, 20, 10);
@@ -102,7 +100,7 @@ public class ShowItems extends JPanel {
         }
         int i = 0;
         for (Item item : items) {
-            if (item.getAuctionStatus().equals("Active")) {
+            if (item.getAuctionStatus().equals("Active")&&(!(item.getUserID()==0)))  {
                 itemslist.add(new String[6]);
                 itemslist.get(i)[0] = (item.getItemID() + "");
                 itemslist.get(i)[1] = (item.getTitle());
@@ -132,7 +130,7 @@ public class ShowItems extends JPanel {
             TableColumn column = table.getColumnModel().getColumn(i);
             column.setPreferredWidth((int) (tablePreferredWidth * (percentages[i] / total)));
         }
-    }
+    }}
     // =====================================================================================================//
 
-}
+

@@ -3,6 +3,7 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/home/samuel/Desktop/2nd_year/2nd_semester/Auction_platform/mysql-connector-j-8.0.33.jar"
+        "/home/samuel/Desktop/2nd_year/2nd_semester/Auction_platform/mysql-connector-j-8.0.33.jar",
+        "/mnt/91953372-6625-495a-af25-22fae88bb951/Projects/Auction_platform/mysql-connector-j-8.0.33.jar"
     ]
 }
