@@ -1,11 +1,26 @@
-
 DELIMITER //
 
 CREATE PROCEDURE AddItemToSeller(IN p_ItemID INT, IN p_UserID INT)
 BEGIN
-    -- This procedure adds an item to the Sellers table with the provided ItemID and UserID
-    INSERT INTO Sellers (UserID, ItemID)
-    VALUES (p_UserID, p_ItemID);
+    DECLARE seller_id INT;
+    
+    -- Check if the seller already exists in the Sellers table
+    SELECT SellerID INTO seller_id FROM Sellers WHERE UserID = p_UserID;
+    
+    -- Check if the seller has any active items
+    IF EXISTS (SELECT 1 FROM Item WHERE UserID = p_UserID AND AuctionStatus = 'Active') THEN
+        -- If the seller has active items, raise an error or take appropriate action
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot add a new item until the previous item is sold.';
+    ELSE
+        -- If the seller does not have active items, proceed with adding the new item
+        IF seller_id IS NULL THEN
+            INSERT INTO Sellers (UserID, ItemID)
+            VALUES (p_UserID, p_ItemID);
+        ELSE
+            INSERT INTO Sellers (SellerID, UserID, ItemID)
+            VALUES (seller_id, p_UserID, p_ItemID);
+        END IF;
+    END IF;
 END//
 
 DELIMITER ;
@@ -22,6 +37,30 @@ BEGIN
 END//
 
 DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE TRIGGER AfterUpdatePaymentStatus
+AFTER UPDATE ON Payment
+FOR EACH ROW
+BEGIN
+    DECLARE seller_id INT;
+
+    -- Get the SellerID associated with the updated Payment's ItemID
+    SELECT SellerID INTO seller_id FROM Sellers WHERE ItemID = NEW.ItemID;
+
+    -- Check if the payment status is completed
+    IF NEW.PaymentStatus = 'Completed' THEN
+        -- Delete the seller associated with the ItemID
+        DELETE FROM Sellers WHERE SellerID = seller_id;
+    END IF;
+END //
+DELIMITER ;
+
+
+
 
 DELIMITER //
 
@@ -82,6 +121,12 @@ BEGIN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item ID does not exist in the Item table.';
   END IF;
 
+-- Check if the item state is acceptable by the admin
+  IF EXISTS (SELECT * FROM Item WHERE ItemID = p_item_id AND ItemState = 0) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item is not acceptable by the admin.';
+  END IF;
+  
+  
   -- Check if the sold date is null for the item
   IF EXISTS (SELECT * FROM Item WHERE ItemID = p_item_id AND SoldDate IS NOT NULL) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item is already sold.';
@@ -297,6 +342,7 @@ DELIMITER ;
 
 
 
+DELIMITER //
 
 CREATE PROCEDURE UpdateItemState(IN p_item_id INT)
 BEGIN
@@ -307,7 +353,7 @@ BEGIN
 
   -- Update the item state to true
   UPDATE Item SET ItemState = 1 WHERE ItemID = p_item_id;
-END;
+END //
 
 DELIMITER //
 
@@ -329,6 +375,4 @@ BEGIN
   END IF;
 END //
 
-DELIMITER
-
-
+DELIMITER ;
