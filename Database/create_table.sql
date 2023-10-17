@@ -66,7 +66,7 @@ CREATE TABLE Bid (
     ItemID INT NOT NULL, -- Foreign key referencing the ItemID in the Item table
     UserID INT NOT NULL, -- Foreign key referencing the BuyerID in the Buyer table
     BidAmount DECIMAL(10, 2) NOT NULL, -- Amount of the bid
-    MinIncrement DECIMAL(10, 2) NOT NULL, -- Minimum increment for the bid
+    MinIncrement DECIMAL(10, 2)  NOT NULL DEFAULT 10.00,-- Minimum increment for the bid
     BidTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Date and time when the bid was placed
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE, -- Constraint to ensure the item exists
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE -- Constraint to ensure the buyer exists
