@@ -77,7 +77,7 @@ CREATE TABLE Notification (
     NotificationID INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each notification
     SellerID INT NOT NULL, -- Foreign key referencing the SellerID in the Sellers table
     BuyerID INT NOT NULL, -- Foreign key referencing the BuyerID in the Buyer table
-    MessageType ENUM('Sold', 'BidWon') NOT NULL, -- Type of message (sold or bid won)
+    MessageType ENUM('Sold', 'Registration Confirmation') NOT NULL, -- Type of message (sold or bid won)
     SellerMessage TEXT NOT NULL, -- Message content for the seller
     BuyerMessage TEXT NOT NULL, -- Message content for the buyer
     Timestamp DATETIME NOT NULL, -- Date and time when the notification was sent

@@ -124,17 +124,16 @@ VALUES
 
 INSERT INTO Item (Title, Description, ImagePath, ItemState, Category, StartPrice, AuctionStatus, StartDate, UserID)
 VALUES
-  ('iPhone 12 Pro', 'Description for iPhone 12 Pro', '/images/iphone12pro.jpg', FALSE, 'Electronics', 999.99, 'Active', NOW(), 1),
-  ('Samsung Galaxy S21', 'Description for Samsung Galaxy S21', '/images/galaxys21.jpg', FALSE, 'Electronics', 899.99, 'Active', NOW(), 2),
-  ('Nike Air Max', 'Description for Nike Air Max', '/images/airmax.jpg', FALSE, 'Footwear', 129.99, 'Active', NOW(), 3),
-  ('Sony PlayStation 5', 'Description for Sony PlayStation 5', '/images/ps5.jpg', FALSE, 'Electronics', 499.99, 'Active', NOW(), 4),
-  ('Levi\'s Jeans', 'Description for Levi\'s Jeans', '/images/levisjeans.jpg', FALSE, 'Apparel', 79.99, 'Sold', NOW(), 5),
-  ('Canon EOS R5', 'Description for Canon EOS R5', '/images/eosr5.jpg', FALSE, 'Electronics', 3499.99, 'Sold', NOW(), 6),
-  ('Apple Watch Series 6', 'Description for Apple Watch Series 6', '/images/applewatch.jpg', FALSE, 'Electronics', 399.99, 'Expired', NOW(), 7),
-  ('Adidas Ultraboost', 'Description for Adidas Ultraboost', '/images/ultraboost.jpg', FALSE, 'Footwear', 169.99, 'Expired', NOW(), 8),
-  ('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '/images/samsungtv.jpg', FALSE, 'Electronics', 899.99, 'Sold', NOW(), 9),
-  ('Coach Handbag', 'Description for Coach Handbag', '/images/coachhandbag.jpg', FALSE, 'Accessories', 249.99, 'Sold', NOW(), 10);
-
+  ('iPhone 12 Pro', 'Description for iPhone 12 Pro', '"C:\Users\adefi\Auction_platform\images\iphone12pro.jpg"', 0, 'Electronics', 999.99, 'Active', NOW(), 1),
+  ('Samsung Galaxy S21', 'Description for Samsung Galaxy S21', '"C:\Users\adefi\Auction_platform\images\galaxys21.jpg"', 899.99, 'Active', NOW(), 2),
+  ('Nike Air Max', 'Description for Nike Air Max', '"C:\Users\adefi\Auction_platform\images\airmax.jpg"', 0, 'Footwear', 129.99, 'Active', NOW(), 3),
+  ('Sony PlayStation 5', 'Description for Sony PlayStation 5', '"C:\Users\adefi\Auction_platform\images\ps5.jpg"', 0, 'Electronics', 499.99, 'Active', NOW(), 4),
+  ('Levi\'s Jeans', 'Description for Levi\'s Jeans', '"C:\Users\adefi\Auction_platform\images\levisjeans.jpg"', 0, 'Apparel', 79.99, 'Active', NOW(), 5),
+  ('Canon EOS R5', 'Description for Canon EOS R5', '"C:\Users\adefi\Auction_platform\images\eosr5.jpg"', 0, 'Electronics', 3499.99, 'Active', NOW(), 6),
+  ('Apple Watch Series 6', 'Description for Apple Watch Series 6', '"C:\Users\adefi\Auction_platform\images\applewatch.jpg"', 0, 'Electronics', 399.99, 'Active', NOW(), 7),
+  ('Adidas Ultraboost', 'Description for Adidas Ultraboost', '"C:\Users\adefi\Auction_platform\images\ultraboost.jpg"', 0, 'Footwear', 169.99, 'Active', NOW(), 8),
+  ('Samsung 65" 4K TV', 'Description for Samsung 65" 4K TV', '"C:\Users\adefi\Auction_platform\images\samsungtv.jpg"', 0, 'Electronics', 899.99, 'Active', NOW(), 9),
+  ('Coach Handbag', 'Description for Coach Handbag', '"C:\Users\adefi\Auction_platform\images\coachhandbag.jpg"', 0, 'Accessories', 249.99, 'Active', NOW(), 10);
 
 INSERT INTO Bid (ItemID, UserID, BidAmount, MinIncrement, BidTime)
 VALUES
@@ -150,3 +149,10 @@ VALUES
     (10, 10, 550.00, 10.00, '2022-01-10 18:00:00');
 
 
+
+
+
+
+INSERT INTO Notification (SellerID, BuyerID, MessageType, SellerMessage, BuyerMessage, Timestamp)
+VALUES
+  (1, 4, 'Registration Confirmation', 'Welcome to our platform! We are excited to have you as a registered seller. You can now start listing your items for sale.', 'Thank you for registering as a buyer! You can now start exploring our wide range of products and place bids on items you are interested in.', NOW());

@@ -294,3 +294,19 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+
+
+CREATE PROCEDURE UpdateItemState(IN p_item_id INT)
+BEGIN
+  -- Check if the item ID exists in the item table
+  IF NOT EXISTS (SELECT * FROM Item WHERE ItemID = p_item_id) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item ID does not exist in the Item table.';
+  END IF;
+
+  -- Update the item state to true
+  UPDATE Item SET ItemState = 1 WHERE ItemID = p_item_id;
+END;
+
+
