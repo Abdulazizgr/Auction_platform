@@ -145,14 +145,14 @@ public class AdminLogin extends JFrame{
 				try 
 				{
 					adminDAO = new AdminDAO();
-					admin = adminDAO.get(1);
+					admin = adminDAO.get(Firstname);
 				}
 				catch (Exception e)
 				{
 					e.printStackTrace();
 				}
 
-				if(admin.getFirstName().equals(Firstname)&&admin.getPassword().equals(pass))
+				if(!(admin==null))
 				{
 					AdminFrame frame;
 					try {

@@ -1,11 +1,29 @@
-
 DELIMITER //
 
 CREATE PROCEDURE AddItemToSeller(IN p_ItemID INT, IN p_UserID INT)
 BEGIN
-    -- This procedure adds an item to the Sellers table with the provided ItemID and UserID
-    INSERT INTO Sellers (UserID, ItemID)
-    VALUES (p_UserID, p_ItemID);
+    DECLARE seller_id INT;
+    DECLARE active_item_count INT;
+    
+    -- Check if the seller already exists in the Sellers table
+    SELECT SellerID INTO seller_id FROM Sellers WHERE UserID = p_UserID;
+    
+    -- Check if the seller has any active items
+    SELECT COUNT(*) INTO active_item_count FROM Item WHERE UserID = p_UserID AND AuctionStatus = 'Active';
+    
+    -- If the seller does not have an entry in the Sellers table, insert a new row
+    IF seller_id IS NULL THEN
+        INSERT INTO Sellers (UserID, ItemID)
+        VALUES (p_UserID, p_ItemID);
+    ELSE
+        -- If the seller has active items, raise an error
+        IF active_item_count > 0 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot add a new item until the previous item is sold.';
+        ELSE
+            INSERT INTO Sellers (SellerID, UserID, ItemID)
+            VALUES (seller_id, p_UserID, p_ItemID);
+        END IF;
+    END IF;
 END//
 
 DELIMITER ;
@@ -22,6 +40,30 @@ BEGIN
 END//
 
 DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE TRIGGER AfterUpdatePaymentStatus
+AFTER UPDATE ON Payment
+FOR EACH ROW
+BEGIN
+    DECLARE seller_id INT;
+
+    -- Get the SellerID associated with the updated Payment's ItemID
+    SELECT SellerID INTO seller_id FROM Sellers WHERE ItemID = NEW.ItemID;
+
+    -- Check if the payment status is completed
+    IF NEW.PaymentStatus = 'Completed' THEN
+        -- Delete the seller associated with the ItemID
+        DELETE FROM Sellers WHERE SellerID = seller_id;
+    END IF;
+END //
+DELIMITER ;
+
+
+
 
 DELIMITER //
 
@@ -82,6 +124,12 @@ BEGIN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item ID does not exist in the Item table.';
   END IF;
 
+-- Check if the item state is acceptable by the admin
+  IF EXISTS (SELECT * FROM Item WHERE ItemID = p_item_id AND ItemState = 0) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item is not acceptable by the admin.';
+  END IF;
+  
+  
   -- Check if the sold date is null for the item
   IF EXISTS (SELECT * FROM Item WHERE ItemID = p_item_id AND SoldDate IS NOT NULL) THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item is already sold.';
@@ -291,6 +339,43 @@ BEGIN
     UPDATE Buyer
     SET Message = buyer_message
     WHERE BuyerID = buyer_id;
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE UpdateItemState(IN p_item_id INT)
+BEGIN
+  -- Check if the item ID exists in the item table
+  IF NOT EXISTS (SELECT * FROM Item WHERE ItemID = p_item_id) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Item ID does not exist in the Item table.';
+  END IF;
+
+  -- Update the item state to true
+  UPDATE Item SET ItemState = 1 WHERE ItemID = p_item_id;
+END //
+
+DELIMITER //
+
+
+
+
+CREATE TRIGGER CheckBidIncrement
+BEFORE INSERT ON Bid
+FOR EACH ROW
+BEGIN
+  DECLARE max_bid DECIMAL(10, 2);
+  
+  -- Get the maximum bid amount for the item
+  SELECT MAX(BidAmount) INTO max_bid FROM Bid WHERE ItemID = NEW.ItemID;
+
+  -- Check if the difference between the maximum bid and the new bid is less than the minimum increment
+  IF (max_bid IS NOT NULL) AND (NEW.BidAmount - max_bid < NEW.MinIncrement) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The difference between the new bid and the maximum bid must be equal to or greater than the minimum increment.';
+  END IF;
 END //
 
 DELIMITER ;
