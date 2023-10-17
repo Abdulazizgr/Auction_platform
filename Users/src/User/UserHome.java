@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import Commonclasses.*;
 
 public class UserHome extends JFrame {
 
@@ -28,10 +29,13 @@ public class UserHome extends JFrame {
     private JPanel content_panel;
     public JLabel firstlabel;
     public JLabel flabel;
+    public JLabel store_name;
     public Cantpurchase cant_purchase;
     public AddItem add_item;
+    public UserDAO get_name;
+    public User user_store;
 
-    public UserHome(int ID) {
+    public UserHome(int ID) throws SQLException {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screensize = toolkit.getScreenSize();
         ImageIcon homepage = new ImageIcon("images/Welcome.jpeg");
@@ -41,6 +45,12 @@ public class UserHome extends JFrame {
         title_bar.setBounds(0, 0, screensize.width, 80);
         title_bar.setBackground(Color.white);
         title_bar.setPreferredSize(new Dimension(screensize.width, 100));
+
+        get_name = new UserDAO();
+        user_store = get_name.get(ID);
+        store_name = new JLabel(user_store.getFirstName() + " " + user_store.getLastName());
+        store_name.setBounds(400, 150, 400, 50);
+        title_bar.add(store_name);
 
         flabel = new JLabel();
         flabel.setOpaque(true);
