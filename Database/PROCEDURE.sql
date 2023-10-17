@@ -309,4 +309,26 @@ BEGIN
   UPDATE Item SET ItemState = 1 WHERE ItemID = p_item_id;
 END;
 
+DELIMITER //
+
+
+
+
+CREATE TRIGGER CheckBidIncrement
+BEFORE INSERT ON Bid
+FOR EACH ROW
+BEGIN
+  DECLARE max_bid DECIMAL(10, 2);
+  
+  -- Get the maximum bid amount for the item
+  SELECT MAX(BidAmount) INTO max_bid FROM Bid WHERE ItemID = NEW.ItemID;
+
+  -- Check if the difference between the maximum bid and the new bid is less than the minimum increment
+  IF (max_bid IS NOT NULL) AND (NEW.BidAmount - max_bid < NEW.MinIncrement) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The difference between the new bid and the maximum bid must be equal to or greater than the minimum increment.';
+  END IF;
+END //
+
+DELIMITER
+
 
