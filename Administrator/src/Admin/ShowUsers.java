@@ -3,11 +3,14 @@ package Admin;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import CommonClasses.*;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,6 +27,7 @@ public class ShowUsers extends JPanel {
     public JTable table;
     public JScrollPane j1;
     public JLabel title;
+    private JButton refresh;
 
     public ShowUsers() {
         Border glassyBorder = new BorderUIResource(
@@ -44,18 +48,12 @@ public class ShowUsers extends JPanel {
         ArrayList<Object[]> userslist = new ArrayList<Object[]>();
         String[] column = { "ID", "FirstName", "LastName", "Email", "RegistrationDate" };
         userslist = users();
-        model = new DefaultTableModel(userslist.size(), 5);
+        model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
-        table = new JTable(model);
-        int i = 0;
         for (Object[] userdata : userslist) {
-            table.setValueAt(userdata[0], i, 0);
-            table.setValueAt(userdata[1], i, 1);
-            table.setValueAt(userdata[2], i, 2);
-            table.setValueAt(userdata[3], i, 3);
-            table.setValueAt(userdata[4], i, 4);
-            i++;
+            model.addRow(userdata);
         }
+        table = new JTable(model);
         setColumnsWidth(table, 1060, 10, 20, 20, 30, 20);
         table.setFont(new Font("Arial", Font.PLAIN, 15));
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
@@ -63,8 +61,24 @@ public class ShowUsers extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(50, 50, 50, 50));
         scrollPane.setBounds(0, 10, d.width, 500);
+        refresh = Button.CustomButton("Refresh");
+        refresh.setBounds(0, 510, 182, 30);
+        refresh.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("success");
+                refreshTableData();
+            }
+        });
+        add(refresh);
         add(scrollPane);
 
+    }
+    private void refreshTableData() {
+        ArrayList<Object[]> userslist = users();
+        model.setRowCount(0); // Clear the existing table data
+        for (Object[] userdata : userslist) {
+            model.addRow(userdata); // Add the refreshed data to the table model
+        }
     }
 
     public ArrayList<Object[]> users() {

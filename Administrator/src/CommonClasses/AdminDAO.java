@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDAO implements DAO<Admin>{
@@ -30,9 +31,36 @@ public class AdminDAO implements DAO<Admin>{
 
     @Override
     public List<Admin> getAll() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        List<Admin> admins = new ArrayList<Admin>();
+        Connection con = Database.getConnection();
+        String sql = "select * from Admins";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Admin admin = null;
+            int UserID = rs.getInt("AdminID");
+            String FirstName = rs.getString("FirstName");
+            String LastName = rs.getString("LastName");
+            String Email = rs.getString("Email");
+            String Password = rs.getString("Password");
+            String RegistrationDate = rs.getString("RegistrationDate");
+            admin = new Admin(UserID, FirstName, LastName, Email, Password, RegistrationDate);
+           admins.add(admin);
+        }
+        return admins;
     }
+
+    public Admin get(String name) throws SQLException {
+        AdminDAO entire = new AdminDAO();
+        List<Admin> store = entire.getAll();
+        for (Admin i : store) {
+            if (i.getFirstName().equals(name)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public int insert(Admin t) throws SQLException {

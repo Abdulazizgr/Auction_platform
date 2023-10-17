@@ -13,7 +13,7 @@ public class BidDAO implements DAO<Bid> {
     public Bid get(int ID) throws SQLException {
         Connection con = Database.getConnection();
         Bid bid  = null;
-        String sql = "select bidID,userID,itemID,bidAmount,minIncrement from Bid where BidId = ?";
+        String sql = "select * from Bid where BidId = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, ID);
         ResultSet rs = ps.executeQuery();
@@ -21,9 +21,9 @@ public class BidDAO implements DAO<Bid> {
             int BidID = rs.getInt("BidID");
             int UserID = rs.getInt("UserID");
             int itemID = rs.getInt("ItemID");
-            int bidAmount = rs.getInt("bidAmount");
-            int minIncrement = rs.getInt("minIncrement");
-            String bidTime = rs.getString("bidTime");
+            int bidAmount = rs.getInt("BidAmount");
+            int minIncrement = rs.getInt("MinIncrement");
+            String bidTime = rs.getString("BidTime");
             bid = new Bid(BidID, UserID, itemID, bidAmount, minIncrement, bidTime);
         }
         return bid;
