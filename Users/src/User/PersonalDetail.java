@@ -35,55 +35,47 @@ public class PersonalDetail extends JPanel {
         Intro.setForeground(Color.white);
         Intro.setHorizontalAlignment(JLabel.CENTER);
         Intro.setBorder(glassyBorder);
-        Intro.setBounds(100, 50, 200, 50);
+        Intro.setBounds(250, 50, 200, 50);
         add(Intro);
         setLayout(null);
         setBounds(0, 0, 1060, 564);
 
         fname = new JLabel("First Name");
-        fname.setBounds(50, 100, 100, 50);
+        fname.setBounds(150, 100, 200, 50);
         add(fname);
 
         fanswer = new JLabel();
         fanswer.setText(ffname);
-        fanswer.setBounds(300, 100, 100, 50);
+        fanswer.setBounds(350, 100, 400, 50);
         add(fanswer);
 
         lname = new JLabel("Last Name");
-        lname.setBounds(50, 150, 100, 50);
+        lname.setBounds(150, 150, 200, 50);
         add(lname);
 
         lanswer = new JLabel();
         lanswer.setText(llname);
-        lanswer.setBounds(300, 150, 100, 50);
+        lanswer.setBounds(350, 150, 400, 50);
         add(lanswer);
 
         e_mail = new JLabel("Email");
-        e_mail.setBounds(50, 200, 100, 50);
+        e_mail.setBounds(150, 200, 200, 50);
         add(e_mail);
 
         eanswer = new JLabel(ee_mail);
         eanswer.setText(ee_mail);
-        eanswer.setBounds(300, 200, 100, 50);
+        eanswer.setBounds(350, 200, 400, 50);
         add(eanswer);
 
         reg_date = new JLabel("Registration Date");
-        reg_date.setBounds(50, 250, 100, 50);
+        reg_date.setBounds(150, 250, 400, 50);
         add(reg_date);
 
         ranswer = new JLabel();
         ranswer.setText(rreg_date);
-        ranswer.setBounds(300, 250, 100, 50);
+        ranswer.setBounds(350, 250, 400, 50);
         add(ranswer);
 
         setVisible(true);
     }
-
-    // public static void main(String args[]) throws Exception {
-    // JFrame test = new JFrame("test");
-    // test.setSize(500, 500);
-    // JPanel pan = new PersonalDetail(1);
-    // test.add(pan);
-    // test.setVisible(true);
-    // }
 }

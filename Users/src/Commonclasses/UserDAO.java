@@ -40,20 +40,7 @@ public class UserDAO implements DAO<User> {
             String RegistrationDate = rs.getString("RegistrationDate");
             user = new User(UserID, FirstName, LastName, Email, Password, RegistrationDate);
         }
-
         return user;
-    }
-
-    public User get(String name) throws SQLException {
-        UserDAO entire = new UserDAO();
-        List<User> store = entire.getAll();
-        for (User i : store) {
-            System.out.println(i.getFirstName());
-            if (i.getFirstName().equals(name)) {
-                return i;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -75,6 +62,17 @@ public class UserDAO implements DAO<User> {
             users.add(user);
         }
         return users;
+    }
+
+    public User get(String name) throws SQLException {
+        UserDAO entire = new UserDAO();
+        List<User> store = entire.getAll();
+        for (User i : store) {
+            if (i.getFirstName().equals(name)) {
+                return i;
+            }
+        }
+        return null;
     }
 
     @Override

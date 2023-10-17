@@ -23,7 +23,6 @@ import javax.swing.plaf.BorderUIResource;
 
 import Commonclasses.ItemDAO;
 import Commonclasses.Item;
-import Commonclasses.*;
 
 public class AddItem extends JPanel {
     public JLabel Intro_FIll, Item_Name, first_name, last_name, Reserve_Price, Image_Path, lblSelected,

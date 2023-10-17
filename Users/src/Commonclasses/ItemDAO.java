@@ -57,7 +57,7 @@ public class ItemDAO implements DAO<Item> {
             String AuctionStatus = rs.getString("AuctionStatus");
             Timestamp StartDate = rs.getTimestamp("StartDate");
             Timestamp soldDate = rs.getTimestamp("soldDate");
-            int UserID = rs.getInt("ItemID");
+            int UserID = rs.getInt("UserID");
             item = new Item(ItemID, Title, Description, imagePath, Category, Startprice,
                     AuctionStatus, StartDate, soldDate, UserID, ItemState);
             items.add(item);

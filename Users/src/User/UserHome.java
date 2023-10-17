@@ -59,7 +59,7 @@ public class UserHome extends JFrame {
         control_Panel.setLayout(null);
         control_Panel.setPreferredSize(new Dimension(300, 200));
 
-        my_order = new MyOrder();
+        my_order = new MyOrder(ID);
         try {
             per_detail = new PersonalDetail(ID);
         } catch (Exception e) {
@@ -90,7 +90,12 @@ public class UserHome extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sold_items = new soldItems();
+        try {
+            sold_items = new soldItems();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         home_Panel = new JPanel();
         home_Panel.setBounds(25, 5, 1000, 600);
@@ -202,8 +207,8 @@ public class UserHome extends JFrame {
                 per_detail.setVisible(false);
                 pur_chase.setVisible(false);
                 show_items.setVisible(false);
-                my_order.setVisible(true);
-                sold_items.setVisible(false);
+                my_order.setVisible(false);
+                sold_items.setVisible(true);
                 cant_purchase.setVisible(false);
                 add_item.setVisible(false);
             }

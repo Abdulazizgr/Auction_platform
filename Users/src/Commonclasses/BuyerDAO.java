@@ -47,6 +47,22 @@ public class BuyerDAO implements DAO<Buyer> {
         return buyers;
     }
 
+    public List<Item> getItemfromBuyer(int ID) throws SQLException {
+        List<Item> it = new ArrayList<Item>();
+        Connection con = Database.getConnection();
+        String sql = "select * from Buyer where UserID = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, ID);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int itemID = rs.getInt("ItemID");
+            ItemDAO it_dao = new ItemDAO();
+            Item store = it_dao.get(itemID);
+            it.add(store);
+        }
+        return it;
+    }
+
     @Override
     public int insert(Buyer t) throws SQLException {
         // TODO Auto-generated method stub
