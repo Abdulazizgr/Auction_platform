@@ -3,19 +3,22 @@ DELIMITER //
 CREATE PROCEDURE AddItemToSeller(IN p_ItemID INT, IN p_UserID INT)
 BEGIN
     DECLARE seller_id INT;
+    DECLARE active_item_count INT;
     
     -- Check if the seller already exists in the Sellers table
     SELECT SellerID INTO seller_id FROM Sellers WHERE UserID = p_UserID;
     
     -- Check if the seller has any active items
-    IF EXISTS (SELECT 1 FROM Item WHERE UserID = p_UserID AND AuctionStatus = 'Active') THEN
-        -- If the seller has active items, raise an error or take appropriate action
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot add a new item until the previous item is sold.';
+    SELECT COUNT(*) INTO active_item_count FROM Item WHERE UserID = p_UserID AND AuctionStatus = 'Active';
+    
+    -- If the seller does not have an entry in the Sellers table, insert a new row
+    IF seller_id IS NULL THEN
+        INSERT INTO Sellers (UserID, ItemID)
+        VALUES (p_UserID, p_ItemID);
     ELSE
-        -- If the seller does not have active items, proceed with adding the new item
-        IF seller_id IS NULL THEN
-            INSERT INTO Sellers (UserID, ItemID)
-            VALUES (p_UserID, p_ItemID);
+        -- If the seller has active items, raise an error
+        IF active_item_count > 0 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot add a new item until the previous item is sold.';
         ELSE
             INSERT INTO Sellers (SellerID, UserID, ItemID)
             VALUES (seller_id, p_UserID, p_ItemID);
