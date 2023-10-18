@@ -20,8 +20,8 @@ BEGIN
         IF active_item_count > 0 THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot add a new item until the previous item is sold.';
         ELSE
-            INSERT INTO Sellers (SellerID, UserID, ItemID)
-            VALUES (seller_id, p_UserID, p_ItemID);
+            INSERT INTO Sellers (UserID, ItemID)
+            VALUES (p_UserID, p_ItemID);
         END IF;
     END IF;
 END//
@@ -40,7 +40,6 @@ BEGIN
 END//
 
 DELIMITER ;
-
 
 
 DELIMITER //
