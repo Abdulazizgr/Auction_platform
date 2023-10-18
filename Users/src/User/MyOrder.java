@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -34,7 +35,7 @@ public class MyOrder extends JPanel {
     private ImageIcon ic_on;
     private JButton refresh;
 
-    MyOrder() {
+    MyOrder(int ID) {
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
 
@@ -71,6 +72,8 @@ public class MyOrder extends JPanel {
         ImageIcon ic_on;
         int i = 0;
         for (Object[] userdata : itemslist) {
+            System.out.println(userdata[0]);
+            System.out.println(i);
             table.setValueAt(userdata[0], i, 0);
             table.setValueAt(userdata[1], i, 1);
             table.setValueAt(userdata[2], i, 2);
@@ -99,6 +102,7 @@ public class MyOrder extends JPanel {
         setVisible(true);
         setVisible(true);
     }
+
     private void refreshTableData() {
         ArrayList<String[]> itemslist = items(ID);
         model.setRowCount(0); // Clear the existing table data
@@ -112,20 +116,23 @@ public class MyOrder extends JPanel {
             i++;
         }
     }
+
     public ArrayList<String[]> items(int ID) {
         BuyerDAO getter = new BuyerDAO();
         UserDAO userdao = new UserDAO();
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
-        java.util.List<Item> items = new ArrayList<>();
+        List<Item> items = new ArrayList<Item>();
         try {
             items = getter.getItemfromBuyer(ID);
+            System.out.println("debug");
         } catch (SQLException E) {
             JOptionPane.showMessageDialog(null, E.getMessage());
         }
         int i = 0;
         for (Item item : items) {
-            if (item.getAuctionStatus().equals("Sold")) {
+            if (item.getAuctionStatus().equals("Active")) {
                 itemslist.add(new String[6]);
+                System.out.println(item.getTitle());
                 itemslist.get(i)[0] = (item.getItemID() + "");
                 itemslist.get(i)[1] = (item.getTitle());
                 itemslist.get(i)[2] = (item.getDescription());

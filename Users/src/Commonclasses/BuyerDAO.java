@@ -48,36 +48,39 @@ public class BuyerDAO implements DAO<Buyer> {
     }
 
     public List<Item> getItemfromBuyer(int ID) throws SQLException {
+        System.out.println("user ID = " + ID);
         List<Item> it = new ArrayList<Item>();
         Connection con = Database.getConnection();
-        String sql = "select * from Buyer where UserID = ?";
+        String sql = "select * from Buyer where Buyer.UserID = ?";
         PreparedStatement ps = con.prepareStatement(sql);
+        System.out.println("debug 3");
         ps.setInt(1, ID);
         ResultSet rs = ps.executeQuery();
+        ;
         while (rs.next()) {
+            System.out.println(rs.getInt("ItemID") + "debug 2");
             int itemID = rs.getInt("ItemID");
+            System.out.println(itemID);
             ItemDAO it_dao = new ItemDAO();
             Item store = it_dao.get(itemID);
             it.add(store);
+            System.out.println(store.getTitle());
         }
         return it;
     }
 
     @Override
     public int insert(Buyer t) throws SQLException {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'insert'");
     }
 
     @Override
     public int update(Buyer t) throws SQLException {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
     public int delete(Buyer t) throws SQLException {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 

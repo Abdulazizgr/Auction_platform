@@ -107,7 +107,7 @@ public class AddItem extends JPanel {
 
         lblThisChoiceIs5 = new JLabel("Please upload a valid image ");
         lblThisChoiceIs5.setForeground(Color.RED);
-        lblThisChoiceIs5.setBounds(395, 423, 211, 15);
+        lblThisChoiceIs5.setBounds(600, 423, 211, 15);
         add(lblThisChoiceIs5);
         lblThisChoiceIs5.setVisible(false);
 
@@ -186,7 +186,7 @@ public class AddItem extends JPanel {
                     getreserve.setText("");
                     getfirst.setText("");
                     getlast.setText("");
-                    JOptionPane.showMessageDialog(null,"SUCCESSFULL!!!");
+                    JOptionPane.showMessageDialog(null, "SUCCESSFULL!!!");
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }

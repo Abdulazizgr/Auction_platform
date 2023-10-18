@@ -69,7 +69,7 @@ public class UserHome extends JFrame {
         control_Panel.setLayout(null);
         control_Panel.setPreferredSize(new Dimension(300, 200));
 
-        my_order = new MyOrder();
+        my_order = new MyOrder(ID);
         my_order.ID = ID;
         try {
             per_detail = new PersonalDetail(ID);
