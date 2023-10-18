@@ -1,16 +1,19 @@
 package User;
 
 import Commonclasses.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +29,8 @@ public class ShowItems extends JPanel {
     public JTable table;
     public JScrollPane j1;
     public JLabel title;
+    public JButton refresh;
+    public ImageIcon ic_on;
 
     ShowItems() throws SQLException {
         Border glassyBorder = new BorderUIResource(
@@ -59,18 +64,18 @@ public class ShowItems extends JPanel {
 
             }
         };
+
         model.setColumnIdentifiers(column);
         table = new JTable(model);
-        ImageIcon ic_on;
         int i = 0;
-        for (Object[] item : itemslist) {
-            table.setValueAt(item[0], i, 0);
-            table.setValueAt(item[1], i, 1);
-            table.setValueAt(item[2], i, 2);
-            ic_on = new ImageIcon((String) item[3]);
+        for (Object[] items : itemslist) {
+            table.setValueAt(items[0], i, 0);
+            table.setValueAt(items[1], i, 1);
+            table.setValueAt(items[2], i, 2);
+            ic_on = new ImageIcon((String) items[3]);
             table.setValueAt(ic_on, i, 3);
-            table.setValueAt(item[4], i, 4);
-            table.setValueAt(item[5], i, 5);
+            table.setValueAt(items[4], i, 4);
+            table.setValueAt(items[5], i, 5);
             i++;
         }
         setColumnsWidth(table, 1060, 5, 15, 20, 30, 20, 10);
@@ -82,13 +87,37 @@ public class ShowItems extends JPanel {
         scrollPane.setBorder(new EmptyBorder(50, 50, 50, 50));
         scrollPane.setBounds(0, 10, d.width, 500);
         add(scrollPane);
+
+        refresh = Button.CustomButton("Refresh");
+        refresh.setBounds(0, 510, 182, 30);
+        refresh.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                refreshTableData();
+            }
+        });
+        add(refresh);
         setVisible(true);
 
+    }
+    private void refreshTableData() {
+        ArrayList<String[]> itemslist = items();
+        model.setRowCount(0); // Clear the existing table data
+        int i = 0;
+        for (Object[] items : itemslist) {
+            table.setValueAt(items[0], i, 0);
+            table.setValueAt(items[1], i, 1);
+            table.setValueAt(items[2], i, 2);
+            ic_on = new ImageIcon((String) items[3]);
+            table.setValueAt(ic_on, i, 3);
+            table.setValueAt(items[4], i, 4);
+            table.setValueAt(items[5], i, 5);
+            i++;
+        }
     }
 
     // ===================================== a 2 dimensional array of items
     // =========================
-    public ArrayList<String[]> items() throws SQLException {
+    public ArrayList<String[]> items() {
         ItemDAO itemdao = new ItemDAO();
         UserDAO userdao = new UserDAO();
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
@@ -96,18 +125,23 @@ public class ShowItems extends JPanel {
         try {
             items = itemdao.getAll();
         } catch (SQLException E) {
-            JOptionPane.showMessageDialog(null, E.getMessage());
+            E.printStackTrace();
         }
         int i = 0;
         for (Item item : items) {
-            if (item.getAuctionStatus().equals("Active")&&(!(item.getUserID()==0)))  {
+            if (item.getAuctionStatus().equals("Active")&&(!(item.getUserID()==0))) {
                 itemslist.add(new String[6]);
                 itemslist.get(i)[0] = (item.getItemID() + "");
                 itemslist.get(i)[1] = (item.getTitle());
                 itemslist.get(i)[2] = (item.getDescription());
                 itemslist.get(i)[3] = (item.getImagePath());
-                itemslist.get(i)[4] = userdao.get(item.getUserID())
-                        .getFirstName();
+                try {
+                    itemslist.get(i)[4] = userdao.get(item.getUserID())
+                            .getFirstName();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 itemslist.get(i)[5] = (item.getStartPrice()) + "";
                 i++;
             }
@@ -130,7 +164,7 @@ public class ShowItems extends JPanel {
             TableColumn column = table.getColumnModel().getColumn(i);
             column.setPreferredWidth((int) (tablePreferredWidth * (percentages[i] / total)));
         }
-    }}
+    }
     // =====================================================================================================//
 
-
+}

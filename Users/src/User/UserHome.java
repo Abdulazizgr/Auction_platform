@@ -23,7 +23,7 @@ public class UserHome extends JFrame {
     public PersonalDetail per_detail;
     public Purchase pur_chase;
     public ShowItems show_items;
-    public soldItems sold_items;
+    public SoldItems sold_items;
     public ArrayList<JButton> butt_ons;
     public JPanel home_Panel;
     private JPanel content_panel;
@@ -69,7 +69,8 @@ public class UserHome extends JFrame {
         control_Panel.setLayout(null);
         control_Panel.setPreferredSize(new Dimension(300, 200));
 
-        my_order = new MyOrder(ID);
+        my_order = new MyOrder();
+        my_order.ID = ID;
         try {
             per_detail = new PersonalDetail(ID);
         } catch (Exception e) {
@@ -97,7 +98,7 @@ public class UserHome extends JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            sold_items = new soldItems();
+            sold_items = new SoldItems();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

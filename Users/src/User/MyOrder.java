@@ -3,6 +3,8 @@ package User;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,9 +16,9 @@ import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import Commonclasses.Button;
 import Commonclasses.BuyerDAO;
 import Commonclasses.Item;
-import Commonclasses.ItemDAO;
 import Commonclasses.UserDAO;
 
 public class MyOrder extends JPanel {
@@ -28,8 +30,11 @@ public class MyOrder extends JPanel {
     public ImageIcon image;
     public BuyerDAO buy_dao;
     public JScrollPane scrol_1;
+    public int ID;
+    private ImageIcon ic_on;
+    private JButton refresh;
 
-    MyOrder(int ID) {
+    MyOrder() {
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
 
@@ -48,7 +53,7 @@ public class MyOrder extends JPanel {
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
         String[] column = { "ID", "Item Name", "Description", "Image" };
         itemslist = items(ID);
-        model = new DefaultTableModel() {
+        model = new DefaultTableModel(itemslist.size(), 4) {
             @Override
             public Class<?> getColumnClass(int column) {
                 switch (column) {
@@ -62,10 +67,6 @@ public class MyOrder extends JPanel {
             }
         };
         model.setColumnIdentifiers(column);
-        for (Object[] item : itemslist) {
-            model.addRow(item);
-        }
-        model.setColumnIdentifiers(column);
         table = new JTable(model);
         ImageIcon ic_on;
         int i = 0;
@@ -75,6 +76,7 @@ public class MyOrder extends JPanel {
             table.setValueAt(userdata[2], i, 2);
             ic_on = new ImageIcon((String) userdata[3]);
             table.setValueAt(ic_on, i, 3);
+            i++;
         }
         setColumnsWidth(table, 1060, 5, 15, 20, 30, 20, 10);
         table.setRowHeight(100);
@@ -85,10 +87,31 @@ public class MyOrder extends JPanel {
         scrollPane.setBorder(new EmptyBorder(50, 50, 50, 50));
         scrollPane.setBounds(0, 10, d.width, 500);
         add(scrollPane);
-
+        refresh = Button.CustomButton("Refresh");
+        refresh.setBounds(0, 510, 182, 30);
+        refresh.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("success");
+                refreshTableData();
+            }
+        });
+        add(refresh);
+        setVisible(true);
         setVisible(true);
     }
-
+    private void refreshTableData() {
+        ArrayList<String[]> itemslist = items(ID);
+        model.setRowCount(0); // Clear the existing table data
+        int i = 0;
+        for (Object[] userdata : itemslist) {
+            table.setValueAt(userdata[0], i, 0);
+            table.setValueAt(userdata[1], i, 1);
+            table.setValueAt(userdata[2], i, 2);
+            ic_on = new ImageIcon((String) userdata[3]);
+            table.setValueAt(ic_on, i, 3);
+            i++;
+        }
+    }
     public ArrayList<String[]> items(int ID) {
         BuyerDAO getter = new BuyerDAO();
         UserDAO userdao = new UserDAO();

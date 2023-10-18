@@ -29,6 +29,7 @@ public class SoldItems extends JPanel {
     public JScrollPane j1;
     public JLabel title;
     private JButton refresh;
+    private ImageIcon ic_on;
     public SoldItems() throws SQLException {
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
@@ -64,14 +65,14 @@ public class SoldItems extends JPanel {
         model.setColumnIdentifiers(column);
         table = new JTable(model);
         int i = 0;
-        for (Object[] userdata : itemslist) {
-            table.setValueAt(userdata[0], i, 0);
-            table.setValueAt(userdata[1], i, 1);
-            table.setValueAt(userdata[2], i, 2);
-            table.setValueAt(userdata[3], i, 3);
-            table.setValueAt(userdata[4], i, 4);
-            table.setValueAt(userdata[5], i, 5);
-            table.setValueAt(userdata[6], i, 6);
+        for (Object[] items : itemslist) {
+            table.setValueAt(items[0], i, 0);
+            table.setValueAt(items[1], i, 1);
+            table.setValueAt(items[2], i, 2);
+            ic_on = new ImageIcon((String) items[3]);
+            table.setValueAt(ic_on, i, 3);
+            table.setValueAt(items[4], i, 4);
+            table.setValueAt(items[5], i, 5);
             i++;
         }
         setColumnsWidth(table, 1060, 5, 15, 15, 30, 15, 10, 10);
@@ -95,10 +96,18 @@ public class SoldItems extends JPanel {
 
     }
     private void refreshTableData() {
-        ArrayList<String[]> userslist = items();
+        ArrayList<String[]> itemslist = items();
         model.setRowCount(0); // Clear the existing table data
-        for (Object[] userdata : userslist) {
-            model.addRow(userdata); // Add the refreshed data to the table model
+        int i = 0;
+        for (Object[] items : itemslist) {
+            table.setValueAt(items[0], i, 0);
+            table.setValueAt(items[1], i, 1);
+            table.setValueAt(items[2], i, 2);
+            ic_on = new ImageIcon((String) items[3]);
+            table.setValueAt(ic_on, i, 3);
+            table.setValueAt(items[4], i, 4);
+            table.setValueAt(items[5], i, 5);
+            i++;
         }
     }
     // ===================================== a 2 dimensional array of items

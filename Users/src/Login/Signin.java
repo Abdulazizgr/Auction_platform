@@ -23,10 +23,8 @@ private JPasswordField password;
 private JLabel label;
 private JButton btnNewButton, btnNewButton_1;
 public JButton btnNewUser;
-private ImageIcon icon2;
 
 public Signin(Login login){
-		icon2 = new ImageIcon("images/Login2.png");
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setForeground(new Color(154, 205, 50));
 		setBackground(new Color(167, 192, 232));
