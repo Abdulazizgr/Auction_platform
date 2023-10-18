@@ -107,7 +107,7 @@ public class AdminFrame extends JFrame {
         });
 
         buttons.add(butt_start_auction);
-        butt_start_auction.addActionListener(new ActionListener() {
+        /**butt_start_auction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 home.setVisible(false);
                 start.setVisible(true);
@@ -115,7 +115,7 @@ public class AdminFrame extends JFrame {
                 slitems.setVisible(false);
                 items.setVisible(false);
             }
-        });
+        });**/
 
         buttons.add(butt_cust);
         butt_cust.addActionListener(new ActionListener() {

@@ -178,15 +178,15 @@ public class AddItem extends JPanel {
                 Item i_tem = new Item(getitem.getText(), getfirst.getText(), path, getlast.getText(),
                         Double.parseDouble(getreserve.getText()), "Active",
                         ID);
-
-                getitem.setText("");
-                get_image.setText("");
-                getreserve.setText("");
-                getfirst.setText("");
-                getlast.setText("");
                 ItemDAO in = new ItemDAO();
                 try {
                     in.insert(i_tem);
+                    getitem.setText("");
+                    get_image.setText("");
+                    getreserve.setText("");
+                    getfirst.setText("");
+                    getlast.setText("");
+                    JOptionPane.showMessageDialog(null,"SUCCESSFULL!!!");
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }

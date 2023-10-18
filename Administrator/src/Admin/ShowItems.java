@@ -103,16 +103,8 @@ public class ShowItems extends JPanel {
     private void refreshTableData() {
         ArrayList<String[]> itemslist = items();
         model.setRowCount(0); // Clear the existing table data
-        int i = 0;
-        for (Object[] items : itemslist) {
-            table.setValueAt(items[0], i, 0);
-            table.setValueAt(items[1], i, 1);
-            table.setValueAt(items[2], i, 2);
-            ic_on = new ImageIcon((String) items[3]);
-            table.setValueAt(ic_on, i, 3);
-            table.setValueAt(items[4], i, 4);
-            table.setValueAt(items[5], i, 5);
-            i++;
+        for (Object[] userdata : itemslist) {
+            model.addRow(userdata); // Add the refreshed data to the table model
         }
     }
 
