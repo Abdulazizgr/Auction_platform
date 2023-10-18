@@ -63,11 +63,6 @@ public class Signin extends JPanel {
 		label.setBounds(49, 173, 37, 37);
 		add(label);
 
-		btnNewButton_1.setForeground(new Color(0, 100, 0));
-		btnNewButton_1.setBackground(new Color(0, 255, 127));
-		btnNewButton_1.setFocusable(false);
-		add(btnNewButton_1);
-
 		btnNewUser = Button.CustomButton("New User");
 		btnNewUser.setBounds(390, 320, 180, 30);
 		add(btnNewUser);
