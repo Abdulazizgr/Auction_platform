@@ -21,9 +21,15 @@ import javax.swing.border.EmptyBorder;
 import Commonclasses.*;
 import User.*;
 
+// This is the log in frame with the main method where the program begins. it works by changing the visibility of each panel on and off.
+// It mainly has two  panels with in it. the sign in and the sign up panel. it changes the visibility of each depending on the button pressed. 
+// Both panels are have their visibility turned off.
+
 public class Login extends JFrame {
 
-	int IDstore;
+	int IDstore; // this is where the program stores the UserID of the user that signs in. it
+					// passes this number as an argument for other classes to identify the UserID of
+					// each person.
 	private JPanel contentPane;
 	public boolean n;
 	public String Firstname, pass;
@@ -39,15 +45,15 @@ public class Login extends JFrame {
 	public Dimension screenSize;
 	public ImageIcon icon, icon2;
 	public JLabel Locklabel, label2, lblNewLabel, lblNewLabel_1, label, lblPleaseFillAll, lblPleaseFillValid,
-			lblAdminPortal;
+			lblUserPortal;
 
 	public JTextPane emil_text;
 	public JPasswordField password;
 	public JButton btnNewButton_1, btnNewButton, btnNewUser;
-	public Signin signin;
-	private Signup signup;
+	public Signin signin; // sign in object
+	private Signup signup; // sign up object
 
-	public Login(){
+	public Login() {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -55,8 +61,8 @@ public class Login extends JFrame {
 		setTitle("Login Portal");
 		icon = new ImageIcon("images/user-128.png");
 		setIconImage(icon.getImage());
-		signin = new Signin(this);
-		signup = new Signup();
+		signin = new Signin(this); // instantiating the sign in class (panel)
+		signup = new Signup(); // instantiating the sign up class (panel)
 		signup.setVisible(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,10 +70,10 @@ public class Login extends JFrame {
 		add(contentPane);
 		contentPane.setLayout(null);
 
-		lblAdminPortal = new JLabel("Customer Portal");
-		lblAdminPortal.setBounds(screenSize.width / 2 - 70, 140, 200, 26);
-		lblAdminPortal.setFont(new Font("Dialog", Font.BOLD, 20));
-		contentPane.add(lblAdminPortal);
+		lblUserPortal = new JLabel("Customer Portal");
+		lblUserPortal.setBounds(screenSize.width / 2 - 70, 140, 200, 26);
+		lblUserPortal.setFont(new Font("Dialog", Font.BOLD, 20));
+		contentPane.add(lblUserPortal);
 
 		label2 = new JLabel("AUCTION DAILY LOGIN");
 		label2.setFont(new Font("Dialog", Font.BOLD, 25));
@@ -76,58 +82,68 @@ public class Login extends JFrame {
 		contentPane.add(signup);
 		contentPane.add(label2);
 
+		// this is the button that controls the buttons action. it sets the visibility
+		// of signup panel to false the sign in panel to true.
 		signin.btnNewUser.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg) {
+			public void actionPerformed(ActionEvent arg) {
 				signin.setVisible(false);
 				signup.setVisible(true);
 			}
 		});
 
-		 signup.next.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
+		// this is the button that controls the sing up buttons action. it adds the
+		// users input to the database using the UserrDAO and the User class
+		// inherited from the common classes package. it handles different erros where
+		// if the passwords are not the same or some fields are left empty
+		signup.next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
 				System.out.println(signup.get_pass);
-                if (!(signup.get_pass.getText().equals(signup.getre_enter.getText()))) {
-                    signup.get_pass.setText("");
-                    signup.getre_enter.setText("");
-                    JOptionPane.showMessageDialog(null, "Confirm Again");
-                } else {
-                    User to_add = new User(signup.getfirst.getText(), signup.getlast.getText(), signup.get_email.getText(),
-                            signup.get_pass.getText());
-                    UserDAO in = new UserDAO();
-                    try {
-                        in.insert(to_add);
-                        signup.getfirst.setText("");
-                        signup.getlast.setText("");
-                        signup.get_email.setText("");
-                        signup.get_pass.setText("");
-                        signup.getre_enter.setText("");
-                        signup.setVisible(false);
-                        signin.setVisible(true);
+				if (!(signup.get_pass.getText().equals(signup.getre_enter.getText()))) {
+					signup.get_pass.setText("");
+					signup.getre_enter.setText("");
+					JOptionPane.showMessageDialog(null, "Confirm Again");
+				} else {
+					User to_add = new User(signup.getfirst.getText(), signup.getlast.getText(),
+							signup.get_email.getText(),
+							signup.get_pass.getText());
+					UserDAO in = new UserDAO();
+					try {
+						in.insert(to_add);
+						signup.getfirst.setText("");
+						signup.getlast.setText("");
+						signup.get_email.setText("");
+						signup.get_pass.setText("");
+						signup.getre_enter.setText("");
+						signup.setVisible(false);
+						signin.setVisible(true);
 
-                    } catch (SQLException e) {
-                        String message = e.getMessage();
-                        JOptionPane.showMessageDialog(null, message);
-                        signup.getfirst.setText("");
-                        signup.getlast.setText("");
-                        signup.get_email.setText("");
-                        signup.get_pass.setText("");
-                        signup.getre_enter.setText("");
-                    }
+					} catch (SQLException e) {
+						String message = e.getMessage();
+						JOptionPane.showMessageDialog(null, message);
+						signup.getfirst.setText("");
+						signup.getlast.setText("");
+						signup.get_email.setText("");
+						signup.get_pass.setText("");
+						signup.getre_enter.setText("");
+					}
 
-                }
-            }
-        });
+				}
+			}
+		});
 
+		// this is a button in the sign up panel that makes it return back to the sign
+		// in page. It works by setting the visibility of the sign up panel to false and
+		// the log in panel to true
 		signup.back.addActionListener(new ActionListener() {
 
-	@Override
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				 signup.setVisible(false);
-                 signin.setVisible(true);
+				signup.setVisible(false);
+				signin.setVisible(true);
 			}
-			
+
 		});
-			}
+	}
 
 	public static void main(String[] args) throws Exception {
 		Login login = new Login();

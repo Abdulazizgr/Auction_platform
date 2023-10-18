@@ -11,6 +11,7 @@ import java.awt.TextField;
 
 import Commonclasses.*;
 
+// Sign up panel that accepts input from user and stores in the database.
 public class Signup extends JPanel {
     public boolean N;
     public String First_name, Last_name, Email, password;
@@ -18,7 +19,7 @@ public class Signup extends JPanel {
     public JTextField getfirst, getlast, get_email;
     public TextField get_pass;
     public JTextField getre_enter;
-    public JButton next, sign_up,back;
+    public JButton next, sign_up, back;
     public Dimension screen_Size;
     public JPanel Bank_info;
     public Signin signin;
