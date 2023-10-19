@@ -176,7 +176,7 @@ public class AddItem extends JPanel {
         butt_additem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 Item i_tem = new Item(getitem.getText(), getfirst.getText(), path, getlast.getText(),
-                        Double.parseDouble(getreserve.getText()), "Active",
+                        Double.parseDouble(getreserve.getText()), "Sold",
                         ID);
                 ItemDAO in = new ItemDAO();
                 try {

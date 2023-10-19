@@ -106,16 +106,23 @@ public class MyOrder extends JPanel {
     private void refreshTableData() {
         ArrayList<String[]> itemslist = items(ID);
         model.setRowCount(0); // Clear the existing table data
-        int i = 0;
         for (Object[] userdata : itemslist) {
-            table.setValueAt(userdata[0], i, 0);
-            table.setValueAt(userdata[1], i, 1);
-            table.setValueAt(userdata[2], i, 2);
-            ic_on = new ImageIcon((String) userdata[3]);
-            table.setValueAt(ic_on, i, 3);
-            i++;
+            model.addRow(userdata); // Add the refreshed data to the table model
         }
     }
+    // private void refreshTableData() {
+    // ArrayList<String[]> itemslist = items(ID);
+    // model.setRowCount(0); // Clear the existing table data
+    // int i = 0;
+    // for (Object[] userdata : itemslist) {
+    // table.setValueAt(userdata[0], i, 0);
+    // table.setValueAt(userdata[1], i, 1);
+    // table.setValueAt(userdata[2], i, 2);
+    // ic_on = new ImageIcon((String) userdata[3]);
+    // table.setValueAt(ic_on, i, 3);
+    // i++;
+    // }
+    // }
 
     public ArrayList<String[]> items(int ID) {
         BuyerDAO getter = new BuyerDAO();
@@ -130,7 +137,7 @@ public class MyOrder extends JPanel {
         }
         int i = 0;
         for (Item item : items) {
-            if (item.getAuctionStatus().equals("Active")) {
+            if (item.getAuctionStatus().equals("Sold")) {
                 itemslist.add(new String[6]);
                 System.out.println(item.getTitle());
                 itemslist.get(i)[0] = (item.getItemID() + "");

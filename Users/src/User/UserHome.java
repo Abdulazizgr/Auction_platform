@@ -99,6 +99,8 @@ public class UserHome extends JFrame {
         }
         try {
             sold_items = new SoldItems();
+            sold_items.ID = ID;
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

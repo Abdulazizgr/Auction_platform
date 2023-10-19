@@ -30,6 +30,8 @@ public class SoldItems extends JPanel {
     public JLabel title;
     private JButton refresh;
     private ImageIcon ic_on;
+    public int ID;
+
     public SoldItems() throws SQLException {
         Border glassyBorder = new BorderUIResource(
                 BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.WHITE, new Color(180, 180, 180)));
@@ -48,7 +50,7 @@ public class SoldItems extends JPanel {
         setBounds(0, 0, 1060, 564);
         ArrayList<String[]> itemslist = new ArrayList<String[]>();
         String[] column = { "ID", "Item Name", "Description", "Image", "SellerName", "Buyer Name", "StartPrice" };
-        itemslist = items();
+        itemslist = items(ID);
         model = new DefaultTableModel(itemslist.size(), 6) {
             @Override
             public Class<?> getColumnClass(int column) {
@@ -95,16 +97,18 @@ public class SoldItems extends JPanel {
         add(scrollPane);
 
     }
+
     private void refreshTableData() {
-        ArrayList<String[]> itemslist = items();
+        ArrayList<String[]> itemslist = items(ID);
         model.setRowCount(0); // Clear the existing table data
         for (Object[] userdata : itemslist) {
             model.addRow(userdata); // Add the refreshed data to the table model
         }
     }
+
     // ===================================== a 2 dimensional array of items
     // =========================
-    public ArrayList<String[]> items() {
+    public ArrayList<String[]> items(int ID) {
         ItemDAO itemdao = new ItemDAO();
         UserDAO userdao = new UserDAO();
         BidDAO biddao = new BidDAO();
@@ -117,7 +121,7 @@ public class SoldItems extends JPanel {
         }
         int i = 0;
         for (Item item : items) {
-            if (item.getAuctionStatus().equals("Sold")) {
+            if (item.getAuctionStatus().equals("Sold") && item.getUserID() == ID) {
                 itemslist.add(new String[7]);
                 itemslist.get(i)[0] = (item.getItemID() + "");
                 itemslist.get(i)[1] = (item.getTitle());
@@ -130,7 +134,8 @@ public class SoldItems extends JPanel {
                     e.printStackTrace();
                 }
                 try {
-                    itemslist.get(i)[5] = userdao.get((biddao.getBidderforHighestbid(item.getItemID()).getUserID())).getFirstName();
+                    itemslist.get(i)[5] = userdao.get((biddao.getBidderforHighestbid(item.getItemID()).getUserID()))
+                            .getFirstName();
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -142,7 +147,7 @@ public class SoldItems extends JPanel {
         return itemslist;
     }
 
-       // ========================================table column
+    // ========================================table column
     // configuration==================================//
     public static void setColumnsWidth(JTable table, int tablePreferredWidth,
             double... percentages) {
